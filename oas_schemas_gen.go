@@ -431,6 +431,14 @@ const (
 	AccountFavoriteTvSortByCreatedAtDesc AccountFavoriteTvSortBy = "created_at.desc"
 )
 
+// AllValues returns all AccountFavoriteTvSortBy values.
+func (AccountFavoriteTvSortBy) AllValues() []AccountFavoriteTvSortBy {
+	return []AccountFavoriteTvSortBy{
+		AccountFavoriteTvSortByCreatedAtAsc,
+		AccountFavoriteTvSortByCreatedAtDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountFavoriteTvSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -667,6 +675,14 @@ const (
 	AccountGetFavoritesSortByCreatedAtAsc  AccountGetFavoritesSortBy = "created_at.asc"
 	AccountGetFavoritesSortByCreatedAtDesc AccountGetFavoritesSortBy = "created_at.desc"
 )
+
+// AllValues returns all AccountGetFavoritesSortBy values.
+func (AccountGetFavoritesSortBy) AllValues() []AccountGetFavoritesSortBy {
+	return []AccountGetFavoritesSortBy{
+		AccountGetFavoritesSortByCreatedAtAsc,
+		AccountGetFavoritesSortByCreatedAtDesc,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountGetFavoritesSortBy) MarshalText() ([]byte, error) {
@@ -1054,6 +1070,14 @@ const (
 	AccountRatedMoviesSortByCreatedAtDesc AccountRatedMoviesSortBy = "created_at.desc"
 )
 
+// AllValues returns all AccountRatedMoviesSortBy values.
+func (AccountRatedMoviesSortBy) AllValues() []AccountRatedMoviesSortBy {
+	return []AccountRatedMoviesSortBy{
+		AccountRatedMoviesSortByCreatedAtAsc,
+		AccountRatedMoviesSortByCreatedAtDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountRatedMoviesSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -1279,6 +1303,14 @@ const (
 	AccountRatedTvEpisodesSortByCreatedAtAsc  AccountRatedTvEpisodesSortBy = "created_at.asc"
 	AccountRatedTvEpisodesSortByCreatedAtDesc AccountRatedTvEpisodesSortBy = "created_at.desc"
 )
+
+// AllValues returns all AccountRatedTvEpisodesSortBy values.
+func (AccountRatedTvEpisodesSortBy) AllValues() []AccountRatedTvEpisodesSortBy {
+	return []AccountRatedTvEpisodesSortBy{
+		AccountRatedTvEpisodesSortByCreatedAtAsc,
+		AccountRatedTvEpisodesSortByCreatedAtDesc,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountRatedTvEpisodesSortBy) MarshalText() ([]byte, error) {
@@ -1528,6 +1560,14 @@ const (
 	AccountRatedTvSortByCreatedAtDesc AccountRatedTvSortBy = "created_at.desc"
 )
 
+// AllValues returns all AccountRatedTvSortBy values.
+func (AccountRatedTvSortBy) AllValues() []AccountRatedTvSortBy {
+	return []AccountRatedTvSortBy{
+		AccountRatedTvSortByCreatedAtAsc,
+		AccountRatedTvSortByCreatedAtDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountRatedTvSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -1765,6 +1805,14 @@ const (
 	AccountWatchlistMoviesSortByCreatedAtDesc AccountWatchlistMoviesSortBy = "created_at.desc"
 )
 
+// AllValues returns all AccountWatchlistMoviesSortBy values.
+func (AccountWatchlistMoviesSortBy) AllValues() []AccountWatchlistMoviesSortBy {
+	return []AccountWatchlistMoviesSortBy{
+		AccountWatchlistMoviesSortByCreatedAtAsc,
+		AccountWatchlistMoviesSortByCreatedAtDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountWatchlistMoviesSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -2001,6 +2049,14 @@ const (
 	AccountWatchlistTvSortByCreatedAtAsc  AccountWatchlistTvSortBy = "created_at.asc"
 	AccountWatchlistTvSortByCreatedAtDesc AccountWatchlistTvSortBy = "created_at.desc"
 )
+
+// AllValues returns all AccountWatchlistTvSortBy values.
+func (AccountWatchlistTvSortBy) AllValues() []AccountWatchlistTvSortBy {
+	return []AccountWatchlistTvSortBy{
+		AccountWatchlistTvSortByCreatedAtAsc,
+		AccountWatchlistTvSortByCreatedAtDesc,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s AccountWatchlistTvSortBy) MarshalText() ([]byte, error) {
@@ -8472,6 +8528,22 @@ const (
 	DiscoverMovieSortByVoteCountDesc          DiscoverMovieSortBy = "vote_count.desc"
 )
 
+// AllValues returns all DiscoverMovieSortBy values.
+func (DiscoverMovieSortBy) AllValues() []DiscoverMovieSortBy {
+	return []DiscoverMovieSortBy{
+		DiscoverMovieSortByPopularityAsc,
+		DiscoverMovieSortByPopularityDesc,
+		DiscoverMovieSortByRevenueAsc,
+		DiscoverMovieSortByRevenueDesc,
+		DiscoverMovieSortByPrimaryReleaseDateAsc,
+		DiscoverMovieSortByPrimaryReleaseDateDesc,
+		DiscoverMovieSortByVoteAverageAsc,
+		DiscoverMovieSortByVoteAverageDesc,
+		DiscoverMovieSortByVoteCountAsc,
+		DiscoverMovieSortByVoteCountDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s DiscoverMovieSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -8746,6 +8818,22 @@ const (
 	DiscoverTvSortByVoteCountDesc          DiscoverTvSortBy = "vote_count.desc"
 )
 
+// AllValues returns all DiscoverTvSortBy values.
+func (DiscoverTvSortBy) AllValues() []DiscoverTvSortBy {
+	return []DiscoverTvSortBy{
+		DiscoverTvSortByPopularityAsc,
+		DiscoverTvSortByPopularityDesc,
+		DiscoverTvSortByRevenueAsc,
+		DiscoverTvSortByRevenueDesc,
+		DiscoverTvSortByPrimaryReleaseDateAsc,
+		DiscoverTvSortByPrimaryReleaseDateDesc,
+		DiscoverTvSortByVoteAverageAsc,
+		DiscoverTvSortByVoteAverageDesc,
+		DiscoverTvSortByVoteCountAsc,
+		DiscoverTvSortByVoteCountDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s DiscoverTvSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -8825,6 +8913,21 @@ const (
 	FindByIDExternalSourceWikidataID  FindByIDExternalSource = "wikidata_id"
 	FindByIDExternalSourceYoutubeID   FindByIDExternalSource = "youtube_id"
 )
+
+// AllValues returns all FindByIDExternalSource values.
+func (FindByIDExternalSource) AllValues() []FindByIDExternalSource {
+	return []FindByIDExternalSource{
+		FindByIDExternalSourceEmpty,
+		FindByIDExternalSourceImdbID,
+		FindByIDExternalSourceFacebookID,
+		FindByIDExternalSourceInstagramID,
+		FindByIDExternalSourceTvdbID,
+		FindByIDExternalSourceTiktokID,
+		FindByIDExternalSourceTwitterID,
+		FindByIDExternalSourceWikidataID,
+		FindByIDExternalSourceYoutubeID,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s FindByIDExternalSource) MarshalText() ([]byte, error) {
@@ -9413,6 +9516,14 @@ const (
 	GuestSessionRatedMoviesSortByCreatedAtDesc GuestSessionRatedMoviesSortBy = "created_at.desc"
 )
 
+// AllValues returns all GuestSessionRatedMoviesSortBy values.
+func (GuestSessionRatedMoviesSortBy) AllValues() []GuestSessionRatedMoviesSortBy {
+	return []GuestSessionRatedMoviesSortBy{
+		GuestSessionRatedMoviesSortByCreatedAtAsc,
+		GuestSessionRatedMoviesSortByCreatedAtDesc,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s GuestSessionRatedMoviesSortBy) MarshalText() ([]byte, error) {
 	switch s {
@@ -9638,6 +9749,14 @@ const (
 	GuestSessionRatedTvEpisodesSortByCreatedAtAsc  GuestSessionRatedTvEpisodesSortBy = "created_at.asc"
 	GuestSessionRatedTvEpisodesSortByCreatedAtDesc GuestSessionRatedTvEpisodesSortBy = "created_at.desc"
 )
+
+// AllValues returns all GuestSessionRatedTvEpisodesSortBy values.
+func (GuestSessionRatedTvEpisodesSortBy) AllValues() []GuestSessionRatedTvEpisodesSortBy {
+	return []GuestSessionRatedTvEpisodesSortBy{
+		GuestSessionRatedTvEpisodesSortByCreatedAtAsc,
+		GuestSessionRatedTvEpisodesSortByCreatedAtDesc,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s GuestSessionRatedTvEpisodesSortBy) MarshalText() ([]byte, error) {
@@ -9886,6 +10005,14 @@ const (
 	GuestSessionRatedTvSortByCreatedAtAsc  GuestSessionRatedTvSortBy = "created_at.asc"
 	GuestSessionRatedTvSortByCreatedAtDesc GuestSessionRatedTvSortBy = "created_at.desc"
 )
+
+// AllValues returns all GuestSessionRatedTvSortBy values.
+func (GuestSessionRatedTvSortBy) AllValues() []GuestSessionRatedTvSortBy {
+	return []GuestSessionRatedTvSortBy{
+		GuestSessionRatedTvSortByCreatedAtAsc,
+		GuestSessionRatedTvSortByCreatedAtDesc,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s GuestSessionRatedTvSortBy) MarshalText() ([]byte, error) {
@@ -48273,6 +48400,14 @@ const (
 	TrendingAllTimeWindowWeek TrendingAllTimeWindow = "week"
 )
 
+// AllValues returns all TrendingAllTimeWindow values.
+func (TrendingAllTimeWindow) AllValues() []TrendingAllTimeWindow {
+	return []TrendingAllTimeWindow{
+		TrendingAllTimeWindowDay,
+		TrendingAllTimeWindowWeek,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s TrendingAllTimeWindow) MarshalText() ([]byte, error) {
 	switch s {
@@ -48520,6 +48655,14 @@ const (
 	TrendingMoviesTimeWindowDay  TrendingMoviesTimeWindow = "day"
 	TrendingMoviesTimeWindowWeek TrendingMoviesTimeWindow = "week"
 )
+
+// AllValues returns all TrendingMoviesTimeWindow values.
+func (TrendingMoviesTimeWindow) AllValues() []TrendingMoviesTimeWindow {
+	return []TrendingMoviesTimeWindow{
+		TrendingMoviesTimeWindowDay,
+		TrendingMoviesTimeWindowWeek,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s TrendingMoviesTimeWindow) MarshalText() ([]byte, error) {
@@ -48882,6 +49025,14 @@ const (
 	TrendingPeopleTimeWindowWeek TrendingPeopleTimeWindow = "week"
 )
 
+// AllValues returns all TrendingPeopleTimeWindow values.
+func (TrendingPeopleTimeWindow) AllValues() []TrendingPeopleTimeWindow {
+	return []TrendingPeopleTimeWindow{
+		TrendingPeopleTimeWindowDay,
+		TrendingPeopleTimeWindowWeek,
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (s TrendingPeopleTimeWindow) MarshalText() ([]byte, error) {
 	switch s {
@@ -49129,6 +49280,14 @@ const (
 	TrendingTvTimeWindowDay  TrendingTvTimeWindow = "day"
 	TrendingTvTimeWindowWeek TrendingTvTimeWindow = "week"
 )
+
+// AllValues returns all TrendingTvTimeWindow values.
+func (TrendingTvTimeWindow) AllValues() []TrendingTvTimeWindow {
+	return []TrendingTvTimeWindow{
+		TrendingTvTimeWindowDay,
+		TrendingTvTimeWindowWeek,
+	}
+}
 
 // MarshalText implements encoding.TextMarshaler.
 func (s TrendingTvTimeWindow) MarshalText() ([]byte, error) {

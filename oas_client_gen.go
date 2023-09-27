@@ -12,6 +12,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
+	semconv "go.opentelemetry.io/otel/semconv/v1.19.0"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/ogen-go/ogen/conv"
@@ -20,6 +21,916 @@ import (
 	"github.com/ogen-go/ogen/otelogen"
 	"github.com/ogen-go/ogen/uri"
 )
+
+// Invoker invokes operations described by OpenAPI v3 specification.
+type Invoker interface {
+	// AccountAddFavorite invokes account-add-favorite operation.
+	//
+	// Add Favorite.
+	//
+	// POST /3/account/{account_id}/favorite
+	AccountAddFavorite(ctx context.Context, request OptAccountAddFavoriteReq, params AccountAddFavoriteParams) (*AccountAddFavoriteOK, error)
+	// AccountAddToWatchlist invokes account-add-to-watchlist operation.
+	//
+	// Add To Watchlist.
+	//
+	// POST /3/account/{account_id}/watchlist
+	AccountAddToWatchlist(ctx context.Context, request OptAccountAddToWatchlistReq, params AccountAddToWatchlistParams) (*AccountAddToWatchlistOK, error)
+	// AccountDetails invokes account-details operation.
+	//
+	// Details.
+	//
+	// GET /3/account/{account_id}
+	AccountDetails(ctx context.Context, params AccountDetailsParams) (*AccountDetailsOK, error)
+	// AccountFavoriteTv invokes account-favorite-tv operation.
+	//
+	// Favorite TV.
+	//
+	// GET /3/account/{account_id}/favorite/tv
+	AccountFavoriteTv(ctx context.Context, params AccountFavoriteTvParams) (*AccountFavoriteTvOK, error)
+	// AccountGetFavorites invokes account-get-favorites operation.
+	//
+	// Favorite Movies.
+	//
+	// GET /3/account/{account_id}/favorite/movies
+	AccountGetFavorites(ctx context.Context, params AccountGetFavoritesParams) (*AccountGetFavoritesOK, error)
+	// AccountLists invokes account-lists operation.
+	//
+	// Lists.
+	//
+	// GET /3/account/{account_id}/lists
+	AccountLists(ctx context.Context, params AccountListsParams) (*AccountListsOK, error)
+	// AccountRatedMovies invokes account-rated-movies operation.
+	//
+	// Rated Movies.
+	//
+	// GET /3/account/{account_id}/rated/movies
+	AccountRatedMovies(ctx context.Context, params AccountRatedMoviesParams) (*AccountRatedMoviesOK, error)
+	// AccountRatedTv invokes account-rated-tv operation.
+	//
+	// Rated TV.
+	//
+	// GET /3/account/{account_id}/rated/tv
+	AccountRatedTv(ctx context.Context, params AccountRatedTvParams) (*AccountRatedTvOK, error)
+	// AccountRatedTvEpisodes invokes account-rated-tv-episodes operation.
+	//
+	// Rated TV Episodes.
+	//
+	// GET /3/account/{account_id}/rated/tv/episodes
+	AccountRatedTvEpisodes(ctx context.Context, params AccountRatedTvEpisodesParams) (*AccountRatedTvEpisodesOK, error)
+	// AccountWatchlistMovies invokes account-watchlist-movies operation.
+	//
+	// Watchlist Movies.
+	//
+	// GET /3/account/{account_id}/watchlist/movies
+	AccountWatchlistMovies(ctx context.Context, params AccountWatchlistMoviesParams) (*AccountWatchlistMoviesOK, error)
+	// AccountWatchlistTv invokes account-watchlist-tv operation.
+	//
+	// Watchlist TV.
+	//
+	// GET /3/account/{account_id}/watchlist/tv
+	AccountWatchlistTv(ctx context.Context, params AccountWatchlistTvParams) (*AccountWatchlistTvOK, error)
+	// AlternativeNamesCopy invokes alternative-names-copy operation.
+	//
+	// Get the TV network logos by id.
+	//
+	// GET /3/network/{network_id}/images
+	AlternativeNamesCopy(ctx context.Context, params AlternativeNamesCopyParams) (*AlternativeNamesCopyOK, error)
+	// AuthenticationCreateGuestSession invokes authentication-create-guest-session operation.
+	//
+	// Create Guest Session.
+	//
+	// GET /3/authentication/guest_session/new
+	AuthenticationCreateGuestSession(ctx context.Context) (*AuthenticationCreateGuestSessionOK, error)
+	// AuthenticationCreateRequestToken invokes authentication-create-request-token operation.
+	//
+	// Create Request Token.
+	//
+	// GET /3/authentication/token/new
+	AuthenticationCreateRequestToken(ctx context.Context) (*AuthenticationCreateRequestTokenOK, error)
+	// AuthenticationCreateSession invokes authentication-create-session operation.
+	//
+	// Create Session.
+	//
+	// POST /3/authentication/session/new
+	AuthenticationCreateSession(ctx context.Context, request OptAuthenticationCreateSessionReq) (*AuthenticationCreateSessionOK, error)
+	// AuthenticationCreateSessionFromLogin invokes authentication-create-session-from-login operation.
+	//
+	// This method allows an application to validate a request token by entering a username and password.
+	//
+	// POST /3/authentication/token/validate_with_login
+	AuthenticationCreateSessionFromLogin(ctx context.Context, request OptAuthenticationCreateSessionFromLoginReq) (*AuthenticationCreateSessionFromLoginOK, error)
+	// AuthenticationCreateSessionFromV4Token invokes authentication-create-session-from-v4-token operation.
+	//
+	// Create Session (from v4 token).
+	//
+	// POST /3/authentication/session/convert/4
+	AuthenticationCreateSessionFromV4Token(ctx context.Context, request OptAuthenticationCreateSessionFromV4TokenReq) (*AuthenticationCreateSessionFromV4TokenOK, error)
+	// AuthenticationDeleteSession invokes authentication-delete-session operation.
+	//
+	// Delete Session.
+	//
+	// DELETE /3/authentication/session
+	AuthenticationDeleteSession(ctx context.Context, request OptAuthenticationDeleteSessionReq) (*AuthenticationDeleteSessionOK, error)
+	// AuthenticationValidateKey invokes authentication-validate-key operation.
+	//
+	// Test your API Key to see if it's valid.
+	//
+	// GET /3/authentication
+	AuthenticationValidateKey(ctx context.Context) (AuthenticationValidateKeyRes, error)
+	// CertificationMovieList invokes certification-movie-list operation.
+	//
+	// Get an up to date list of the officially supported movie certifications on TMDB.
+	//
+	// GET /3/certification/movie/list
+	CertificationMovieList(ctx context.Context) (*CertificationMovieListOK, error)
+	// CertificationsTvList invokes certifications-tv-list operation.
+	//
+	// TV Certifications.
+	//
+	// GET /3/certification/tv/list
+	CertificationsTvList(ctx context.Context) (*CertificationsTvListOK, error)
+	// ChangesMovieList invokes changes-movie-list operation.
+	//
+	// Get a list of all of the movie ids that have been changed in the past 24 hours.
+	//
+	// GET /3/movie/changes
+	ChangesMovieList(ctx context.Context, params ChangesMovieListParams) (*ChangesMovieListOK, error)
+	// ChangesPeopleList invokes changes-people-list operation.
+	//
+	// People List.
+	//
+	// GET /3/person/changes
+	ChangesPeopleList(ctx context.Context, params ChangesPeopleListParams) (*ChangesPeopleListOK, error)
+	// ChangesTvList invokes changes-tv-list operation.
+	//
+	// TV List.
+	//
+	// GET /3/tv/changes
+	ChangesTvList(ctx context.Context, params ChangesTvListParams) (*ChangesTvListOK, error)
+	// CollectionDetails invokes collection-details operation.
+	//
+	// Get collection details by ID.
+	//
+	// GET /3/collection/{collection_id}
+	CollectionDetails(ctx context.Context, params CollectionDetailsParams) (*CollectionDetailsOK, error)
+	// CollectionImages invokes collection-images operation.
+	//
+	// Get the images that belong to a collection.
+	//
+	// GET /3/collection/{collection_id}/images
+	CollectionImages(ctx context.Context, params CollectionImagesParams) (*CollectionImagesOK, error)
+	// CollectionTranslations invokes collection-translations operation.
+	//
+	// Translations.
+	//
+	// GET /3/collection/{collection_id}/translations
+	CollectionTranslations(ctx context.Context, params CollectionTranslationsParams) (*CollectionTranslationsOK, error)
+	// CompanyAlternativeNames invokes company-alternative-names operation.
+	//
+	// Get the company details by ID.
+	//
+	// GET /3/company/{company_id}/alternative_names
+	CompanyAlternativeNames(ctx context.Context, params CompanyAlternativeNamesParams) (*CompanyAlternativeNamesOK, error)
+	// CompanyDetails invokes company-details operation.
+	//
+	// Get the company details by ID.
+	//
+	// GET /3/company/{company_id}
+	CompanyDetails(ctx context.Context, params CompanyDetailsParams) (*CompanyDetailsOK, error)
+	// CompanyImages invokes company-images operation.
+	//
+	// Get the company logos by id.
+	//
+	// GET /3/company/{company_id}/images
+	CompanyImages(ctx context.Context, params CompanyImagesParams) (*CompanyImagesOK, error)
+	// ConfigurationCountries invokes configuration-countries operation.
+	//
+	// Get the list of countries (ISO 3166-1 tags) used throughout TMDB.
+	//
+	// GET /3/configuration/countries
+	ConfigurationCountries(ctx context.Context, params ConfigurationCountriesParams) ([]ConfigurationCountriesOKItem, error)
+	// ConfigurationDetails invokes configuration-details operation.
+	//
+	// Query the API configuration details.
+	//
+	// GET /3/configuration
+	ConfigurationDetails(ctx context.Context) (*ConfigurationDetailsOK, error)
+	// ConfigurationJobs invokes configuration-jobs operation.
+	//
+	// Get the list of the jobs and departments we use on TMDB.
+	//
+	// GET /3/configuration/jobs
+	ConfigurationJobs(ctx context.Context) ([]ConfigurationJobsOKItem, error)
+	// ConfigurationLanguages invokes configuration-languages operation.
+	//
+	// Get the list of languages (ISO 639-1 tags) used throughout TMDB.
+	//
+	// GET /3/configuration/languages
+	ConfigurationLanguages(ctx context.Context) ([]ConfigurationLanguagesOKItem, error)
+	// ConfigurationPrimaryTranslations invokes configuration-primary-translations operation.
+	//
+	// Get a list of the officially supported translations on TMDB.
+	//
+	// GET /3/configuration/primary_translations
+	ConfigurationPrimaryTranslations(ctx context.Context) ([]string, error)
+	// ConfigurationTimezones invokes configuration-timezones operation.
+	//
+	// Get the list of timezones used throughout TMDB.
+	//
+	// GET /3/configuration/timezones
+	ConfigurationTimezones(ctx context.Context) ([]ConfigurationTimezonesOKItem, error)
+	// CreditDetails invokes credit-details operation.
+	//
+	// Get a movie or TV credit details by ID.
+	//
+	// GET /3/credit/{credit_id}
+	CreditDetails(ctx context.Context, params CreditDetailsParams) (*CreditDetailsOK, error)
+	// DetailsCopy invokes details-copy operation.
+	//
+	// Get the alternative names of a network.
+	//
+	// GET /3/network/{network_id}/alternative_names
+	DetailsCopy(ctx context.Context, params DetailsCopyParams) (*DetailsCopyOK, error)
+	// DiscoverMovie invokes discover-movie operation.
+	//
+	// Find movies using over 30 filters and sort options.
+	//
+	// GET /3/discover/movie
+	DiscoverMovie(ctx context.Context, params DiscoverMovieParams) (*DiscoverMovieOK, error)
+	// DiscoverTv invokes discover-tv operation.
+	//
+	// Find TV shows using over 30 filters and sort options.
+	//
+	// GET /3/discover/tv
+	DiscoverTv(ctx context.Context, params DiscoverTvParams) (*DiscoverTvOK, error)
+	// FindByID invokes find-by-id operation.
+	//
+	// Find data by external ID's.
+	//
+	// GET /3/find/{external_id}
+	FindByID(ctx context.Context, params FindByIDParams) (*FindByIDOK, error)
+	// GenreMovieList invokes genre-movie-list operation.
+	//
+	// Get the list of official genres for movies.
+	//
+	// GET /3/genre/movie/list
+	GenreMovieList(ctx context.Context, params GenreMovieListParams) (*GenreMovieListOK, error)
+	// GenreTvList invokes genre-tv-list operation.
+	//
+	// Get the list of official genres for TV shows.
+	//
+	// GET /3/genre/tv/list
+	GenreTvList(ctx context.Context, params GenreTvListParams) (*GenreTvListOK, error)
+	// GuestSessionRatedMovies invokes guest-session-rated-movies operation.
+	//
+	// Get the rated movies for a guest session.
+	//
+	// GET /3/guest_session/{guest_session_id}/rated/movies
+	GuestSessionRatedMovies(ctx context.Context, params GuestSessionRatedMoviesParams) (*GuestSessionRatedMoviesOK, error)
+	// GuestSessionRatedTv invokes guest-session-rated-tv operation.
+	//
+	// Get the rated TV shows for a guest session.
+	//
+	// GET /3/guest_session/{guest_session_id}/rated/tv
+	GuestSessionRatedTv(ctx context.Context, params GuestSessionRatedTvParams) (*GuestSessionRatedTvOK, error)
+	// GuestSessionRatedTvEpisodes invokes guest-session-rated-tv-episodes operation.
+	//
+	// Get the rated TV episodes for a guest session.
+	//
+	// GET /3/guest_session/{guest_session_id}/rated/tv/episodes
+	GuestSessionRatedTvEpisodes(ctx context.Context, params GuestSessionRatedTvEpisodesParams) (*GuestSessionRatedTvEpisodesOK, error)
+	// KeywordDetails invokes keyword-details operation.
+	//
+	// Details.
+	//
+	// GET /3/keyword/{keyword_id}
+	KeywordDetails(ctx context.Context, params KeywordDetailsParams) (*KeywordDetailsOK, error)
+	// KeywordMovies invokes keyword-movies operation.
+	//
+	// Movies.
+	//
+	// GET /3/keyword/{keyword_id}/movies
+	KeywordMovies(ctx context.Context, params KeywordMoviesParams) (*KeywordMoviesOK, error)
+	// ListAddMovie invokes list-add-movie operation.
+	//
+	// Add a movie to a list.
+	//
+	// POST /3/list/{list_id}/add_item
+	ListAddMovie(ctx context.Context, request OptListAddMovieReq, params ListAddMovieParams) (*ListAddMovieOK, error)
+	// ListCheckItemStatus invokes list-check-item-status operation.
+	//
+	// Use this method to check if an item has already been added to the list.
+	//
+	// GET /3/list/{list_id}/item_status
+	ListCheckItemStatus(ctx context.Context, params ListCheckItemStatusParams) (*ListCheckItemStatusOK, error)
+	// ListClear invokes list-clear operation.
+	//
+	// Clear all items from a list.
+	//
+	// POST /3/list/{list_id}/clear
+	ListClear(ctx context.Context, params ListClearParams) (*ListClearOK, error)
+	// ListCreate invokes list-create operation.
+	//
+	// Create.
+	//
+	// POST /3/list
+	ListCreate(ctx context.Context, request OptListCreateReq, params ListCreateParams) (*ListCreateOK, error)
+	// ListDelete invokes list-delete operation.
+	//
+	// Delete a list.
+	//
+	// DELETE /3/list/{list_id}
+	ListDelete(ctx context.Context, params ListDeleteParams) (*ListDeleteOK, error)
+	// ListDetails invokes list-details operation.
+	//
+	// Details.
+	//
+	// GET /3/list/{list_id}
+	ListDetails(ctx context.Context, params ListDetailsParams) (*ListDetailsOK, error)
+	// ListRemoveMovie invokes list-remove-movie operation.
+	//
+	// Remove a movie from a list.
+	//
+	// POST /3/list/{list_id}/remove_item
+	ListRemoveMovie(ctx context.Context, request OptListRemoveMovieReq, params ListRemoveMovieParams) (*ListRemoveMovieOK, error)
+	// MovieAccountStates invokes movie-account-states operation.
+	//
+	// Get the rating, watchlist and favourite status of an account.
+	//
+	// GET /3/movie/{movie_id}/account_states
+	MovieAccountStates(ctx context.Context, params MovieAccountStatesParams) (*MovieAccountStatesOK, error)
+	// MovieAddRating invokes movie-add-rating operation.
+	//
+	// Rate a movie and save it to your rated list.
+	//
+	// POST /3/movie/{movie_id}/rating
+	MovieAddRating(ctx context.Context, request OptMovieAddRatingReq, params MovieAddRatingParams) (*MovieAddRatingOK, error)
+	// MovieAlternativeTitles invokes movie-alternative-titles operation.
+	//
+	// Get the alternative titles for a movie.
+	//
+	// GET /3/movie/{movie_id}/alternative_titles
+	MovieAlternativeTitles(ctx context.Context, params MovieAlternativeTitlesParams) (*MovieAlternativeTitlesOK, error)
+	// MovieChanges invokes movie-changes operation.
+	//
+	// Get the recent changes for a movie.
+	//
+	// GET /3/movie/{movie_id}/changes
+	MovieChanges(ctx context.Context, params MovieChangesParams) (*MovieChangesOK, error)
+	// MovieCredits invokes movie-credits operation.
+	//
+	// Credits.
+	//
+	// GET /3/movie/{movie_id}/credits
+	MovieCredits(ctx context.Context, params MovieCreditsParams) (*MovieCreditsOK, error)
+	// MovieDeleteRating invokes movie-delete-rating operation.
+	//
+	// Delete a user rating.
+	//
+	// DELETE /3/movie/{movie_id}/rating
+	MovieDeleteRating(ctx context.Context, params MovieDeleteRatingParams) (*MovieDeleteRatingOK, error)
+	// MovieDetails invokes movie-details operation.
+	//
+	// Get the top level details of a movie by ID.
+	//
+	// GET /3/movie/{movie_id}
+	MovieDetails(ctx context.Context, params MovieDetailsParams) (*MovieDetailsOK, error)
+	// MovieExternalIds invokes movie-external-ids operation.
+	//
+	// External IDs.
+	//
+	// GET /3/movie/{movie_id}/external_ids
+	MovieExternalIds(ctx context.Context, params MovieExternalIdsParams) (*MovieExternalIdsOK, error)
+	// MovieImages invokes movie-images operation.
+	//
+	// Get the images that belong to a movie.
+	//
+	// GET /3/movie/{movie_id}/images
+	MovieImages(ctx context.Context, params MovieImagesParams) (*MovieImagesOK, error)
+	// MovieKeywords invokes movie-keywords operation.
+	//
+	// Keywords.
+	//
+	// GET /3/movie/{movie_id}/keywords
+	MovieKeywords(ctx context.Context, params MovieKeywordsParams) (*MovieKeywordsOK, error)
+	// MovieLatestID invokes movie-latest-id operation.
+	//
+	// Get the newest movie ID.
+	//
+	// GET /3/movie/latest
+	MovieLatestID(ctx context.Context) (*MovieLatestIDOK, error)
+	// MovieLists invokes movie-lists operation.
+	//
+	// Lists.
+	//
+	// GET /3/movie/{movie_id}/lists
+	MovieLists(ctx context.Context, params MovieListsParams) (*MovieListsOK, error)
+	// MovieNowPlayingList invokes movie-now-playing-list operation.
+	//
+	// Get a list of movies that are currently in theatres.
+	//
+	// GET /3/movie/now_playing
+	MovieNowPlayingList(ctx context.Context, params MovieNowPlayingListParams) (*MovieNowPlayingListOK, error)
+	// MoviePopularList invokes movie-popular-list operation.
+	//
+	// Get a list of movies ordered by popularity.
+	//
+	// GET /3/movie/popular
+	MoviePopularList(ctx context.Context, params MoviePopularListParams) (*MoviePopularListOK, error)
+	// MovieRecommendations invokes movie-recommendations operation.
+	//
+	// Recommendations.
+	//
+	// GET /3/movie/{movie_id}/recommendations
+	MovieRecommendations(ctx context.Context, params MovieRecommendationsParams) error
+	// MovieReleaseDates invokes movie-release-dates operation.
+	//
+	// Get the release dates and certifications for a movie.
+	//
+	// GET /3/movie/{movie_id}/release_dates
+	MovieReleaseDates(ctx context.Context, params MovieReleaseDatesParams) (*MovieReleaseDatesOK, error)
+	// MovieReviews invokes movie-reviews operation.
+	//
+	// Get the user reviews for a movie.
+	//
+	// GET /3/movie/{movie_id}/reviews
+	MovieReviews(ctx context.Context, params MovieReviewsParams) (*MovieReviewsOK, error)
+	// MovieSimilar invokes movie-similar operation.
+	//
+	// Get the similar movies based on genres and keywords.
+	//
+	// GET /3/movie/{movie_id}/similar
+	MovieSimilar(ctx context.Context, params MovieSimilarParams) (*MovieSimilarOK, error)
+	// MovieTopRatedList invokes movie-top-rated-list operation.
+	//
+	// Get a list of movies ordered by rating.
+	//
+	// GET /3/movie/top_rated
+	MovieTopRatedList(ctx context.Context, params MovieTopRatedListParams) (*MovieTopRatedListOK, error)
+	// MovieTranslations invokes movie-translations operation.
+	//
+	// Get the translations for a movie.
+	//
+	// GET /3/movie/{movie_id}/translations
+	MovieTranslations(ctx context.Context, params MovieTranslationsParams) (*MovieTranslationsOK, error)
+	// MovieUpcomingList invokes movie-upcoming-list operation.
+	//
+	// Get a list of movies that are being released soon.
+	//
+	// GET /3/movie/upcoming
+	MovieUpcomingList(ctx context.Context, params MovieUpcomingListParams) (*MovieUpcomingListOK, error)
+	// MovieVideos invokes movie-videos operation.
+	//
+	// Videos.
+	//
+	// GET /3/movie/{movie_id}/videos
+	MovieVideos(ctx context.Context, params MovieVideosParams) (*MovieVideosOK, error)
+	// MovieWatchProviders invokes movie-watch-providers operation.
+	//
+	// Get the list of streaming providers we have for a movie.
+	//
+	// GET /3/movie/{movie_id}/watch/providers
+	MovieWatchProviders(ctx context.Context, params MovieWatchProvidersParams) (*MovieWatchProvidersOK, error)
+	// NetworkDetails invokes network-details operation.
+	//
+	// Details.
+	//
+	// GET /3/network/{network_id}
+	NetworkDetails(ctx context.Context, params NetworkDetailsParams) (*NetworkDetailsOK, error)
+	// PersonChanges invokes person-changes operation.
+	//
+	// Get the recent changes for a person.
+	//
+	// GET /3/person/{person_id}/changes
+	PersonChanges(ctx context.Context, params PersonChangesParams) (*PersonChangesOK, error)
+	// PersonCombinedCredits invokes person-combined-credits operation.
+	//
+	// Get the combined movie and TV credits that belong to a person.
+	//
+	// GET /3/person/{person_id}/combined_credits
+	PersonCombinedCredits(ctx context.Context, params PersonCombinedCreditsParams) (*PersonCombinedCreditsOK, error)
+	// PersonDetails invokes person-details operation.
+	//
+	// Query the top level details of a person.
+	//
+	// GET /3/person/{person_id}
+	PersonDetails(ctx context.Context, params PersonDetailsParams) (*PersonDetailsOK, error)
+	// PersonExternalIds invokes person-external-ids operation.
+	//
+	// Get the external ID's that belong to a person.
+	//
+	// GET /3/person/{person_id}/external_ids
+	PersonExternalIds(ctx context.Context, params PersonExternalIdsParams) (*PersonExternalIdsOK, error)
+	// PersonImages invokes person-images operation.
+	//
+	// Get the profile images that belong to a person.
+	//
+	// GET /3/person/{person_id}/images
+	PersonImages(ctx context.Context, params PersonImagesParams) error
+	// PersonLatestID invokes person-latest-id operation.
+	//
+	// Get the newest created person. This is a live response and will continuously change.
+	//
+	// GET /3/person/latest
+	PersonLatestID(ctx context.Context) (*PersonLatestIDOK, error)
+	// PersonMovieCredits invokes person-movie-credits operation.
+	//
+	// Get the movie credits for a person.
+	//
+	// GET /3/person/{person_id}/movie_credits
+	PersonMovieCredits(ctx context.Context, params PersonMovieCreditsParams) (*PersonMovieCreditsOK, error)
+	// PersonPopularList invokes person-popular-list operation.
+	//
+	// Get a list of people ordered by popularity.
+	//
+	// GET /3/person/popular
+	PersonPopularList(ctx context.Context, params PersonPopularListParams) (*PersonPopularListOK, error)
+	// PersonTaggedImages invokes person-tagged-images operation.
+	//
+	// Get the tagged images for a person.
+	//
+	// GET /3/person/{person_id}/tagged_images
+	PersonTaggedImages(ctx context.Context, params PersonTaggedImagesParams) (*PersonTaggedImagesOK, error)
+	// PersonTvCredits invokes person-tv-credits operation.
+	//
+	// Get the TV credits that belong to a person.
+	//
+	// GET /3/person/{person_id}/tv_credits
+	PersonTvCredits(ctx context.Context, params PersonTvCreditsParams) (*PersonTvCreditsOK, error)
+	// ReviewDetails invokes review-details operation.
+	//
+	// Retrieve the details of a movie or TV show review.
+	//
+	// GET /3/review/{review_id}
+	ReviewDetails(ctx context.Context, params ReviewDetailsParams) (*ReviewDetailsOK, error)
+	// SearchCollection invokes search-collection operation.
+	//
+	// Search for collections by their original, translated and alternative names.
+	//
+	// GET /3/search/collection
+	SearchCollection(ctx context.Context, params SearchCollectionParams) (*SearchCollectionOK, error)
+	// SearchCompany invokes search-company operation.
+	//
+	// Search for companies by their original and alternative names.
+	//
+	// GET /3/search/company
+	SearchCompany(ctx context.Context, params SearchCompanyParams) (*SearchCompanyOK, error)
+	// SearchKeyword invokes search-keyword operation.
+	//
+	// Search for keywords by their name.
+	//
+	// GET /3/search/keyword
+	SearchKeyword(ctx context.Context, params SearchKeywordParams) (*SearchKeywordOK, error)
+	// SearchMovie invokes search-movie operation.
+	//
+	// Search for movies by their original, translated and alternative titles.
+	//
+	// GET /3/search/movie
+	SearchMovie(ctx context.Context, params SearchMovieParams) (*SearchMovieOK, error)
+	// SearchMulti invokes search-multi operation.
+	//
+	// Use multi search when you want to search for movies, TV shows and people in a single request.
+	//
+	// GET /3/search/multi
+	SearchMulti(ctx context.Context, params SearchMultiParams) (*SearchMultiOK, error)
+	// SearchPerson invokes search-person operation.
+	//
+	// Search for people by their name and also known as names.
+	//
+	// GET /3/search/person
+	SearchPerson(ctx context.Context, params SearchPersonParams) (*SearchPersonOK, error)
+	// SearchTv invokes search-tv operation.
+	//
+	// Search for TV shows by their original, translated and also known as names.
+	//
+	// GET /3/search/tv
+	SearchTv(ctx context.Context, params SearchTvParams) (*SearchTvOK, error)
+	// Translations invokes translations operation.
+	//
+	// Get the translations that belong to a person.
+	//
+	// GET /3/person/{person_id}/translations
+	Translations(ctx context.Context, params TranslationsParams) (*TranslationsOK, error)
+	// TrendingAll invokes trending-all operation.
+	//
+	// Get the trending movies, TV shows and people.
+	//
+	// GET /3/trending/all/{time_window}
+	TrendingAll(ctx context.Context, params TrendingAllParams) (*TrendingAllOK, error)
+	// TrendingMovies invokes trending-movies operation.
+	//
+	// Get the trending movies on TMDB.
+	//
+	// GET /3/trending/movie/{time_window}
+	TrendingMovies(ctx context.Context, params TrendingMoviesParams) (*TrendingMoviesOK, error)
+	// TrendingPeople invokes trending-people operation.
+	//
+	// Get the trending people on TMDB.
+	//
+	// GET /3/trending/person/{time_window}
+	TrendingPeople(ctx context.Context, params TrendingPeopleParams) (*TrendingPeopleOK, error)
+	// TrendingTv invokes trending-tv operation.
+	//
+	// Get the trending TV shows on TMDB.
+	//
+	// GET /3/trending/tv/{time_window}
+	TrendingTv(ctx context.Context, params TrendingTvParams) (*TrendingTvOK, error)
+	// TvEpisodeAccountStates invokes tv-episode-account-states operation.
+	//
+	// Get the rating, watchlist and favourite status.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/account_states
+	TvEpisodeAccountStates(ctx context.Context, params TvEpisodeAccountStatesParams) (*TvEpisodeAccountStatesOK, error)
+	// TvEpisodeAddRating invokes tv-episode-add-rating operation.
+	//
+	// Rate a TV episode and save it to your rated list.
+	//
+	// POST /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating
+	TvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAddRatingReq, params TvEpisodeAddRatingParams) (*TvEpisodeAddRatingOK, error)
+	// TvEpisodeChangesByID invokes tv-episode-changes-by-id operation.
+	//
+	// Get the recent changes for a TV episode.
+	//
+	// GET /3/tv/episode/{episode_id}/changes
+	TvEpisodeChangesByID(ctx context.Context, params TvEpisodeChangesByIDParams) (*TvEpisodeChangesByIDOK, error)
+	// TvEpisodeCredits invokes tv-episode-credits operation.
+	//
+	// Credits.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/credits
+	TvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsParams) (*TvEpisodeCreditsOK, error)
+	// TvEpisodeDeleteRating invokes tv-episode-delete-rating operation.
+	//
+	// Delete your rating on a TV episode.
+	//
+	// DELETE /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating
+	TvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDeleteRatingParams) (*TvEpisodeDeleteRatingOK, error)
+	// TvEpisodeDetails invokes tv-episode-details operation.
+	//
+	// Query the details of a TV episode.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}
+	TvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsParams) (*TvEpisodeDetailsOK, error)
+	// TvEpisodeExternalIds invokes tv-episode-external-ids operation.
+	//
+	// Get a list of external IDs that have been added to a TV episode.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/external_ids
+	TvEpisodeExternalIds(ctx context.Context, params TvEpisodeExternalIdsParams) (*TvEpisodeExternalIdsOK, error)
+	// TvEpisodeGroupDetails invokes tv-episode-group-details operation.
+	//
+	// Get the details of a TV episode group.
+	//
+	// GET /3/tv/episode_group/{tv_episode_group_id}
+	TvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGroupDetailsParams) (*TvEpisodeGroupDetailsOK, error)
+	// TvEpisodeImages invokes tv-episode-images operation.
+	//
+	// Get the images that belong to a TV episode.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/images
+	TvEpisodeImages(ctx context.Context, params TvEpisodeImagesParams) (*TvEpisodeImagesOK, error)
+	// TvEpisodeTranslations invokes tv-episode-translations operation.
+	//
+	// Get the translations that have been added to a TV episode.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/translations
+	TvEpisodeTranslations(ctx context.Context, params TvEpisodeTranslationsParams) (*TvEpisodeTranslationsOK, error)
+	// TvEpisodeVideos invokes tv-episode-videos operation.
+	//
+	// Get the videos that belong to a TV episode.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/videos
+	TvEpisodeVideos(ctx context.Context, params TvEpisodeVideosParams) (*TvEpisodeVideosOK, error)
+	// TvSeasonAccountStates invokes tv-season-account-states operation.
+	//
+	// Get the rating, watchlist and favourite status.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/account_states
+	TvSeasonAccountStates(ctx context.Context, params TvSeasonAccountStatesParams) (*TvSeasonAccountStatesOK, error)
+	// TvSeasonAggregateCredits invokes tv-season-aggregate-credits operation.
+	//
+	// Get the aggregate credits (cast and crew) that have been added to a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/aggregate_credits
+	TvSeasonAggregateCredits(ctx context.Context, params TvSeasonAggregateCreditsParams) (*TvSeasonAggregateCreditsOK, error)
+	// TvSeasonChangesByID invokes tv-season-changes-by-id operation.
+	//
+	// Get the recent changes for a TV season.
+	//
+	// GET /3/tv/season/{season_id}/changes
+	TvSeasonChangesByID(ctx context.Context, params TvSeasonChangesByIDParams) (*TvSeasonChangesByIDOK, error)
+	// TvSeasonCredits invokes tv-season-credits operation.
+	//
+	// Credits.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/credits
+	TvSeasonCredits(ctx context.Context, params TvSeasonCreditsParams) (*TvSeasonCreditsOK, error)
+	// TvSeasonDetails invokes tv-season-details operation.
+	//
+	// Query the details of a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}
+	TvSeasonDetails(ctx context.Context, params TvSeasonDetailsParams) (*TvSeasonDetailsOK, error)
+	// TvSeasonExternalIds invokes tv-season-external-ids operation.
+	//
+	// Get a list of external IDs that have been added to a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/external_ids
+	TvSeasonExternalIds(ctx context.Context, params TvSeasonExternalIdsParams) (*TvSeasonExternalIdsOK, error)
+	// TvSeasonImages invokes tv-season-images operation.
+	//
+	// Get the images that belong to a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/images
+	TvSeasonImages(ctx context.Context, params TvSeasonImagesParams) (*TvSeasonImagesOK, error)
+	// TvSeasonTranslations invokes tv-season-translations operation.
+	//
+	// Get the translations for a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/translations
+	TvSeasonTranslations(ctx context.Context, params TvSeasonTranslationsParams) (*TvSeasonTranslationsOK, error)
+	// TvSeasonVideos invokes tv-season-videos operation.
+	//
+	// Get the videos that belong to a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/videos
+	TvSeasonVideos(ctx context.Context, params TvSeasonVideosParams) (*TvSeasonVideosOK, error)
+	// TvSeasonWatchProviders invokes tv-season-watch-providers operation.
+	//
+	// Get the list of streaming providers we have for a TV season.
+	//
+	// GET /3/tv/{series_id}/season/{season_number}/watch/providers
+	TvSeasonWatchProviders(ctx context.Context, params TvSeasonWatchProvidersParams) (*TvSeasonWatchProvidersOK, error)
+	// TvSeriesAccountStates invokes tv-series-account-states operation.
+	//
+	// Get the rating, watchlist and favourite status.
+	//
+	// GET /3/tv/{series_id}/account_states
+	TvSeriesAccountStates(ctx context.Context, params TvSeriesAccountStatesParams) (*TvSeriesAccountStatesOK, error)
+	// TvSeriesAddRating invokes tv-series-add-rating operation.
+	//
+	// Rate a TV show and save it to your rated list.
+	//
+	// POST /3/tv/{series_id}/rating
+	TvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRatingReq, params TvSeriesAddRatingParams) (*TvSeriesAddRatingOK, error)
+	// TvSeriesAggregateCredits invokes tv-series-aggregate-credits operation.
+	//
+	// Get the aggregate credits (cast and crew) that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/aggregate_credits
+	TvSeriesAggregateCredits(ctx context.Context, params TvSeriesAggregateCreditsParams) (*TvSeriesAggregateCreditsOK, error)
+	// TvSeriesAiringTodayList invokes tv-series-airing-today-list operation.
+	//
+	// Get a list of TV shows airing today.
+	//
+	// GET /3/tv/airing_today
+	TvSeriesAiringTodayList(ctx context.Context, params TvSeriesAiringTodayListParams) (*TvSeriesAiringTodayListOK, error)
+	// TvSeriesAlternativeTitles invokes tv-series-alternative-titles operation.
+	//
+	// Get the alternative titles that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/alternative_titles
+	TvSeriesAlternativeTitles(ctx context.Context, params TvSeriesAlternativeTitlesParams) (*TvSeriesAlternativeTitlesOK, error)
+	// TvSeriesChanges invokes tv-series-changes operation.
+	//
+	// Get the recent changes for a TV show.
+	//
+	// GET /3/tv/{series_id}/changes
+	TvSeriesChanges(ctx context.Context, params TvSeriesChangesParams) (*TvSeriesChangesOK, error)
+	// TvSeriesContentRatings invokes tv-series-content-ratings operation.
+	//
+	// Get the content ratings that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/content_ratings
+	TvSeriesContentRatings(ctx context.Context, params TvSeriesContentRatingsParams) (*TvSeriesContentRatingsOK, error)
+	// TvSeriesCredits invokes tv-series-credits operation.
+	//
+	// Get the latest season credits of a TV show.
+	//
+	// GET /3/tv/{series_id}/credits
+	TvSeriesCredits(ctx context.Context, params TvSeriesCreditsParams) (*TvSeriesCreditsOK, error)
+	// TvSeriesDeleteRating invokes tv-series-delete-rating operation.
+	//
+	// Delete Rating.
+	//
+	// DELETE /3/tv/{series_id}/rating
+	TvSeriesDeleteRating(ctx context.Context, params TvSeriesDeleteRatingParams) (*TvSeriesDeleteRatingOK, error)
+	// TvSeriesDetails invokes tv-series-details operation.
+	//
+	// Get the details of a TV show.
+	//
+	// GET /3/tv/{series_id}
+	TvSeriesDetails(ctx context.Context, params TvSeriesDetailsParams) (*TvSeriesDetailsOK, error)
+	// TvSeriesEpisodeGroups invokes tv-series-episode-groups operation.
+	//
+	// Get the episode groups that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/episode_groups
+	TvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpisodeGroupsParams) (*TvSeriesEpisodeGroupsOK, error)
+	// TvSeriesExternalIds invokes tv-series-external-ids operation.
+	//
+	// Get a list of external IDs that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/external_ids
+	TvSeriesExternalIds(ctx context.Context, params TvSeriesExternalIdsParams) (*TvSeriesExternalIdsOK, error)
+	// TvSeriesImages invokes tv-series-images operation.
+	//
+	// Get the images that belong to a TV series.
+	//
+	// GET /3/tv/{series_id}/images
+	TvSeriesImages(ctx context.Context, params TvSeriesImagesParams) (*TvSeriesImagesOK, error)
+	// TvSeriesKeywords invokes tv-series-keywords operation.
+	//
+	// Get a list of keywords that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/keywords
+	TvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsParams) (*TvSeriesKeywordsOK, error)
+	// TvSeriesLatestID invokes tv-series-latest-id operation.
+	//
+	// Get the newest TV show ID.
+	//
+	// GET /3/tv/latest
+	TvSeriesLatestID(ctx context.Context) (*TvSeriesLatestIDOK, error)
+	// TvSeriesOnTheAirList invokes tv-series-on-the-air-list operation.
+	//
+	// Get a list of TV shows that air in the next 7 days.
+	//
+	// GET /3/tv/on_the_air
+	TvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheAirListParams) (*TvSeriesOnTheAirListOK, error)
+	// TvSeriesPopularList invokes tv-series-popular-list operation.
+	//
+	// Get a list of TV shows ordered by popularity.
+	//
+	// GET /3/tv/popular
+	TvSeriesPopularList(ctx context.Context, params TvSeriesPopularListParams) (*TvSeriesPopularListOK, error)
+	// TvSeriesRecommendations invokes tv-series-recommendations operation.
+	//
+	// Recommendations.
+	//
+	// GET /3/tv/{series_id}/recommendations
+	TvSeriesRecommendations(ctx context.Context, params TvSeriesRecommendationsParams) (*TvSeriesRecommendationsOK, error)
+	// TvSeriesReviews invokes tv-series-reviews operation.
+	//
+	// Get the reviews that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/reviews
+	TvSeriesReviews(ctx context.Context, params TvSeriesReviewsParams) (*TvSeriesReviewsOK, error)
+	// TvSeriesScreenedTheatrically invokes tv-series-screened-theatrically operation.
+	//
+	// Get the seasons and episodes that have screened theatrically.
+	//
+	// GET /3/tv/{series_id}/screened_theatrically
+	TvSeriesScreenedTheatrically(ctx context.Context, params TvSeriesScreenedTheatricallyParams) (*TvSeriesScreenedTheatricallyOK, error)
+	// TvSeriesSimilar invokes tv-series-similar operation.
+	//
+	// Get the similar TV shows.
+	//
+	// GET /3/tv/{series_id}/similar
+	TvSeriesSimilar(ctx context.Context, params TvSeriesSimilarParams) (*TvSeriesSimilarOK, error)
+	// TvSeriesTopRatedList invokes tv-series-top-rated-list operation.
+	//
+	// Get a list of TV shows ordered by rating.
+	//
+	// GET /3/tv/top_rated
+	TvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRatedListParams) (*TvSeriesTopRatedListOK, error)
+	// TvSeriesTranslations invokes tv-series-translations operation.
+	//
+	// Get the translations that have been added to a TV show.
+	//
+	// GET /3/tv/{series_id}/translations
+	TvSeriesTranslations(ctx context.Context, params TvSeriesTranslationsParams) (*TvSeriesTranslationsOK, error)
+	// TvSeriesVideos invokes tv-series-videos operation.
+	//
+	// Get the videos that belong to a TV show.
+	//
+	// GET /3/tv/{series_id}/videos
+	TvSeriesVideos(ctx context.Context, params TvSeriesVideosParams) (*TvSeriesVideosOK, error)
+	// TvSeriesWatchProviders invokes tv-series-watch-providers operation.
+	//
+	// Get the list of streaming providers we have for a TV show.
+	//
+	// GET /3/tv/{series_id}/watch/providers
+	TvSeriesWatchProviders(ctx context.Context, params TvSeriesWatchProvidersParams) (*TvSeriesWatchProvidersOK, error)
+	// WatchProviderTvList invokes watch-provider-tv-list operation.
+	//
+	// Get the list of streaming providers we have for TV shows.
+	//
+	// GET /3/watch/providers/tv
+	WatchProviderTvList(ctx context.Context, params WatchProviderTvListParams) (*WatchProviderTvListOK, error)
+	// WatchProvidersAvailableRegions invokes watch-providers-available-regions operation.
+	//
+	// Get the list of the countries we have watch provider (OTT/streaming) data for.
+	//
+	// GET /3/watch/providers/regions
+	WatchProvidersAvailableRegions(ctx context.Context, params WatchProvidersAvailableRegionsParams) (*WatchProvidersAvailableRegionsOK, error)
+	// WatchProvidersMovieList invokes watch-providers-movie-list operation.
+	//
+	// Get the list of streaming providers we have for movies.
+	//
+	// GET /3/watch/providers/movie
+	WatchProvidersMovieList(ctx context.Context, params WatchProvidersMovieListParams) (*WatchProvidersMovieListOK, error)
+}
 
 // Client implements OAS client.
 type Client struct {
@@ -81,6 +992,8 @@ func (c *Client) AccountAddFavorite(ctx context.Context, request OptAccountAddFa
 func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountAddFavoriteReq, params AccountAddFavoriteParams) (res *AccountAddFavoriteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-add-favorite"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite"),
 	}
 
 	// Run stopwatch.
@@ -197,7 +1110,7 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -231,6 +1144,8 @@ func (c *Client) AccountAddToWatchlist(ctx context.Context, request OptAccountAd
 func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccountAddToWatchlistReq, params AccountAddToWatchlistParams) (res *AccountAddToWatchlistOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-add-to-watchlist"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist"),
 	}
 
 	// Run stopwatch.
@@ -347,7 +1262,7 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -381,6 +1296,8 @@ func (c *Client) AccountDetails(ctx context.Context, params AccountDetailsParams
 func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsParams) (res *AccountDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}"),
 	}
 
 	// Run stopwatch.
@@ -493,7 +1410,7 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -527,6 +1444,8 @@ func (c *Client) AccountFavoriteTv(ctx context.Context, params AccountFavoriteTv
 func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavoriteTvParams) (res *AccountFavoriteTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-favorite-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite/tv"),
 	}
 
 	// Run stopwatch.
@@ -691,7 +1610,7 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -725,6 +1644,8 @@ func (c *Client) AccountGetFavorites(ctx context.Context, params AccountGetFavor
 func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetFavoritesParams) (res *AccountGetFavoritesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-get-favorites"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite/movies"),
 	}
 
 	// Run stopwatch.
@@ -889,7 +1810,7 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -923,6 +1844,8 @@ func (c *Client) AccountLists(ctx context.Context, params AccountListsParams) (*
 func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams) (res *AccountListsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-lists"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/lists"),
 	}
 
 	// Run stopwatch.
@@ -1053,7 +1976,7 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -1087,6 +2010,8 @@ func (c *Client) AccountRatedMovies(ctx context.Context, params AccountRatedMovi
 func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRatedMoviesParams) (res *AccountRatedMoviesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-rated-movies"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/movies"),
 	}
 
 	// Run stopwatch.
@@ -1251,7 +2176,7 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -1285,6 +2210,8 @@ func (c *Client) AccountRatedTv(ctx context.Context, params AccountRatedTvParams
 func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvParams) (res *AccountRatedTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-rated-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/tv"),
 	}
 
 	// Run stopwatch.
@@ -1449,7 +2376,7 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -1483,6 +2410,8 @@ func (c *Client) AccountRatedTvEpisodes(ctx context.Context, params AccountRated
 func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountRatedTvEpisodesParams) (res *AccountRatedTvEpisodesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-rated-tv-episodes"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/tv/episodes"),
 	}
 
 	// Run stopwatch.
@@ -1647,7 +2576,7 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -1681,6 +2610,8 @@ func (c *Client) AccountWatchlistMovies(ctx context.Context, params AccountWatch
 func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountWatchlistMoviesParams) (res *AccountWatchlistMoviesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-watchlist-movies"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist/movies"),
 	}
 
 	// Run stopwatch.
@@ -1845,7 +2776,7 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -1879,6 +2810,8 @@ func (c *Client) AccountWatchlistTv(ctx context.Context, params AccountWatchlist
 func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatchlistTvParams) (res *AccountWatchlistTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("account-watchlist-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist/tv"),
 	}
 
 	// Run stopwatch.
@@ -2043,7 +2976,7 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2077,6 +3010,8 @@ func (c *Client) AlternativeNamesCopy(ctx context.Context, params AlternativeNam
 func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params AlternativeNamesCopyParams) (res *AlternativeNamesCopyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("alternative-names-copy"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/network/{network_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -2166,7 +3101,7 @@ func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params Alternativ
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2200,6 +3135,8 @@ func (c *Client) AuthenticationCreateGuestSession(ctx context.Context) (*Authent
 func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res *AuthenticationCreateGuestSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-create-guest-session"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/authentication/guest_session/new"),
 	}
 
 	// Run stopwatch.
@@ -2270,7 +3207,7 @@ func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2304,6 +3241,8 @@ func (c *Client) AuthenticationCreateRequestToken(ctx context.Context) (*Authent
 func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res *AuthenticationCreateRequestTokenOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-create-request-token"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/authentication/token/new"),
 	}
 
 	// Run stopwatch.
@@ -2374,7 +3313,7 @@ func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2408,6 +3347,8 @@ func (c *Client) AuthenticationCreateSession(ctx context.Context, request OptAut
 func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request OptAuthenticationCreateSessionReq) (res *AuthenticationCreateSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-create-session"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/authentication/session/new"),
 	}
 
 	// Run stopwatch.
@@ -2481,7 +3422,7 @@ func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request Op
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2515,6 +3456,8 @@ func (c *Client) AuthenticationCreateSessionFromLogin(ctx context.Context, reque
 func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, request OptAuthenticationCreateSessionFromLoginReq) (res *AuthenticationCreateSessionFromLoginOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-create-session-from-login"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/authentication/token/validate_with_login"),
 	}
 
 	// Run stopwatch.
@@ -2588,7 +3531,7 @@ func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, r
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2622,6 +3565,8 @@ func (c *Client) AuthenticationCreateSessionFromV4Token(ctx context.Context, req
 func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context, request OptAuthenticationCreateSessionFromV4TokenReq) (res *AuthenticationCreateSessionFromV4TokenOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-create-session-from-v4-token"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/authentication/session/convert/4"),
 	}
 
 	// Run stopwatch.
@@ -2695,7 +3640,7 @@ func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context,
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2729,6 +3674,8 @@ func (c *Client) AuthenticationDeleteSession(ctx context.Context, request OptAut
 func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request OptAuthenticationDeleteSessionReq) (res *AuthenticationDeleteSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-delete-session"),
+		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/3/authentication/session"),
 	}
 
 	// Run stopwatch.
@@ -2802,7 +3749,7 @@ func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request Op
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2836,6 +3783,8 @@ func (c *Client) AuthenticationValidateKey(ctx context.Context) (AuthenticationV
 func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res AuthenticationValidateKeyRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("authentication-validate-key"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/authentication"),
 	}
 
 	// Run stopwatch.
@@ -2906,7 +3855,7 @@ func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res Authent
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -2940,6 +3889,8 @@ func (c *Client) CertificationMovieList(ctx context.Context) (*CertificationMovi
 func (c *Client) sendCertificationMovieList(ctx context.Context) (res *CertificationMovieListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("certification-movie-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/certification/movie/list"),
 	}
 
 	// Run stopwatch.
@@ -3010,7 +3961,7 @@ func (c *Client) sendCertificationMovieList(ctx context.Context) (res *Certifica
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3044,6 +3995,8 @@ func (c *Client) CertificationsTvList(ctx context.Context) (*CertificationsTvLis
 func (c *Client) sendCertificationsTvList(ctx context.Context) (res *CertificationsTvListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("certifications-tv-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/certification/tv/list"),
 	}
 
 	// Run stopwatch.
@@ -3114,7 +4067,7 @@ func (c *Client) sendCertificationsTvList(ctx context.Context) (res *Certificati
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3148,6 +4101,8 @@ func (c *Client) ChangesMovieList(ctx context.Context, params ChangesMovieListPa
 func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieListParams) (res *ChangesMovieListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("changes-movie-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/changes"),
 	}
 
 	// Run stopwatch.
@@ -3273,7 +4228,7 @@ func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieLi
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3307,6 +4262,8 @@ func (c *Client) ChangesPeopleList(ctx context.Context, params ChangesPeopleList
 func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeopleListParams) (res *ChangesPeopleListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("changes-people-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/changes"),
 	}
 
 	// Run stopwatch.
@@ -3432,7 +4389,7 @@ func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeople
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3466,6 +4423,8 @@ func (c *Client) ChangesTvList(ctx context.Context, params ChangesTvListParams) 
 func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListParams) (res *ChangesTvListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("changes-tv-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/changes"),
 	}
 
 	// Run stopwatch.
@@ -3591,7 +4550,7 @@ func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3625,6 +4584,8 @@ func (c *Client) CollectionDetails(ctx context.Context, params CollectionDetails
 func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDetailsParams) (res *CollectionDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("collection-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/collection/{collection_id}"),
 	}
 
 	// Run stopwatch.
@@ -3734,7 +4695,7 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3768,6 +4729,8 @@ func (c *Client) CollectionImages(ctx context.Context, params CollectionImagesPa
 func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImagesParams) (res *CollectionImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("collection-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/collection/{collection_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -3895,7 +4858,7 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -3929,6 +4892,8 @@ func (c *Client) CollectionTranslations(ctx context.Context, params CollectionTr
 func (c *Client) sendCollectionTranslations(ctx context.Context, params CollectionTranslationsParams) (res *CollectionTranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("collection-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/collection/{collection_id}/translations"),
 	}
 
 	// Run stopwatch.
@@ -4018,7 +4983,7 @@ func (c *Client) sendCollectionTranslations(ctx context.Context, params Collecti
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4052,6 +5017,8 @@ func (c *Client) CompanyAlternativeNames(ctx context.Context, params CompanyAlte
 func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params CompanyAlternativeNamesParams) (res *CompanyAlternativeNamesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("company-alternative-names"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/company/{company_id}/alternative_names"),
 	}
 
 	// Run stopwatch.
@@ -4141,7 +5108,7 @@ func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params Company
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4175,6 +5142,8 @@ func (c *Client) CompanyDetails(ctx context.Context, params CompanyDetailsParams
 func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsParams) (res *CompanyDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("company-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/company/{company_id}"),
 	}
 
 	// Run stopwatch.
@@ -4263,7 +5232,7 @@ func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4297,6 +5266,8 @@ func (c *Client) CompanyImages(ctx context.Context, params CompanyImagesParams) 
 func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesParams) (res *CompanyImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("company-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/company/{company_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -4386,7 +5357,7 @@ func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4420,6 +5391,8 @@ func (c *Client) ConfigurationCountries(ctx context.Context, params Configuratio
 func (c *Client) sendConfigurationCountries(ctx context.Context, params ConfigurationCountriesParams) (res []ConfigurationCountriesOKItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-countries"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration/countries"),
 	}
 
 	// Run stopwatch.
@@ -4511,7 +5484,7 @@ func (c *Client) sendConfigurationCountries(ctx context.Context, params Configur
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4545,6 +5518,8 @@ func (c *Client) ConfigurationDetails(ctx context.Context) (*ConfigurationDetail
 func (c *Client) sendConfigurationDetails(ctx context.Context) (res *ConfigurationDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration"),
 	}
 
 	// Run stopwatch.
@@ -4615,7 +5590,7 @@ func (c *Client) sendConfigurationDetails(ctx context.Context) (res *Configurati
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4649,6 +5624,8 @@ func (c *Client) ConfigurationJobs(ctx context.Context) ([]ConfigurationJobsOKIt
 func (c *Client) sendConfigurationJobs(ctx context.Context) (res []ConfigurationJobsOKItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-jobs"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration/jobs"),
 	}
 
 	// Run stopwatch.
@@ -4719,7 +5696,7 @@ func (c *Client) sendConfigurationJobs(ctx context.Context) (res []Configuration
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4753,6 +5730,8 @@ func (c *Client) ConfigurationLanguages(ctx context.Context) ([]ConfigurationLan
 func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []ConfigurationLanguagesOKItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-languages"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration/languages"),
 	}
 
 	// Run stopwatch.
@@ -4823,7 +5802,7 @@ func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []Configur
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4857,6 +5836,8 @@ func (c *Client) ConfigurationPrimaryTranslations(ctx context.Context) ([]string
 func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res []string, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-primary-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration/primary_translations"),
 	}
 
 	// Run stopwatch.
@@ -4927,7 +5908,7 @@ func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -4961,6 +5942,8 @@ func (c *Client) ConfigurationTimezones(ctx context.Context) ([]ConfigurationTim
 func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []ConfigurationTimezonesOKItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("configuration-timezones"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/configuration/timezones"),
 	}
 
 	// Run stopwatch.
@@ -5031,7 +6014,7 @@ func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []Configur
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -5065,6 +6048,8 @@ func (c *Client) CreditDetails(ctx context.Context, params CreditDetailsParams) 
 func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsParams) (res *CreditDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("credit-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/credit/{credit_id}"),
 	}
 
 	// Run stopwatch.
@@ -5153,7 +6138,7 @@ func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -5187,6 +6172,8 @@ func (c *Client) DetailsCopy(ctx context.Context, params DetailsCopyParams) (*De
 func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) (res *DetailsCopyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("details-copy"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/network/{network_id}/alternative_names"),
 	}
 
 	// Run stopwatch.
@@ -5276,7 +6263,7 @@ func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -5310,6 +6297,8 @@ func (c *Client) DiscoverMovie(ctx context.Context, params DiscoverMovieParams) 
 func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMovieParams) (res *DiscoverMovieOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("discover-movie"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/discover/movie"),
 	}
 
 	// Run stopwatch.
@@ -6030,7 +7019,7 @@ func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMoviePara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -6064,6 +7053,8 @@ func (c *Client) DiscoverTv(ctx context.Context, params DiscoverTvParams) (*Disc
 func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (res *DiscoverTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("discover-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/discover/tv"),
 	}
 
 	// Run stopwatch.
@@ -6699,7 +7690,7 @@ func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (r
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -6733,6 +7724,8 @@ func (c *Client) FindByID(ctx context.Context, params FindByIDParams) (*FindByID
 func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *FindByIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("find-by-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/find/{external_id}"),
 	}
 
 	// Run stopwatch.
@@ -6856,7 +7849,7 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -6890,6 +7883,8 @@ func (c *Client) GenreMovieList(ctx context.Context, params GenreMovieListParams
 func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListParams) (res *GenreMovieListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("genre-movie-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/genre/movie/list"),
 	}
 
 	// Run stopwatch.
@@ -6981,7 +7976,7 @@ func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7015,6 +8010,8 @@ func (c *Client) GenreTvList(ctx context.Context, params GenreTvListParams) (*Ge
 func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) (res *GenreTvListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("genre-tv-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/genre/tv/list"),
 	}
 
 	// Run stopwatch.
@@ -7106,7 +8103,7 @@ func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7140,6 +8137,8 @@ func (c *Client) GuestSessionRatedMovies(ctx context.Context, params GuestSessio
 func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSessionRatedMoviesParams) (res *GuestSessionRatedMoviesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("guest-session-rated-movies"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/movies"),
 	}
 
 	// Run stopwatch.
@@ -7284,7 +8283,7 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7318,6 +8317,8 @@ func (c *Client) GuestSessionRatedTv(ctx context.Context, params GuestSessionRat
 func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessionRatedTvParams) (res *GuestSessionRatedTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("guest-session-rated-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/tv"),
 	}
 
 	// Run stopwatch.
@@ -7462,7 +8463,7 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7496,6 +8497,8 @@ func (c *Client) GuestSessionRatedTvEpisodes(ctx context.Context, params GuestSe
 func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params GuestSessionRatedTvEpisodesParams) (res *GuestSessionRatedTvEpisodesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("guest-session-rated-tv-episodes"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/tv/episodes"),
 	}
 
 	// Run stopwatch.
@@ -7640,7 +8643,7 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7674,6 +8677,8 @@ func (c *Client) KeywordDetails(ctx context.Context, params KeywordDetailsParams
 func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsParams) (res *KeywordDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("keyword-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/keyword/{keyword_id}"),
 	}
 
 	// Run stopwatch.
@@ -7762,7 +8767,7 @@ func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7796,6 +8801,8 @@ func (c *Client) KeywordMovies(ctx context.Context, params KeywordMoviesParams) 
 func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesParams) (res *KeywordMoviesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("keyword-movies"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/keyword/{keyword_id}/movies"),
 	}
 
 	// Run stopwatch.
@@ -7940,7 +8947,7 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -7974,6 +8981,8 @@ func (c *Client) ListAddMovie(ctx context.Context, request OptListAddMovieReq, p
 func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieReq, params ListAddMovieParams) (res *ListAddMovieOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-add-movie"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}/add_item"),
 	}
 
 	// Run stopwatch.
@@ -8084,7 +9093,7 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8118,6 +9127,8 @@ func (c *Client) ListCheckItemStatus(ctx context.Context, params ListCheckItemSt
 func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckItemStatusParams) (res *ListCheckItemStatusOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-check-item-status"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}/item_status"),
 	}
 
 	// Run stopwatch.
@@ -8245,7 +9256,7 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8279,6 +9290,8 @@ func (c *Client) ListClear(ctx context.Context, params ListClearParams) (*ListCl
 func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res *ListClearOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-clear"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}/clear"),
 	}
 
 	// Run stopwatch.
@@ -8400,7 +9413,7 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8434,6 +9447,8 @@ func (c *Client) ListCreate(ctx context.Context, request OptListCreateReq, param
 func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, params ListCreateParams) (res *ListCreateOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-create"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/list"),
 	}
 
 	// Run stopwatch.
@@ -8525,7 +9540,7 @@ func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, p
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8559,6 +9574,8 @@ func (c *Client) ListDelete(ctx context.Context, params ListDeleteParams) (*List
 func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (res *ListDeleteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-delete"),
+		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}"),
 	}
 
 	// Run stopwatch.
@@ -8665,7 +9682,7 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8699,6 +9716,8 @@ func (c *Client) ListDetails(ctx context.Context, params ListDetailsParams) (*Li
 func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) (res *ListDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}"),
 	}
 
 	// Run stopwatch.
@@ -8808,7 +9827,7 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8842,6 +9861,8 @@ func (c *Client) ListRemoveMovie(ctx context.Context, request OptListRemoveMovie
 func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveMovieReq, params ListRemoveMovieParams) (res *ListRemoveMovieOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("list-remove-movie"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/list/{list_id}/remove_item"),
 	}
 
 	// Run stopwatch.
@@ -8952,7 +9973,7 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -8986,6 +10007,8 @@ func (c *Client) MovieAccountStates(ctx context.Context, params MovieAccountStat
 func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccountStatesParams) (res *MovieAccountStatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-account-states"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/account_states"),
 	}
 
 	// Run stopwatch.
@@ -9113,7 +10136,7 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9147,6 +10170,8 @@ func (c *Client) MovieAddRating(ctx context.Context, request OptMovieAddRatingRe
 func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRatingReq, params MovieAddRatingParams) (res *MovieAddRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-add-rating"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/rating"),
 	}
 
 	// Run stopwatch.
@@ -9277,7 +10302,7 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9311,6 +10336,8 @@ func (c *Client) MovieAlternativeTitles(ctx context.Context, params MovieAlterna
 func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlternativeTitlesParams) (res *MovieAlternativeTitlesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-alternative-titles"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/alternative_titles"),
 	}
 
 	// Run stopwatch.
@@ -9421,7 +10448,7 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9455,6 +10482,8 @@ func (c *Client) MovieChanges(ctx context.Context, params MovieChangesParams) (*
 func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams) (res *MovieChangesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-changes"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/changes"),
 	}
 
 	// Run stopwatch.
@@ -9599,7 +10628,7 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9633,6 +10662,8 @@ func (c *Client) MovieCredits(ctx context.Context, params MovieCreditsParams) (*
 func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams) (res *MovieCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/credits"),
 	}
 
 	// Run stopwatch.
@@ -9743,7 +10774,7 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9777,6 +10808,8 @@ func (c *Client) MovieDeleteRating(ctx context.Context, params MovieDeleteRating
 func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRatingParams) (res *MovieDeleteRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-delete-rating"),
+		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/rating"),
 	}
 
 	// Run stopwatch.
@@ -9904,7 +10937,7 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -9938,6 +10971,8 @@ func (c *Client) MovieDetails(ctx context.Context, params MovieDetailsParams) (*
 func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams) (res *MovieDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}"),
 	}
 
 	// Run stopwatch.
@@ -10064,7 +11099,7 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10098,6 +11133,8 @@ func (c *Client) MovieExternalIds(ctx context.Context, params MovieExternalIdsPa
 func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalIdsParams) (res *MovieExternalIdsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-external-ids"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/external_ids"),
 	}
 
 	// Run stopwatch.
@@ -10187,7 +11224,7 @@ func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalI
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10221,6 +11258,8 @@ func (c *Client) MovieImages(ctx context.Context, params MovieImagesParams) (*Mo
 func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) (res *MovieImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -10348,7 +11387,7 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10382,6 +11421,8 @@ func (c *Client) MovieKeywords(ctx context.Context, params MovieKeywordsParams) 
 func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsParams) (res *MovieKeywordsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-keywords"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/keywords"),
 	}
 
 	// Run stopwatch.
@@ -10471,7 +11512,7 @@ func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10505,6 +11546,8 @@ func (c *Client) MovieLatestID(ctx context.Context) (*MovieLatestIDOK, error) {
 func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-latest-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/latest"),
 	}
 
 	// Run stopwatch.
@@ -10575,7 +11618,7 @@ func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, e
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10609,6 +11652,8 @@ func (c *Client) MovieLists(ctx context.Context, params MovieListsParams) (*Movi
 func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (res *MovieListsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-lists"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/lists"),
 	}
 
 	// Run stopwatch.
@@ -10736,7 +11781,7 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10770,6 +11815,8 @@ func (c *Client) MovieNowPlayingList(ctx context.Context, params MovieNowPlaying
 func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPlayingListParams) (res *MovieNowPlayingListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-now-playing-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/now_playing"),
 	}
 
 	// Run stopwatch.
@@ -10895,7 +11942,7 @@ func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPla
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -10929,6 +11976,8 @@ func (c *Client) MoviePopularList(ctx context.Context, params MoviePopularListPa
 func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularListParams) (res *MoviePopularListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-popular-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/popular"),
 	}
 
 	// Run stopwatch.
@@ -11054,7 +12103,7 @@ func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularLi
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11088,6 +12137,8 @@ func (c *Client) MovieRecommendations(ctx context.Context, params MovieRecommend
 func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecommendationsParams) (res *MovieRecommendationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-recommendations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/recommendations"),
 	}
 
 	// Run stopwatch.
@@ -11215,7 +12266,7 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11249,6 +12300,8 @@ func (c *Client) MovieReleaseDates(ctx context.Context, params MovieReleaseDates
 func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseDatesParams) (res *MovieReleaseDatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-release-dates"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/release_dates"),
 	}
 
 	// Run stopwatch.
@@ -11338,7 +12391,7 @@ func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseD
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11372,6 +12425,8 @@ func (c *Client) MovieReviews(ctx context.Context, params MovieReviewsParams) (*
 func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams) (res *MovieReviewsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-reviews"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/reviews"),
 	}
 
 	// Run stopwatch.
@@ -11499,7 +12554,7 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11533,6 +12588,8 @@ func (c *Client) MovieSimilar(ctx context.Context, params MovieSimilarParams) (*
 func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams) (res *MovieSimilarOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-similar"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/similar"),
 	}
 
 	// Run stopwatch.
@@ -11660,7 +12717,7 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11694,6 +12751,8 @@ func (c *Client) MovieTopRatedList(ctx context.Context, params MovieTopRatedList
 func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRatedListParams) (res *MovieTopRatedListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-top-rated-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/top_rated"),
 	}
 
 	// Run stopwatch.
@@ -11819,7 +12878,7 @@ func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRated
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11853,6 +12912,8 @@ func (c *Client) MovieTranslations(ctx context.Context, params MovieTranslations
 func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslationsParams) (res *MovieTranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/translations"),
 	}
 
 	// Run stopwatch.
@@ -11942,7 +13003,7 @@ func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslat
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -11976,6 +13037,8 @@ func (c *Client) MovieUpcomingList(ctx context.Context, params MovieUpcomingList
 func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcomingListParams) (res *MovieUpcomingListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-upcoming-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/upcoming"),
 	}
 
 	// Run stopwatch.
@@ -12101,7 +13164,7 @@ func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcoming
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12135,6 +13198,8 @@ func (c *Client) MovieVideos(ctx context.Context, params MovieVideosParams) (*Mo
 func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) (res *MovieVideosOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-videos"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/videos"),
 	}
 
 	// Run stopwatch.
@@ -12245,7 +13310,7 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12279,6 +13344,8 @@ func (c *Client) MovieWatchProviders(ctx context.Context, params MovieWatchProvi
 func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchProvidersParams) (res *MovieWatchProvidersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("movie-watch-providers"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/watch/providers"),
 	}
 
 	// Run stopwatch.
@@ -12368,7 +13435,7 @@ func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchP
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12402,6 +13469,8 @@ func (c *Client) NetworkDetails(ctx context.Context, params NetworkDetailsParams
 func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsParams) (res *NetworkDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("network-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/network/{network_id}"),
 	}
 
 	// Run stopwatch.
@@ -12490,7 +13559,7 @@ func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12524,6 +13593,8 @@ func (c *Client) PersonChanges(ctx context.Context, params PersonChangesParams) 
 func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesParams) (res *PersonChangesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-changes"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/changes"),
 	}
 
 	// Run stopwatch.
@@ -12668,7 +13739,7 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12702,6 +13773,8 @@ func (c *Client) PersonCombinedCredits(ctx context.Context, params PersonCombine
 func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCombinedCreditsParams) (res *PersonCombinedCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-combined-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/combined_credits"),
 	}
 
 	// Run stopwatch.
@@ -12812,7 +13885,7 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -12846,6 +13919,8 @@ func (c *Client) PersonDetails(ctx context.Context, params PersonDetailsParams) 
 func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsParams) (res *PersonDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}"),
 	}
 
 	// Run stopwatch.
@@ -12972,7 +14047,7 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13006,6 +14081,8 @@ func (c *Client) PersonExternalIds(ctx context.Context, params PersonExternalIds
 func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExternalIdsParams) (res *PersonExternalIdsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-external-ids"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/external_ids"),
 	}
 
 	// Run stopwatch.
@@ -13095,7 +14172,7 @@ func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExterna
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13129,6 +14206,8 @@ func (c *Client) PersonImages(ctx context.Context, params PersonImagesParams) er
 func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams) (res *PersonImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -13218,7 +14297,7 @@ func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13252,6 +14331,8 @@ func (c *Client) PersonLatestID(ctx context.Context) (*PersonLatestIDOK, error) 
 func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-latest-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/latest"),
 	}
 
 	// Run stopwatch.
@@ -13322,7 +14403,7 @@ func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK,
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13356,6 +14437,8 @@ func (c *Client) PersonMovieCredits(ctx context.Context, params PersonMovieCredi
 func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieCreditsParams) (res *PersonMovieCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-movie-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/movie_credits"),
 	}
 
 	// Run stopwatch.
@@ -13466,7 +14549,7 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13500,6 +14583,8 @@ func (c *Client) PersonPopularList(ctx context.Context, params PersonPopularList
 func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopularListParams) (res *PersonPopularListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-popular-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/popular"),
 	}
 
 	// Run stopwatch.
@@ -13608,7 +14693,7 @@ func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopular
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13642,6 +14727,8 @@ func (c *Client) PersonTaggedImages(ctx context.Context, params PersonTaggedImag
 func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTaggedImagesParams) (res *PersonTaggedImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-tagged-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/tagged_images"),
 	}
 
 	// Run stopwatch.
@@ -13752,7 +14839,7 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13786,6 +14873,8 @@ func (c *Client) PersonTvCredits(ctx context.Context, params PersonTvCreditsPara
 func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCreditsParams) (res *PersonTvCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("person-tv-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/tv_credits"),
 	}
 
 	// Run stopwatch.
@@ -13896,7 +14985,7 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -13930,6 +15019,8 @@ func (c *Client) ReviewDetails(ctx context.Context, params ReviewDetailsParams) 
 func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsParams) (res *ReviewDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("review-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/review/{review_id}"),
 	}
 
 	// Run stopwatch.
@@ -14018,7 +15109,7 @@ func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14052,6 +15143,8 @@ func (c *Client) SearchCollection(ctx context.Context, params SearchCollectionPa
 func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollectionParams) (res *SearchCollectionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-collection"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/collection"),
 	}
 
 	// Run stopwatch.
@@ -14208,7 +15301,7 @@ func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollecti
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14242,6 +15335,8 @@ func (c *Client) SearchCompany(ctx context.Context, params SearchCompanyParams) 
 func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyParams) (res *SearchCompanyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-company"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/company"),
 	}
 
 	// Run stopwatch.
@@ -14347,7 +15442,7 @@ func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14381,6 +15476,8 @@ func (c *Client) SearchKeyword(ctx context.Context, params SearchKeywordParams) 
 func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordParams) (res *SearchKeywordOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-keyword"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/keyword"),
 	}
 
 	// Run stopwatch.
@@ -14486,7 +15583,7 @@ func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordPara
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14520,6 +15617,8 @@ func (c *Client) SearchMovie(ctx context.Context, params SearchMovieParams) (*Se
 func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) (res *SearchMovieOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-movie"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/movie"),
 	}
 
 	// Run stopwatch.
@@ -14710,7 +15809,7 @@ func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14744,6 +15843,8 @@ func (c *Client) SearchMulti(ctx context.Context, params SearchMultiParams) (*Se
 func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) (res *SearchMultiOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-multi"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/multi"),
 	}
 
 	// Run stopwatch.
@@ -14883,7 +15984,7 @@ func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -14917,6 +16018,8 @@ func (c *Client) SearchPerson(ctx context.Context, params SearchPersonParams) (*
 func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams) (res *SearchPersonOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-person"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/person"),
 	}
 
 	// Run stopwatch.
@@ -15056,7 +16159,7 @@ func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15090,6 +16193,8 @@ func (c *Client) SearchTv(ctx context.Context, params SearchTvParams) (*SearchTv
 func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *SearchTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("search-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/search/tv"),
 	}
 
 	// Run stopwatch.
@@ -15263,7 +16368,7 @@ func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15297,6 +16402,8 @@ func (c *Client) Translations(ctx context.Context, params TranslationsParams) (*
 func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams) (res *TranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/person/{person_id}/translations"),
 	}
 
 	// Run stopwatch.
@@ -15386,7 +16493,7 @@ func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15420,6 +16527,8 @@ func (c *Client) TrendingAll(ctx context.Context, params TrendingAllParams) (*Tr
 func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) (res *TrendingAllOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("trending-all"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/trending/all/{time_window}"),
 	}
 
 	// Run stopwatch.
@@ -15529,7 +16638,7 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15563,6 +16672,8 @@ func (c *Client) TrendingMovies(ctx context.Context, params TrendingMoviesParams
 func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesParams) (res *TrendingMoviesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("trending-movies"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/trending/movie/{time_window}"),
 	}
 
 	// Run stopwatch.
@@ -15672,7 +16783,7 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15706,6 +16817,8 @@ func (c *Client) TrendingPeople(ctx context.Context, params TrendingPeopleParams
 func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeopleParams) (res *TrendingPeopleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("trending-people"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/trending/person/{time_window}"),
 	}
 
 	// Run stopwatch.
@@ -15815,7 +16928,7 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15849,6 +16962,8 @@ func (c *Client) TrendingTv(ctx context.Context, params TrendingTvParams) (*Tren
 func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (res *TrendingTvOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("trending-tv"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/trending/tv/{time_window}"),
 	}
 
 	// Run stopwatch.
@@ -15958,7 +17073,7 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -15992,6 +17107,8 @@ func (c *Client) TvEpisodeAccountStates(ctx context.Context, params TvEpisodeAcc
 func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisodeAccountStatesParams) (res *TvEpisodeAccountStatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-account-states"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/account_states"),
 	}
 
 	// Run stopwatch.
@@ -16157,7 +17274,7 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -16191,6 +17308,8 @@ func (c *Client) TvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAdd
 func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAddRatingReq, params TvEpisodeAddRatingParams) (res *TvEpisodeAddRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-add-rating"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating"),
 	}
 
 	// Run stopwatch.
@@ -16359,7 +17478,7 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -16393,6 +17512,8 @@ func (c *Client) TvEpisodeChangesByID(ctx context.Context, params TvEpisodeChang
 func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeChangesByIDParams) (res *TvEpisodeChangesByIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-changes-by-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/episode/{episode_id}/changes"),
 	}
 
 	// Run stopwatch.
@@ -16482,7 +17603,7 @@ func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeC
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -16516,6 +17637,8 @@ func (c *Client) TvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsPa
 func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsParams) (res *TvEpisodeCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/credits"),
 	}
 
 	// Run stopwatch.
@@ -16664,7 +17787,7 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -16698,6 +17821,8 @@ func (c *Client) TvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDele
 func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDeleteRatingParams) (res *TvEpisodeDeleteRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-delete-rating"),
+		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating"),
 	}
 
 	// Run stopwatch.
@@ -16863,7 +17988,7 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -16897,6 +18022,8 @@ func (c *Client) TvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsPa
 func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsParams) (res *TvEpisodeDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}"),
 	}
 
 	// Run stopwatch.
@@ -17061,7 +18188,7 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17095,6 +18222,8 @@ func (c *Client) TvEpisodeExternalIds(ctx context.Context, params TvEpisodeExter
 func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeExternalIdsParams) (res *TvEpisodeExternalIdsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-external-ids"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/external_ids"),
 	}
 
 	// Run stopwatch.
@@ -17222,7 +18351,7 @@ func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeE
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17256,6 +18385,8 @@ func (c *Client) TvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGrou
 func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGroupDetailsParams) (res *TvEpisodeGroupDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-group-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/episode_group/{tv_episode_group_id}"),
 	}
 
 	// Run stopwatch.
@@ -17344,7 +18475,7 @@ func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisode
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17378,6 +18509,8 @@ func (c *Client) TvEpisodeImages(ctx context.Context, params TvEpisodeImagesPara
 func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImagesParams) (res *TvEpisodeImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/images"),
 	}
 
 	// Run stopwatch.
@@ -17543,7 +18676,7 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17577,6 +18710,8 @@ func (c *Client) TvEpisodeTranslations(ctx context.Context, params TvEpisodeTran
 func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisodeTranslationsParams) (res *TvEpisodeTranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/translations"),
 	}
 
 	// Run stopwatch.
@@ -17704,7 +18839,7 @@ func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisode
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17738,6 +18873,8 @@ func (c *Client) TvEpisodeVideos(ctx context.Context, params TvEpisodeVideosPara
 func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideosParams) (res *TvEpisodeVideosOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-episode-videos"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/videos"),
 	}
 
 	// Run stopwatch.
@@ -17903,7 +19040,7 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -17937,6 +19074,8 @@ func (c *Client) TvSeasonAccountStates(ctx context.Context, params TvSeasonAccou
 func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonAccountStatesParams) (res *TvSeasonAccountStatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-account-states"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/account_states"),
 	}
 
 	// Run stopwatch.
@@ -18083,7 +19222,7 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18117,6 +19256,8 @@ func (c *Client) TvSeasonAggregateCredits(ctx context.Context, params TvSeasonAg
 func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeasonAggregateCreditsParams) (res *TvSeasonAggregateCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-aggregate-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/aggregate_credits"),
 	}
 
 	// Run stopwatch.
@@ -18246,7 +19387,7 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18280,6 +19421,8 @@ func (c *Client) TvSeasonChangesByID(ctx context.Context, params TvSeasonChanges
 func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonChangesByIDParams) (res *TvSeasonChangesByIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-changes-by-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/season/{season_id}/changes"),
 	}
 
 	// Run stopwatch.
@@ -18424,7 +19567,7 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18458,6 +19601,8 @@ func (c *Client) TvSeasonCredits(ctx context.Context, params TvSeasonCreditsPara
 func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCreditsParams) (res *TvSeasonCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/credits"),
 	}
 
 	// Run stopwatch.
@@ -18587,7 +19732,7 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18621,6 +19766,8 @@ func (c *Client) TvSeasonDetails(ctx context.Context, params TvSeasonDetailsPara
 func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetailsParams) (res *TvSeasonDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}"),
 	}
 
 	// Run stopwatch.
@@ -18766,7 +19913,7 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18800,6 +19947,8 @@ func (c *Client) TvSeasonExternalIds(ctx context.Context, params TvSeasonExterna
 func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExternalIdsParams) (res *TvSeasonExternalIdsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-external-ids"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/external_ids"),
 	}
 
 	// Run stopwatch.
@@ -18908,7 +20057,7 @@ func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExt
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -18942,6 +20091,8 @@ func (c *Client) TvSeasonImages(ctx context.Context, params TvSeasonImagesParams
 func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesParams) (res *TvSeasonImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/images"),
 	}
 
 	// Run stopwatch.
@@ -19088,7 +20239,7 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19122,6 +20273,8 @@ func (c *Client) TvSeasonTranslations(ctx context.Context, params TvSeasonTransl
 func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTranslationsParams) (res *TvSeasonTranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/translations"),
 	}
 
 	// Run stopwatch.
@@ -19230,7 +20383,7 @@ func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTr
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19264,6 +20417,8 @@ func (c *Client) TvSeasonVideos(ctx context.Context, params TvSeasonVideosParams
 func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosParams) (res *TvSeasonVideosOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-videos"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/videos"),
 	}
 
 	// Run stopwatch.
@@ -19410,7 +20565,7 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19444,6 +20599,8 @@ func (c *Client) TvSeasonWatchProviders(ctx context.Context, params TvSeasonWatc
 func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeasonWatchProvidersParams) (res *TvSeasonWatchProvidersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-season-watch-providers"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/watch/providers"),
 	}
 
 	// Run stopwatch.
@@ -19573,7 +20730,7 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19607,6 +20764,8 @@ func (c *Client) TvSeriesAccountStates(ctx context.Context, params TvSeriesAccou
 func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesAccountStatesParams) (res *TvSeriesAccountStatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-account-states"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/account_states"),
 	}
 
 	// Run stopwatch.
@@ -19734,7 +20893,7 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19768,6 +20927,8 @@ func (c *Client) TvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRa
 func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRatingReq, params TvSeriesAddRatingParams) (res *TvSeriesAddRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-add-rating"),
+		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/rating"),
 	}
 
 	// Run stopwatch.
@@ -19898,7 +21059,7 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -19932,6 +21093,8 @@ func (c *Client) TvSeriesAggregateCredits(ctx context.Context, params TvSeriesAg
 func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeriesAggregateCreditsParams) (res *TvSeriesAggregateCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-aggregate-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/aggregate_credits"),
 	}
 
 	// Run stopwatch.
@@ -20042,7 +21205,7 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20076,6 +21239,8 @@ func (c *Client) TvSeriesAiringTodayList(ctx context.Context, params TvSeriesAir
 func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSeriesAiringTodayListParams) (res *TvSeriesAiringTodayListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-airing-today-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/airing_today"),
 	}
 
 	// Run stopwatch.
@@ -20201,7 +21366,7 @@ func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSerie
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20235,6 +21400,8 @@ func (c *Client) TvSeriesAlternativeTitles(ctx context.Context, params TvSeriesA
 func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSeriesAlternativeTitlesParams) (res *TvSeriesAlternativeTitlesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-alternative-titles"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/alternative_titles"),
 	}
 
 	// Run stopwatch.
@@ -20324,7 +21491,7 @@ func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSer
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20358,6 +21525,8 @@ func (c *Client) TvSeriesChanges(ctx context.Context, params TvSeriesChangesPara
 func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChangesParams) (res *TvSeriesChangesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-changes"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/changes"),
 	}
 
 	// Run stopwatch.
@@ -20502,7 +21671,7 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20536,6 +21705,8 @@ func (c *Client) TvSeriesContentRatings(ctx context.Context, params TvSeriesCont
 func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeriesContentRatingsParams) (res *TvSeriesContentRatingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-content-ratings"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/content_ratings"),
 	}
 
 	// Run stopwatch.
@@ -20625,7 +21796,7 @@ func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeries
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20659,6 +21830,8 @@ func (c *Client) TvSeriesCredits(ctx context.Context, params TvSeriesCreditsPara
 func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCreditsParams) (res *TvSeriesCreditsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-credits"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/credits"),
 	}
 
 	// Run stopwatch.
@@ -20769,7 +21942,7 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20803,6 +21976,8 @@ func (c *Client) TvSeriesDeleteRating(ctx context.Context, params TvSeriesDelete
 func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDeleteRatingParams) (res *TvSeriesDeleteRatingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-delete-rating"),
+		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/rating"),
 	}
 
 	// Run stopwatch.
@@ -20930,7 +22105,7 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -20964,6 +22139,8 @@ func (c *Client) TvSeriesDetails(ctx context.Context, params TvSeriesDetailsPara
 func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetailsParams) (res *TvSeriesDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-details"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}"),
 	}
 
 	// Run stopwatch.
@@ -21090,7 +22267,7 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21124,6 +22301,8 @@ func (c *Client) TvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpiso
 func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpisodeGroupsParams) (res *TvSeriesEpisodeGroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-episode-groups"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/episode_groups"),
 	}
 
 	// Run stopwatch.
@@ -21213,7 +22392,7 @@ func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesE
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21247,6 +22426,8 @@ func (c *Client) TvSeriesExternalIds(ctx context.Context, params TvSeriesExterna
 func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExternalIdsParams) (res *TvSeriesExternalIdsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-external-ids"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/external_ids"),
 	}
 
 	// Run stopwatch.
@@ -21336,7 +22517,7 @@ func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExt
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21370,6 +22551,8 @@ func (c *Client) TvSeriesImages(ctx context.Context, params TvSeriesImagesParams
 func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesParams) (res *TvSeriesImagesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-images"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/images"),
 	}
 
 	// Run stopwatch.
@@ -21497,7 +22680,7 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21531,6 +22714,8 @@ func (c *Client) TvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsPa
 func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsParams) (res *TvSeriesKeywordsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-keywords"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/keywords"),
 	}
 
 	// Run stopwatch.
@@ -21620,7 +22805,7 @@ func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywor
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21654,6 +22839,8 @@ func (c *Client) TvSeriesLatestID(ctx context.Context) (*TvSeriesLatestIDOK, err
 func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestIDOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-latest-id"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/latest"),
 	}
 
 	// Run stopwatch.
@@ -21724,7 +22911,7 @@ func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestI
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21758,6 +22945,8 @@ func (c *Client) TvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheA
 func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheAirListParams) (res *TvSeriesOnTheAirListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-on-the-air-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/on_the_air"),
 	}
 
 	// Run stopwatch.
@@ -21883,7 +23072,7 @@ func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOn
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -21917,6 +23106,8 @@ func (c *Client) TvSeriesPopularList(ctx context.Context, params TvSeriesPopular
 func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPopularListParams) (res *TvSeriesPopularListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-popular-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/popular"),
 	}
 
 	// Run stopwatch.
@@ -22025,7 +23216,7 @@ func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPop
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22059,6 +23250,8 @@ func (c *Client) TvSeriesRecommendations(ctx context.Context, params TvSeriesRec
 func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSeriesRecommendationsParams) (res *TvSeriesRecommendationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-recommendations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/recommendations"),
 	}
 
 	// Run stopwatch.
@@ -22186,7 +23379,7 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22220,6 +23413,8 @@ func (c *Client) TvSeriesReviews(ctx context.Context, params TvSeriesReviewsPara
 func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviewsParams) (res *TvSeriesReviewsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-reviews"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/reviews"),
 	}
 
 	// Run stopwatch.
@@ -22347,7 +23542,7 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22381,6 +23576,8 @@ func (c *Client) TvSeriesScreenedTheatrically(ctx context.Context, params TvSeri
 func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params TvSeriesScreenedTheatricallyParams) (res *TvSeriesScreenedTheatricallyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-screened-theatrically"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/screened_theatrically"),
 	}
 
 	// Run stopwatch.
@@ -22470,7 +23667,7 @@ func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params Tv
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22504,6 +23701,8 @@ func (c *Client) TvSeriesSimilar(ctx context.Context, params TvSeriesSimilarPara
 func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilarParams) (res *TvSeriesSimilarOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-similar"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/similar"),
 	}
 
 	// Run stopwatch.
@@ -22631,7 +23830,7 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22665,6 +23864,8 @@ func (c *Client) TvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRat
 func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRatedListParams) (res *TvSeriesTopRatedListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-top-rated-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/top_rated"),
 	}
 
 	// Run stopwatch.
@@ -22773,7 +23974,7 @@ func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTo
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22807,6 +24008,8 @@ func (c *Client) TvSeriesTranslations(ctx context.Context, params TvSeriesTransl
 func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTranslationsParams) (res *TvSeriesTranslationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-translations"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/translations"),
 	}
 
 	// Run stopwatch.
@@ -22896,7 +24099,7 @@ func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTr
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -22930,6 +24133,8 @@ func (c *Client) TvSeriesVideos(ctx context.Context, params TvSeriesVideosParams
 func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosParams) (res *TvSeriesVideosOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-videos"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/videos"),
 	}
 
 	// Run stopwatch.
@@ -23057,7 +24262,7 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -23091,6 +24296,8 @@ func (c *Client) TvSeriesWatchProviders(ctx context.Context, params TvSeriesWatc
 func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeriesWatchProvidersParams) (res *TvSeriesWatchProvidersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("tv-series-watch-providers"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/tv/{series_id}/watch/providers"),
 	}
 
 	// Run stopwatch.
@@ -23180,7 +24387,7 @@ func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeries
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -23214,6 +24421,8 @@ func (c *Client) WatchProviderTvList(ctx context.Context, params WatchProviderTv
 func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProviderTvListParams) (res *WatchProviderTvListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("watch-provider-tv-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/watch/providers/tv"),
 	}
 
 	// Run stopwatch.
@@ -23322,7 +24531,7 @@ func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProvid
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -23356,6 +24565,8 @@ func (c *Client) WatchProvidersAvailableRegions(ctx context.Context, params Watc
 func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params WatchProvidersAvailableRegionsParams) (res *WatchProvidersAvailableRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("watch-providers-available-regions"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/watch/providers/regions"),
 	}
 
 	// Run stopwatch.
@@ -23447,7 +24658,7 @@ func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params 
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 
@@ -23481,6 +24692,8 @@ func (c *Client) WatchProvidersMovieList(ctx context.Context, params WatchProvid
 func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchProvidersMovieListParams) (res *WatchProvidersMovieListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("watch-providers-movie-list"),
+		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/3/watch/providers/movie"),
 	}
 
 	// Run stopwatch.
@@ -23589,7 +24802,7 @@ func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchPr
 			}
 			return false
 		}(); !ok {
-			return res, errors.New("no security requirement satisfied")
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
 		}
 	}
 

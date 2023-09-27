@@ -23,7 +23,7 @@ but it is done this way to save time when updating to a newer version of the sch
 
 The API client can be re-generated with the `go generate` command.
 
-A Python 3 installation and the [`ogen` command-line tool](https://ogen.dev/docs/intro#installation) is needed.
+A Python 3 installation is needed.
 
 ## Tests
 
