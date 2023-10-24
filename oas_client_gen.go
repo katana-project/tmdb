@@ -985,7 +985,6 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 // POST /3/account/{account_id}/favorite
 func (c *Client) AccountAddFavorite(ctx context.Context, request OptAccountAddFavoriteReq, params AccountAddFavoriteParams) (*AccountAddFavoriteOK, error) {
 	res, err := c.sendAccountAddFavorite(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -1137,7 +1136,6 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 // POST /3/account/{account_id}/watchlist
 func (c *Client) AccountAddToWatchlist(ctx context.Context, request OptAccountAddToWatchlistReq, params AccountAddToWatchlistParams) (*AccountAddToWatchlistOK, error) {
 	res, err := c.sendAccountAddToWatchlist(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -1289,7 +1287,6 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 // GET /3/account/{account_id}
 func (c *Client) AccountDetails(ctx context.Context, params AccountDetailsParams) (*AccountDetailsOK, error) {
 	res, err := c.sendAccountDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -1437,7 +1434,6 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 // GET /3/account/{account_id}/favorite/tv
 func (c *Client) AccountFavoriteTv(ctx context.Context, params AccountFavoriteTvParams) (*AccountFavoriteTvOK, error) {
 	res, err := c.sendAccountFavoriteTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -1637,7 +1633,6 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 // GET /3/account/{account_id}/favorite/movies
 func (c *Client) AccountGetFavorites(ctx context.Context, params AccountGetFavoritesParams) (*AccountGetFavoritesOK, error) {
 	res, err := c.sendAccountGetFavorites(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -1837,7 +1832,6 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 // GET /3/account/{account_id}/lists
 func (c *Client) AccountLists(ctx context.Context, params AccountListsParams) (*AccountListsOK, error) {
 	res, err := c.sendAccountLists(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -2003,7 +1997,6 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 // GET /3/account/{account_id}/rated/movies
 func (c *Client) AccountRatedMovies(ctx context.Context, params AccountRatedMoviesParams) (*AccountRatedMoviesOK, error) {
 	res, err := c.sendAccountRatedMovies(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -2203,7 +2196,6 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 // GET /3/account/{account_id}/rated/tv
 func (c *Client) AccountRatedTv(ctx context.Context, params AccountRatedTvParams) (*AccountRatedTvOK, error) {
 	res, err := c.sendAccountRatedTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -2403,7 +2395,6 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 // GET /3/account/{account_id}/rated/tv/episodes
 func (c *Client) AccountRatedTvEpisodes(ctx context.Context, params AccountRatedTvEpisodesParams) (*AccountRatedTvEpisodesOK, error) {
 	res, err := c.sendAccountRatedTvEpisodes(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -2603,7 +2594,6 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 // GET /3/account/{account_id}/watchlist/movies
 func (c *Client) AccountWatchlistMovies(ctx context.Context, params AccountWatchlistMoviesParams) (*AccountWatchlistMoviesOK, error) {
 	res, err := c.sendAccountWatchlistMovies(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -2803,7 +2793,6 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 // GET /3/account/{account_id}/watchlist/tv
 func (c *Client) AccountWatchlistTv(ctx context.Context, params AccountWatchlistTvParams) (*AccountWatchlistTvOK, error) {
 	res, err := c.sendAccountWatchlistTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -3003,7 +2992,6 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 // GET /3/network/{network_id}/images
 func (c *Client) AlternativeNamesCopy(ctx context.Context, params AlternativeNamesCopyParams) (*AlternativeNamesCopyOK, error) {
 	res, err := c.sendAlternativeNamesCopy(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -3128,7 +3116,6 @@ func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params Alternativ
 // GET /3/authentication/guest_session/new
 func (c *Client) AuthenticationCreateGuestSession(ctx context.Context) (*AuthenticationCreateGuestSessionOK, error) {
 	res, err := c.sendAuthenticationCreateGuestSession(ctx)
-	_ = res
 	return res, err
 }
 
@@ -3234,7 +3221,6 @@ func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res 
 // GET /3/authentication/token/new
 func (c *Client) AuthenticationCreateRequestToken(ctx context.Context) (*AuthenticationCreateRequestTokenOK, error) {
 	res, err := c.sendAuthenticationCreateRequestToken(ctx)
-	_ = res
 	return res, err
 }
 
@@ -3340,7 +3326,6 @@ func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res 
 // POST /3/authentication/session/new
 func (c *Client) AuthenticationCreateSession(ctx context.Context, request OptAuthenticationCreateSessionReq) (*AuthenticationCreateSessionOK, error) {
 	res, err := c.sendAuthenticationCreateSession(ctx, request)
-	_ = res
 	return res, err
 }
 
@@ -3449,7 +3434,6 @@ func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request Op
 // POST /3/authentication/token/validate_with_login
 func (c *Client) AuthenticationCreateSessionFromLogin(ctx context.Context, request OptAuthenticationCreateSessionFromLoginReq) (*AuthenticationCreateSessionFromLoginOK, error) {
 	res, err := c.sendAuthenticationCreateSessionFromLogin(ctx, request)
-	_ = res
 	return res, err
 }
 
@@ -3558,7 +3542,6 @@ func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, r
 // POST /3/authentication/session/convert/4
 func (c *Client) AuthenticationCreateSessionFromV4Token(ctx context.Context, request OptAuthenticationCreateSessionFromV4TokenReq) (*AuthenticationCreateSessionFromV4TokenOK, error) {
 	res, err := c.sendAuthenticationCreateSessionFromV4Token(ctx, request)
-	_ = res
 	return res, err
 }
 
@@ -3667,7 +3650,6 @@ func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context,
 // DELETE /3/authentication/session
 func (c *Client) AuthenticationDeleteSession(ctx context.Context, request OptAuthenticationDeleteSessionReq) (*AuthenticationDeleteSessionOK, error) {
 	res, err := c.sendAuthenticationDeleteSession(ctx, request)
-	_ = res
 	return res, err
 }
 
@@ -3776,7 +3758,6 @@ func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request Op
 // GET /3/authentication
 func (c *Client) AuthenticationValidateKey(ctx context.Context) (AuthenticationValidateKeyRes, error) {
 	res, err := c.sendAuthenticationValidateKey(ctx)
-	_ = res
 	return res, err
 }
 
@@ -3882,7 +3863,6 @@ func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res Authent
 // GET /3/certification/movie/list
 func (c *Client) CertificationMovieList(ctx context.Context) (*CertificationMovieListOK, error) {
 	res, err := c.sendCertificationMovieList(ctx)
-	_ = res
 	return res, err
 }
 
@@ -3988,7 +3968,6 @@ func (c *Client) sendCertificationMovieList(ctx context.Context) (res *Certifica
 // GET /3/certification/tv/list
 func (c *Client) CertificationsTvList(ctx context.Context) (*CertificationsTvListOK, error) {
 	res, err := c.sendCertificationsTvList(ctx)
-	_ = res
 	return res, err
 }
 
@@ -4094,7 +4073,6 @@ func (c *Client) sendCertificationsTvList(ctx context.Context) (res *Certificati
 // GET /3/movie/changes
 func (c *Client) ChangesMovieList(ctx context.Context, params ChangesMovieListParams) (*ChangesMovieListOK, error) {
 	res, err := c.sendChangesMovieList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -4255,7 +4233,6 @@ func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieLi
 // GET /3/person/changes
 func (c *Client) ChangesPeopleList(ctx context.Context, params ChangesPeopleListParams) (*ChangesPeopleListOK, error) {
 	res, err := c.sendChangesPeopleList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -4416,7 +4393,6 @@ func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeople
 // GET /3/tv/changes
 func (c *Client) ChangesTvList(ctx context.Context, params ChangesTvListParams) (*ChangesTvListOK, error) {
 	res, err := c.sendChangesTvList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -4577,7 +4553,6 @@ func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListPara
 // GET /3/collection/{collection_id}
 func (c *Client) CollectionDetails(ctx context.Context, params CollectionDetailsParams) (*CollectionDetailsOK, error) {
 	res, err := c.sendCollectionDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -4722,7 +4697,6 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 // GET /3/collection/{collection_id}/images
 func (c *Client) CollectionImages(ctx context.Context, params CollectionImagesParams) (*CollectionImagesOK, error) {
 	res, err := c.sendCollectionImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -4885,7 +4859,6 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 // GET /3/collection/{collection_id}/translations
 func (c *Client) CollectionTranslations(ctx context.Context, params CollectionTranslationsParams) (*CollectionTranslationsOK, error) {
 	res, err := c.sendCollectionTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -5010,7 +4983,6 @@ func (c *Client) sendCollectionTranslations(ctx context.Context, params Collecti
 // GET /3/company/{company_id}/alternative_names
 func (c *Client) CompanyAlternativeNames(ctx context.Context, params CompanyAlternativeNamesParams) (*CompanyAlternativeNamesOK, error) {
 	res, err := c.sendCompanyAlternativeNames(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -5135,7 +5107,6 @@ func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params Company
 // GET /3/company/{company_id}
 func (c *Client) CompanyDetails(ctx context.Context, params CompanyDetailsParams) (*CompanyDetailsOK, error) {
 	res, err := c.sendCompanyDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -5259,7 +5230,6 @@ func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsPa
 // GET /3/company/{company_id}/images
 func (c *Client) CompanyImages(ctx context.Context, params CompanyImagesParams) (*CompanyImagesOK, error) {
 	res, err := c.sendCompanyImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -5384,7 +5354,6 @@ func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesPara
 // GET /3/configuration/countries
 func (c *Client) ConfigurationCountries(ctx context.Context, params ConfigurationCountriesParams) ([]ConfigurationCountriesOKItem, error) {
 	res, err := c.sendConfigurationCountries(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -5511,7 +5480,6 @@ func (c *Client) sendConfigurationCountries(ctx context.Context, params Configur
 // GET /3/configuration
 func (c *Client) ConfigurationDetails(ctx context.Context) (*ConfigurationDetailsOK, error) {
 	res, err := c.sendConfigurationDetails(ctx)
-	_ = res
 	return res, err
 }
 
@@ -5617,7 +5585,6 @@ func (c *Client) sendConfigurationDetails(ctx context.Context) (res *Configurati
 // GET /3/configuration/jobs
 func (c *Client) ConfigurationJobs(ctx context.Context) ([]ConfigurationJobsOKItem, error) {
 	res, err := c.sendConfigurationJobs(ctx)
-	_ = res
 	return res, err
 }
 
@@ -5723,7 +5690,6 @@ func (c *Client) sendConfigurationJobs(ctx context.Context) (res []Configuration
 // GET /3/configuration/languages
 func (c *Client) ConfigurationLanguages(ctx context.Context) ([]ConfigurationLanguagesOKItem, error) {
 	res, err := c.sendConfigurationLanguages(ctx)
-	_ = res
 	return res, err
 }
 
@@ -5829,7 +5795,6 @@ func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []Configur
 // GET /3/configuration/primary_translations
 func (c *Client) ConfigurationPrimaryTranslations(ctx context.Context) ([]string, error) {
 	res, err := c.sendConfigurationPrimaryTranslations(ctx)
-	_ = res
 	return res, err
 }
 
@@ -5935,7 +5900,6 @@ func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res 
 // GET /3/configuration/timezones
 func (c *Client) ConfigurationTimezones(ctx context.Context) ([]ConfigurationTimezonesOKItem, error) {
 	res, err := c.sendConfigurationTimezones(ctx)
-	_ = res
 	return res, err
 }
 
@@ -6041,7 +6005,6 @@ func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []Configur
 // GET /3/credit/{credit_id}
 func (c *Client) CreditDetails(ctx context.Context, params CreditDetailsParams) (*CreditDetailsOK, error) {
 	res, err := c.sendCreditDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -6165,7 +6128,6 @@ func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsPara
 // GET /3/network/{network_id}/alternative_names
 func (c *Client) DetailsCopy(ctx context.Context, params DetailsCopyParams) (*DetailsCopyOK, error) {
 	res, err := c.sendDetailsCopy(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -6290,7 +6252,6 @@ func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) 
 // GET /3/discover/movie
 func (c *Client) DiscoverMovie(ctx context.Context, params DiscoverMovieParams) (*DiscoverMovieOK, error) {
 	res, err := c.sendDiscoverMovie(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -7046,7 +7007,6 @@ func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMoviePara
 // GET /3/discover/tv
 func (c *Client) DiscoverTv(ctx context.Context, params DiscoverTvParams) (*DiscoverTvOK, error) {
 	res, err := c.sendDiscoverTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -7717,7 +7677,6 @@ func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (r
 // GET /3/find/{external_id}
 func (c *Client) FindByID(ctx context.Context, params FindByIDParams) (*FindByIDOK, error) {
 	res, err := c.sendFindByID(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -7876,7 +7835,6 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 // GET /3/genre/movie/list
 func (c *Client) GenreMovieList(ctx context.Context, params GenreMovieListParams) (*GenreMovieListOK, error) {
 	res, err := c.sendGenreMovieList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8003,7 +7961,6 @@ func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListPa
 // GET /3/genre/tv/list
 func (c *Client) GenreTvList(ctx context.Context, params GenreTvListParams) (*GenreTvListOK, error) {
 	res, err := c.sendGenreTvList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8130,7 +8087,6 @@ func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) 
 // GET /3/guest_session/{guest_session_id}/rated/movies
 func (c *Client) GuestSessionRatedMovies(ctx context.Context, params GuestSessionRatedMoviesParams) (*GuestSessionRatedMoviesOK, error) {
 	res, err := c.sendGuestSessionRatedMovies(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8310,7 +8266,6 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 // GET /3/guest_session/{guest_session_id}/rated/tv
 func (c *Client) GuestSessionRatedTv(ctx context.Context, params GuestSessionRatedTvParams) (*GuestSessionRatedTvOK, error) {
 	res, err := c.sendGuestSessionRatedTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8490,7 +8445,6 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 // GET /3/guest_session/{guest_session_id}/rated/tv/episodes
 func (c *Client) GuestSessionRatedTvEpisodes(ctx context.Context, params GuestSessionRatedTvEpisodesParams) (*GuestSessionRatedTvEpisodesOK, error) {
 	res, err := c.sendGuestSessionRatedTvEpisodes(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8670,7 +8624,6 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 // GET /3/keyword/{keyword_id}
 func (c *Client) KeywordDetails(ctx context.Context, params KeywordDetailsParams) (*KeywordDetailsOK, error) {
 	res, err := c.sendKeywordDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8794,7 +8747,6 @@ func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsPa
 // GET /3/keyword/{keyword_id}/movies
 func (c *Client) KeywordMovies(ctx context.Context, params KeywordMoviesParams) (*KeywordMoviesOK, error) {
 	res, err := c.sendKeywordMovies(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -8974,7 +8926,6 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 // POST /3/list/{list_id}/add_item
 func (c *Client) ListAddMovie(ctx context.Context, request OptListAddMovieReq, params ListAddMovieParams) (*ListAddMovieOK, error) {
 	res, err := c.sendListAddMovie(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -9120,7 +9071,6 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 // GET /3/list/{list_id}/item_status
 func (c *Client) ListCheckItemStatus(ctx context.Context, params ListCheckItemStatusParams) (*ListCheckItemStatusOK, error) {
 	res, err := c.sendListCheckItemStatus(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -9283,7 +9233,6 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 // POST /3/list/{list_id}/clear
 func (c *Client) ListClear(ctx context.Context, params ListClearParams) (*ListClearOK, error) {
 	res, err := c.sendListClear(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -9440,7 +9389,6 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 // POST /3/list
 func (c *Client) ListCreate(ctx context.Context, request OptListCreateReq, params ListCreateParams) (*ListCreateOK, error) {
 	res, err := c.sendListCreate(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -9567,7 +9515,6 @@ func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, p
 // DELETE /3/list/{list_id}
 func (c *Client) ListDelete(ctx context.Context, params ListDeleteParams) (*ListDeleteOK, error) {
 	res, err := c.sendListDelete(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -9709,7 +9656,6 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 // GET /3/list/{list_id}
 func (c *Client) ListDetails(ctx context.Context, params ListDetailsParams) (*ListDetailsOK, error) {
 	res, err := c.sendListDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -9854,7 +9800,6 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 // POST /3/list/{list_id}/remove_item
 func (c *Client) ListRemoveMovie(ctx context.Context, request OptListRemoveMovieReq, params ListRemoveMovieParams) (*ListRemoveMovieOK, error) {
 	res, err := c.sendListRemoveMovie(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -10000,7 +9945,6 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 // GET /3/movie/{movie_id}/account_states
 func (c *Client) MovieAccountStates(ctx context.Context, params MovieAccountStatesParams) (*MovieAccountStatesOK, error) {
 	res, err := c.sendMovieAccountStates(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -10163,7 +10107,6 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 // POST /3/movie/{movie_id}/rating
 func (c *Client) MovieAddRating(ctx context.Context, request OptMovieAddRatingReq, params MovieAddRatingParams) (*MovieAddRatingOK, error) {
 	res, err := c.sendMovieAddRating(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -10329,7 +10272,6 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 // GET /3/movie/{movie_id}/alternative_titles
 func (c *Client) MovieAlternativeTitles(ctx context.Context, params MovieAlternativeTitlesParams) (*MovieAlternativeTitlesOK, error) {
 	res, err := c.sendMovieAlternativeTitles(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -10475,7 +10417,6 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 // GET /3/movie/{movie_id}/changes
 func (c *Client) MovieChanges(ctx context.Context, params MovieChangesParams) (*MovieChangesOK, error) {
 	res, err := c.sendMovieChanges(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -10655,7 +10596,6 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 // GET /3/movie/{movie_id}/credits
 func (c *Client) MovieCredits(ctx context.Context, params MovieCreditsParams) (*MovieCreditsOK, error) {
 	res, err := c.sendMovieCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -10801,7 +10741,6 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 // DELETE /3/movie/{movie_id}/rating
 func (c *Client) MovieDeleteRating(ctx context.Context, params MovieDeleteRatingParams) (*MovieDeleteRatingOK, error) {
 	res, err := c.sendMovieDeleteRating(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -10964,7 +10903,6 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 // GET /3/movie/{movie_id}
 func (c *Client) MovieDetails(ctx context.Context, params MovieDetailsParams) (*MovieDetailsOK, error) {
 	res, err := c.sendMovieDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11126,7 +11064,6 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 // GET /3/movie/{movie_id}/external_ids
 func (c *Client) MovieExternalIds(ctx context.Context, params MovieExternalIdsParams) (*MovieExternalIdsOK, error) {
 	res, err := c.sendMovieExternalIds(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11251,7 +11188,6 @@ func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalI
 // GET /3/movie/{movie_id}/images
 func (c *Client) MovieImages(ctx context.Context, params MovieImagesParams) (*MovieImagesOK, error) {
 	res, err := c.sendMovieImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11414,7 +11350,6 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 // GET /3/movie/{movie_id}/keywords
 func (c *Client) MovieKeywords(ctx context.Context, params MovieKeywordsParams) (*MovieKeywordsOK, error) {
 	res, err := c.sendMovieKeywords(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11539,7 +11474,6 @@ func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsPara
 // GET /3/movie/latest
 func (c *Client) MovieLatestID(ctx context.Context) (*MovieLatestIDOK, error) {
 	res, err := c.sendMovieLatestID(ctx)
-	_ = res
 	return res, err
 }
 
@@ -11645,7 +11579,6 @@ func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, e
 // GET /3/movie/{movie_id}/lists
 func (c *Client) MovieLists(ctx context.Context, params MovieListsParams) (*MovieListsOK, error) {
 	res, err := c.sendMovieLists(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11808,7 +11741,6 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 // GET /3/movie/now_playing
 func (c *Client) MovieNowPlayingList(ctx context.Context, params MovieNowPlayingListParams) (*MovieNowPlayingListOK, error) {
 	res, err := c.sendMovieNowPlayingList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -11969,7 +11901,6 @@ func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPla
 // GET /3/movie/popular
 func (c *Client) MoviePopularList(ctx context.Context, params MoviePopularListParams) (*MoviePopularListOK, error) {
 	res, err := c.sendMoviePopularList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -12129,8 +12060,7 @@ func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularLi
 //
 // GET /3/movie/{movie_id}/recommendations
 func (c *Client) MovieRecommendations(ctx context.Context, params MovieRecommendationsParams) error {
-	res, err := c.sendMovieRecommendations(ctx, params)
-	_ = res
+	_, err := c.sendMovieRecommendations(ctx, params)
 	return err
 }
 
@@ -12293,7 +12223,6 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 // GET /3/movie/{movie_id}/release_dates
 func (c *Client) MovieReleaseDates(ctx context.Context, params MovieReleaseDatesParams) (*MovieReleaseDatesOK, error) {
 	res, err := c.sendMovieReleaseDates(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -12418,7 +12347,6 @@ func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseD
 // GET /3/movie/{movie_id}/reviews
 func (c *Client) MovieReviews(ctx context.Context, params MovieReviewsParams) (*MovieReviewsOK, error) {
 	res, err := c.sendMovieReviews(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -12581,7 +12509,6 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 // GET /3/movie/{movie_id}/similar
 func (c *Client) MovieSimilar(ctx context.Context, params MovieSimilarParams) (*MovieSimilarOK, error) {
 	res, err := c.sendMovieSimilar(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -12744,7 +12671,6 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 // GET /3/movie/top_rated
 func (c *Client) MovieTopRatedList(ctx context.Context, params MovieTopRatedListParams) (*MovieTopRatedListOK, error) {
 	res, err := c.sendMovieTopRatedList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -12905,7 +12831,6 @@ func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRated
 // GET /3/movie/{movie_id}/translations
 func (c *Client) MovieTranslations(ctx context.Context, params MovieTranslationsParams) (*MovieTranslationsOK, error) {
 	res, err := c.sendMovieTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13030,7 +12955,6 @@ func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslat
 // GET /3/movie/upcoming
 func (c *Client) MovieUpcomingList(ctx context.Context, params MovieUpcomingListParams) (*MovieUpcomingListOK, error) {
 	res, err := c.sendMovieUpcomingList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13191,7 +13115,6 @@ func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcoming
 // GET /3/movie/{movie_id}/videos
 func (c *Client) MovieVideos(ctx context.Context, params MovieVideosParams) (*MovieVideosOK, error) {
 	res, err := c.sendMovieVideos(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13337,7 +13260,6 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 // GET /3/movie/{movie_id}/watch/providers
 func (c *Client) MovieWatchProviders(ctx context.Context, params MovieWatchProvidersParams) (*MovieWatchProvidersOK, error) {
 	res, err := c.sendMovieWatchProviders(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13462,7 +13384,6 @@ func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchP
 // GET /3/network/{network_id}
 func (c *Client) NetworkDetails(ctx context.Context, params NetworkDetailsParams) (*NetworkDetailsOK, error) {
 	res, err := c.sendNetworkDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13586,7 +13507,6 @@ func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsPa
 // GET /3/person/{person_id}/changes
 func (c *Client) PersonChanges(ctx context.Context, params PersonChangesParams) (*PersonChangesOK, error) {
 	res, err := c.sendPersonChanges(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13766,7 +13686,6 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 // GET /3/person/{person_id}/combined_credits
 func (c *Client) PersonCombinedCredits(ctx context.Context, params PersonCombinedCreditsParams) (*PersonCombinedCreditsOK, error) {
 	res, err := c.sendPersonCombinedCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -13912,7 +13831,6 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 // GET /3/person/{person_id}
 func (c *Client) PersonDetails(ctx context.Context, params PersonDetailsParams) (*PersonDetailsOK, error) {
 	res, err := c.sendPersonDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -14074,7 +13992,6 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 // GET /3/person/{person_id}/external_ids
 func (c *Client) PersonExternalIds(ctx context.Context, params PersonExternalIdsParams) (*PersonExternalIdsOK, error) {
 	res, err := c.sendPersonExternalIds(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -14198,8 +14115,7 @@ func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExterna
 //
 // GET /3/person/{person_id}/images
 func (c *Client) PersonImages(ctx context.Context, params PersonImagesParams) error {
-	res, err := c.sendPersonImages(ctx, params)
-	_ = res
+	_, err := c.sendPersonImages(ctx, params)
 	return err
 }
 
@@ -14324,7 +14240,6 @@ func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams
 // GET /3/person/latest
 func (c *Client) PersonLatestID(ctx context.Context) (*PersonLatestIDOK, error) {
 	res, err := c.sendPersonLatestID(ctx)
-	_ = res
 	return res, err
 }
 
@@ -14430,7 +14345,6 @@ func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK,
 // GET /3/person/{person_id}/movie_credits
 func (c *Client) PersonMovieCredits(ctx context.Context, params PersonMovieCreditsParams) (*PersonMovieCreditsOK, error) {
 	res, err := c.sendPersonMovieCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -14576,7 +14490,6 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 // GET /3/person/popular
 func (c *Client) PersonPopularList(ctx context.Context, params PersonPopularListParams) (*PersonPopularListOK, error) {
 	res, err := c.sendPersonPopularList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -14720,7 +14633,6 @@ func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopular
 // GET /3/person/{person_id}/tagged_images
 func (c *Client) PersonTaggedImages(ctx context.Context, params PersonTaggedImagesParams) (*PersonTaggedImagesOK, error) {
 	res, err := c.sendPersonTaggedImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -14866,7 +14778,6 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 // GET /3/person/{person_id}/tv_credits
 func (c *Client) PersonTvCredits(ctx context.Context, params PersonTvCreditsParams) (*PersonTvCreditsOK, error) {
 	res, err := c.sendPersonTvCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15012,7 +14923,6 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 // GET /3/review/{review_id}
 func (c *Client) ReviewDetails(ctx context.Context, params ReviewDetailsParams) (*ReviewDetailsOK, error) {
 	res, err := c.sendReviewDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15136,7 +15046,6 @@ func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsPara
 // GET /3/search/collection
 func (c *Client) SearchCollection(ctx context.Context, params SearchCollectionParams) (*SearchCollectionOK, error) {
 	res, err := c.sendSearchCollection(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15328,7 +15237,6 @@ func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollecti
 // GET /3/search/company
 func (c *Client) SearchCompany(ctx context.Context, params SearchCompanyParams) (*SearchCompanyOK, error) {
 	res, err := c.sendSearchCompany(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15469,7 +15377,6 @@ func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyPara
 // GET /3/search/keyword
 func (c *Client) SearchKeyword(ctx context.Context, params SearchKeywordParams) (*SearchKeywordOK, error) {
 	res, err := c.sendSearchKeyword(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15610,7 +15517,6 @@ func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordPara
 // GET /3/search/movie
 func (c *Client) SearchMovie(ctx context.Context, params SearchMovieParams) (*SearchMovieOK, error) {
 	res, err := c.sendSearchMovie(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -15836,7 +15742,6 @@ func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) 
 // GET /3/search/multi
 func (c *Client) SearchMulti(ctx context.Context, params SearchMultiParams) (*SearchMultiOK, error) {
 	res, err := c.sendSearchMulti(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16011,7 +15916,6 @@ func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) 
 // GET /3/search/person
 func (c *Client) SearchPerson(ctx context.Context, params SearchPersonParams) (*SearchPersonOK, error) {
 	res, err := c.sendSearchPerson(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16186,7 +16090,6 @@ func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams
 // GET /3/search/tv
 func (c *Client) SearchTv(ctx context.Context, params SearchTvParams) (*SearchTvOK, error) {
 	res, err := c.sendSearchTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16395,7 +16298,6 @@ func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *
 // GET /3/person/{person_id}/translations
 func (c *Client) Translations(ctx context.Context, params TranslationsParams) (*TranslationsOK, error) {
 	res, err := c.sendTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16520,7 +16422,6 @@ func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams
 // GET /3/trending/all/{time_window}
 func (c *Client) TrendingAll(ctx context.Context, params TrendingAllParams) (*TrendingAllOK, error) {
 	res, err := c.sendTrendingAll(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16665,7 +16566,6 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 // GET /3/trending/movie/{time_window}
 func (c *Client) TrendingMovies(ctx context.Context, params TrendingMoviesParams) (*TrendingMoviesOK, error) {
 	res, err := c.sendTrendingMovies(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16810,7 +16710,6 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 // GET /3/trending/person/{time_window}
 func (c *Client) TrendingPeople(ctx context.Context, params TrendingPeopleParams) (*TrendingPeopleOK, error) {
 	res, err := c.sendTrendingPeople(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -16955,7 +16854,6 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 // GET /3/trending/tv/{time_window}
 func (c *Client) TrendingTv(ctx context.Context, params TrendingTvParams) (*TrendingTvOK, error) {
 	res, err := c.sendTrendingTv(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -17100,7 +16998,6 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/account_states
 func (c *Client) TvEpisodeAccountStates(ctx context.Context, params TvEpisodeAccountStatesParams) (*TvEpisodeAccountStatesOK, error) {
 	res, err := c.sendTvEpisodeAccountStates(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -17301,7 +17198,6 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 // POST /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating
 func (c *Client) TvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAddRatingReq, params TvEpisodeAddRatingParams) (*TvEpisodeAddRatingOK, error) {
 	res, err := c.sendTvEpisodeAddRating(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -17505,7 +17401,6 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 // GET /3/tv/episode/{episode_id}/changes
 func (c *Client) TvEpisodeChangesByID(ctx context.Context, params TvEpisodeChangesByIDParams) (*TvEpisodeChangesByIDOK, error) {
 	res, err := c.sendTvEpisodeChangesByID(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -17630,7 +17525,6 @@ func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeC
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/credits
 func (c *Client) TvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsParams) (*TvEpisodeCreditsOK, error) {
 	res, err := c.sendTvEpisodeCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -17814,7 +17708,6 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 // DELETE /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating
 func (c *Client) TvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDeleteRatingParams) (*TvEpisodeDeleteRatingOK, error) {
 	res, err := c.sendTvEpisodeDeleteRating(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18015,7 +17908,6 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}
 func (c *Client) TvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsParams) (*TvEpisodeDetailsOK, error) {
 	res, err := c.sendTvEpisodeDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18215,7 +18107,6 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/external_ids
 func (c *Client) TvEpisodeExternalIds(ctx context.Context, params TvEpisodeExternalIdsParams) (*TvEpisodeExternalIdsOK, error) {
 	res, err := c.sendTvEpisodeExternalIds(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18378,7 +18269,6 @@ func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeE
 // GET /3/tv/episode_group/{tv_episode_group_id}
 func (c *Client) TvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGroupDetailsParams) (*TvEpisodeGroupDetailsOK, error) {
 	res, err := c.sendTvEpisodeGroupDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18502,7 +18392,6 @@ func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisode
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/images
 func (c *Client) TvEpisodeImages(ctx context.Context, params TvEpisodeImagesParams) (*TvEpisodeImagesOK, error) {
 	res, err := c.sendTvEpisodeImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18703,7 +18592,6 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/translations
 func (c *Client) TvEpisodeTranslations(ctx context.Context, params TvEpisodeTranslationsParams) (*TvEpisodeTranslationsOK, error) {
 	res, err := c.sendTvEpisodeTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -18866,7 +18754,6 @@ func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisode
 // GET /3/tv/{series_id}/season/{season_number}/episode/{episode_number}/videos
 func (c *Client) TvEpisodeVideos(ctx context.Context, params TvEpisodeVideosParams) (*TvEpisodeVideosOK, error) {
 	res, err := c.sendTvEpisodeVideos(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19067,7 +18954,6 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 // GET /3/tv/{series_id}/season/{season_number}/account_states
 func (c *Client) TvSeasonAccountStates(ctx context.Context, params TvSeasonAccountStatesParams) (*TvSeasonAccountStatesOK, error) {
 	res, err := c.sendTvSeasonAccountStates(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19249,7 +19135,6 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 // GET /3/tv/{series_id}/season/{season_number}/aggregate_credits
 func (c *Client) TvSeasonAggregateCredits(ctx context.Context, params TvSeasonAggregateCreditsParams) (*TvSeasonAggregateCreditsOK, error) {
 	res, err := c.sendTvSeasonAggregateCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19414,7 +19299,6 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 // GET /3/tv/season/{season_id}/changes
 func (c *Client) TvSeasonChangesByID(ctx context.Context, params TvSeasonChangesByIDParams) (*TvSeasonChangesByIDOK, error) {
 	res, err := c.sendTvSeasonChangesByID(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19594,7 +19478,6 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 // GET /3/tv/{series_id}/season/{season_number}/credits
 func (c *Client) TvSeasonCredits(ctx context.Context, params TvSeasonCreditsParams) (*TvSeasonCreditsOK, error) {
 	res, err := c.sendTvSeasonCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19759,7 +19642,6 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 // GET /3/tv/{series_id}/season/{season_number}
 func (c *Client) TvSeasonDetails(ctx context.Context, params TvSeasonDetailsParams) (*TvSeasonDetailsOK, error) {
 	res, err := c.sendTvSeasonDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -19940,7 +19822,6 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 // GET /3/tv/{series_id}/season/{season_number}/external_ids
 func (c *Client) TvSeasonExternalIds(ctx context.Context, params TvSeasonExternalIdsParams) (*TvSeasonExternalIdsOK, error) {
 	res, err := c.sendTvSeasonExternalIds(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20084,7 +19965,6 @@ func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExt
 // GET /3/tv/{series_id}/season/{season_number}/images
 func (c *Client) TvSeasonImages(ctx context.Context, params TvSeasonImagesParams) (*TvSeasonImagesOK, error) {
 	res, err := c.sendTvSeasonImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20266,7 +20146,6 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 // GET /3/tv/{series_id}/season/{season_number}/translations
 func (c *Client) TvSeasonTranslations(ctx context.Context, params TvSeasonTranslationsParams) (*TvSeasonTranslationsOK, error) {
 	res, err := c.sendTvSeasonTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20410,7 +20289,6 @@ func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTr
 // GET /3/tv/{series_id}/season/{season_number}/videos
 func (c *Client) TvSeasonVideos(ctx context.Context, params TvSeasonVideosParams) (*TvSeasonVideosOK, error) {
 	res, err := c.sendTvSeasonVideos(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20592,7 +20470,6 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 // GET /3/tv/{series_id}/season/{season_number}/watch/providers
 func (c *Client) TvSeasonWatchProviders(ctx context.Context, params TvSeasonWatchProvidersParams) (*TvSeasonWatchProvidersOK, error) {
 	res, err := c.sendTvSeasonWatchProviders(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20757,7 +20634,6 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 // GET /3/tv/{series_id}/account_states
 func (c *Client) TvSeriesAccountStates(ctx context.Context, params TvSeriesAccountStatesParams) (*TvSeriesAccountStatesOK, error) {
 	res, err := c.sendTvSeriesAccountStates(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -20920,7 +20796,6 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 // POST /3/tv/{series_id}/rating
 func (c *Client) TvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRatingReq, params TvSeriesAddRatingParams) (*TvSeriesAddRatingOK, error) {
 	res, err := c.sendTvSeriesAddRating(ctx, request, params)
-	_ = res
 	return res, err
 }
 
@@ -21086,7 +20961,6 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 // GET /3/tv/{series_id}/aggregate_credits
 func (c *Client) TvSeriesAggregateCredits(ctx context.Context, params TvSeriesAggregateCreditsParams) (*TvSeriesAggregateCreditsOK, error) {
 	res, err := c.sendTvSeriesAggregateCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21232,7 +21106,6 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 // GET /3/tv/airing_today
 func (c *Client) TvSeriesAiringTodayList(ctx context.Context, params TvSeriesAiringTodayListParams) (*TvSeriesAiringTodayListOK, error) {
 	res, err := c.sendTvSeriesAiringTodayList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21393,7 +21266,6 @@ func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSerie
 // GET /3/tv/{series_id}/alternative_titles
 func (c *Client) TvSeriesAlternativeTitles(ctx context.Context, params TvSeriesAlternativeTitlesParams) (*TvSeriesAlternativeTitlesOK, error) {
 	res, err := c.sendTvSeriesAlternativeTitles(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21518,7 +21390,6 @@ func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSer
 // GET /3/tv/{series_id}/changes
 func (c *Client) TvSeriesChanges(ctx context.Context, params TvSeriesChangesParams) (*TvSeriesChangesOK, error) {
 	res, err := c.sendTvSeriesChanges(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21698,7 +21569,6 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 // GET /3/tv/{series_id}/content_ratings
 func (c *Client) TvSeriesContentRatings(ctx context.Context, params TvSeriesContentRatingsParams) (*TvSeriesContentRatingsOK, error) {
 	res, err := c.sendTvSeriesContentRatings(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21823,7 +21693,6 @@ func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeries
 // GET /3/tv/{series_id}/credits
 func (c *Client) TvSeriesCredits(ctx context.Context, params TvSeriesCreditsParams) (*TvSeriesCreditsOK, error) {
 	res, err := c.sendTvSeriesCredits(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -21969,7 +21838,6 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 // DELETE /3/tv/{series_id}/rating
 func (c *Client) TvSeriesDeleteRating(ctx context.Context, params TvSeriesDeleteRatingParams) (*TvSeriesDeleteRatingOK, error) {
 	res, err := c.sendTvSeriesDeleteRating(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22132,7 +22000,6 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 // GET /3/tv/{series_id}
 func (c *Client) TvSeriesDetails(ctx context.Context, params TvSeriesDetailsParams) (*TvSeriesDetailsOK, error) {
 	res, err := c.sendTvSeriesDetails(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22294,7 +22161,6 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 // GET /3/tv/{series_id}/episode_groups
 func (c *Client) TvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpisodeGroupsParams) (*TvSeriesEpisodeGroupsOK, error) {
 	res, err := c.sendTvSeriesEpisodeGroups(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22419,7 +22285,6 @@ func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesE
 // GET /3/tv/{series_id}/external_ids
 func (c *Client) TvSeriesExternalIds(ctx context.Context, params TvSeriesExternalIdsParams) (*TvSeriesExternalIdsOK, error) {
 	res, err := c.sendTvSeriesExternalIds(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22544,7 +22409,6 @@ func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExt
 // GET /3/tv/{series_id}/images
 func (c *Client) TvSeriesImages(ctx context.Context, params TvSeriesImagesParams) (*TvSeriesImagesOK, error) {
 	res, err := c.sendTvSeriesImages(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22707,7 +22571,6 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 // GET /3/tv/{series_id}/keywords
 func (c *Client) TvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsParams) (*TvSeriesKeywordsOK, error) {
 	res, err := c.sendTvSeriesKeywords(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -22832,7 +22695,6 @@ func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywor
 // GET /3/tv/latest
 func (c *Client) TvSeriesLatestID(ctx context.Context) (*TvSeriesLatestIDOK, error) {
 	res, err := c.sendTvSeriesLatestID(ctx)
-	_ = res
 	return res, err
 }
 
@@ -22938,7 +22800,6 @@ func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestI
 // GET /3/tv/on_the_air
 func (c *Client) TvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheAirListParams) (*TvSeriesOnTheAirListOK, error) {
 	res, err := c.sendTvSeriesOnTheAirList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23099,7 +22960,6 @@ func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOn
 // GET /3/tv/popular
 func (c *Client) TvSeriesPopularList(ctx context.Context, params TvSeriesPopularListParams) (*TvSeriesPopularListOK, error) {
 	res, err := c.sendTvSeriesPopularList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23243,7 +23103,6 @@ func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPop
 // GET /3/tv/{series_id}/recommendations
 func (c *Client) TvSeriesRecommendations(ctx context.Context, params TvSeriesRecommendationsParams) (*TvSeriesRecommendationsOK, error) {
 	res, err := c.sendTvSeriesRecommendations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23406,7 +23265,6 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 // GET /3/tv/{series_id}/reviews
 func (c *Client) TvSeriesReviews(ctx context.Context, params TvSeriesReviewsParams) (*TvSeriesReviewsOK, error) {
 	res, err := c.sendTvSeriesReviews(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23569,7 +23427,6 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 // GET /3/tv/{series_id}/screened_theatrically
 func (c *Client) TvSeriesScreenedTheatrically(ctx context.Context, params TvSeriesScreenedTheatricallyParams) (*TvSeriesScreenedTheatricallyOK, error) {
 	res, err := c.sendTvSeriesScreenedTheatrically(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23694,7 +23551,6 @@ func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params Tv
 // GET /3/tv/{series_id}/similar
 func (c *Client) TvSeriesSimilar(ctx context.Context, params TvSeriesSimilarParams) (*TvSeriesSimilarOK, error) {
 	res, err := c.sendTvSeriesSimilar(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -23857,7 +23713,6 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 // GET /3/tv/top_rated
 func (c *Client) TvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRatedListParams) (*TvSeriesTopRatedListOK, error) {
 	res, err := c.sendTvSeriesTopRatedList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24001,7 +23856,6 @@ func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTo
 // GET /3/tv/{series_id}/translations
 func (c *Client) TvSeriesTranslations(ctx context.Context, params TvSeriesTranslationsParams) (*TvSeriesTranslationsOK, error) {
 	res, err := c.sendTvSeriesTranslations(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24126,7 +23980,6 @@ func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTr
 // GET /3/tv/{series_id}/videos
 func (c *Client) TvSeriesVideos(ctx context.Context, params TvSeriesVideosParams) (*TvSeriesVideosOK, error) {
 	res, err := c.sendTvSeriesVideos(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24289,7 +24142,6 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 // GET /3/tv/{series_id}/watch/providers
 func (c *Client) TvSeriesWatchProviders(ctx context.Context, params TvSeriesWatchProvidersParams) (*TvSeriesWatchProvidersOK, error) {
 	res, err := c.sendTvSeriesWatchProviders(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24414,7 +24266,6 @@ func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeries
 // GET /3/watch/providers/tv
 func (c *Client) WatchProviderTvList(ctx context.Context, params WatchProviderTvListParams) (*WatchProviderTvListOK, error) {
 	res, err := c.sendWatchProviderTvList(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24558,7 +24409,6 @@ func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProvid
 // GET /3/watch/providers/regions
 func (c *Client) WatchProvidersAvailableRegions(ctx context.Context, params WatchProvidersAvailableRegionsParams) (*WatchProvidersAvailableRegionsOK, error) {
 	res, err := c.sendWatchProvidersAvailableRegions(ctx, params)
-	_ = res
 	return res, err
 }
 
@@ -24685,7 +24535,6 @@ func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params 
 // GET /3/watch/providers/movie
 func (c *Client) WatchProvidersMovieList(ctx context.Context, params WatchProvidersMovieListParams) (*WatchProvidersMovieListOK, error) {
 	res, err := c.sendWatchProvidersMovieList(ctx, params)
-	_ = res
 	return res, err
 }
 
