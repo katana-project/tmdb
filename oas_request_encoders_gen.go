@@ -20,7 +20,7 @@ func encodeAccountAddFavoriteRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -40,7 +40,7 @@ func encodeAccountAddToWatchlistRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -60,7 +60,7 @@ func encodeAuthenticationCreateSessionRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -80,7 +80,7 @@ func encodeAuthenticationCreateSessionFromLoginRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -100,7 +100,7 @@ func encodeAuthenticationCreateSessionFromV4TokenRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -120,7 +120,7 @@ func encodeAuthenticationDeleteSessionRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -140,7 +140,7 @@ func encodeListAddMovieRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -160,7 +160,7 @@ func encodeListCreateRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -180,7 +180,7 @@ func encodeListRemoveMovieRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -200,7 +200,7 @@ func encodeMovieAddRatingRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -220,7 +220,7 @@ func encodeTvEpisodeAddRatingRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
@@ -240,7 +240,7 @@ func encodeTvSeriesAddRatingRequest(
 		// Keep request with empty body if value is not set.
 		return nil
 	}
-	e := jx.GetEncoder()
+	e := new(jx.Encoder)
 	{
 		if req.Set {
 			req.Encode(e)
