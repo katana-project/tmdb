@@ -15,6 +15,7 @@ These corrections include:
  - removing duplicate properties (in the eyes of `ogen` - the OpenAPI generator) and adding `additionalProperties: true`
  - changing `integer` types to `number` where appropriate (when examples contain a float)
  - removing additional characters in examples, which break the JSON syntax
+ - replacing the security scheme for a `Bearer` token one
 
 Some of these corrections come at the expense of decreasing the API ergonomics by loosening the schema constraints,
 but it is done this way to save time when updating to a newer version of the schema.

@@ -23,7 +23,10 @@ def infer_schema_type(node: any) -> dict[str, any]:
     raise Exception(f"Could not infer schema type of {node}")
 
 
-def unescape_json(v: str, item_path: list[str] = []) -> dict[str, any]:
+def unescape_json(v: str, item_path: list[str] = None) -> dict[str, any]:
+    if item_path is None:
+        item_path = []
+
     if len(v) > 2 and (v.startswith("{}") or v.startswith("[]")):  # check malformed JSON example value
         if item_path:
             print(f"fixed malformed escaped JSON, path: {'.'.join(item_path)}")
@@ -33,7 +36,10 @@ def unescape_json(v: str, item_path: list[str] = []) -> dict[str, any]:
     return loads(v)
 
 
-def clean_schema_tree(node: list | dict[str, any], path: list[str] = []):
+def clean_schema_tree(node: list | dict[str, any], path: list[str] = None):
+    if path is None:
+        path = []
+
     if isinstance(node, dict):
         for k, v in list(node.items()):
             item_path = [*path, k]
@@ -73,6 +79,13 @@ def clean_schema_tree(node: list | dict[str, any], path: list[str] = []):
 
                     v["schema"] = infer_schema_type(unescape_json(example_value) if is_escaped_json else example_value)
                     print(f"fixed missing schema, path: {'.'.join(item_path)}")
+                elif k == "sec0" and item_path[-2] == "securitySchemes":  # check wrong security scheme
+                    # it is just an Authorization header scheme by default, we want it to be a Bearer token
+                    node[k] = {
+                        "type": "http",
+                        "scheme": "bearer"
+                    }
+                    print(f"fixed wrong security scheme, path: {'.'.join(item_path)}")
 
                 clean_schema_tree(v, path=item_path)
             elif isinstance(v, list):
@@ -81,7 +94,7 @@ def clean_schema_tree(node: list | dict[str, any], path: list[str] = []):
                 node["nullable"] = True
 
                 print(f"fixed null default, path: {'.'.join(item_path)}")
-            elif item_path[-1] == "value" and item_path[-3] == "examples" and isinstance(v, str):
+            elif k == "value" and item_path[-3] == "examples" and isinstance(v, str):
                 # check escaped JSON example value in path .examples.{anything}.value
                 if (v.startswith("{") and v.endswith("}")) or (v.startswith("[") and v.endswith("]")):
                     node[k] = unescape_json(v, item_path=item_path)

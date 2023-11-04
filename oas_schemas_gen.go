@@ -48068,17 +48068,17 @@ func (s *SearchTvOKResultsItem) SetVoteCount(val OptInt) {
 }
 
 type Sec0 struct {
-	APIKey string
+	Token string
 }
 
-// GetAPIKey returns the value of APIKey.
-func (s *Sec0) GetAPIKey() string {
-	return s.APIKey
+// GetToken returns the value of Token.
+func (s *Sec0) GetToken() string {
+	return s.Token
 }
 
-// SetAPIKey sets the value of APIKey.
-func (s *Sec0) SetAPIKey(val string) {
-	s.APIKey = val
+// SetToken sets the value of Token.
+func (s *Sec0) SetToken(val string) {
+	s.Token = val
 }
 
 type TranslationsOK struct {

@@ -20,6 +20,6 @@ func (s *Client) securitySec0(ctx context.Context, operationName string, req *ht
 	if err != nil {
 		return errors.Wrap(err, "security source \"Sec0\"")
 	}
-	req.Header.Set("Authorization", t.APIKey)
+	req.Header.Set("Authorization", "Bearer "+t.Token)
 	return nil
 }
