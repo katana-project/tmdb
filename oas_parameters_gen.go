@@ -354,6 +354,7 @@ type ListDeleteParams struct {
 type ListDetailsParams struct {
 	ListID   int32
 	Language OptString
+	Page     OptInt32
 }
 
 // ListRemoveMovieParams is parameters of list-remove-movie operation.

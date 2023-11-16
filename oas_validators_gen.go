@@ -11,6 +11,10 @@ import (
 )
 
 func (s *AccountFavoriteTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -44,6 +48,10 @@ func (s *AccountFavoriteTvOK) Validate() error {
 }
 
 func (s *AccountFavoriteTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -99,6 +107,10 @@ func (s AccountFavoriteTvSortBy) Validate() error {
 }
 
 func (s *AccountGetFavoritesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -132,6 +144,10 @@ func (s *AccountGetFavoritesOK) Validate() error {
 }
 
 func (s *AccountGetFavoritesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -187,6 +203,10 @@ func (s AccountGetFavoritesSortBy) Validate() error {
 }
 
 func (s *AccountRatedMoviesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -220,6 +240,10 @@ func (s *AccountRatedMoviesOK) Validate() error {
 }
 
 func (s *AccountRatedMoviesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -293,6 +317,10 @@ func (s AccountRatedMoviesSortBy) Validate() error {
 }
 
 func (s *AccountRatedTvEpisodesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -326,6 +354,10 @@ func (s *AccountRatedTvEpisodesOK) Validate() error {
 }
 
 func (s *AccountRatedTvEpisodesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -381,6 +413,10 @@ func (s AccountRatedTvEpisodesSortBy) Validate() error {
 }
 
 func (s *AccountRatedTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -414,6 +450,10 @@ func (s *AccountRatedTvOK) Validate() error {
 }
 
 func (s *AccountRatedTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -487,6 +527,10 @@ func (s AccountRatedTvSortBy) Validate() error {
 }
 
 func (s *AccountWatchlistMoviesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -520,6 +564,10 @@ func (s *AccountWatchlistMoviesOK) Validate() error {
 }
 
 func (s *AccountWatchlistMoviesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -575,6 +623,10 @@ func (s AccountWatchlistMoviesSortBy) Validate() error {
 }
 
 func (s *AccountWatchlistTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -608,6 +660,10 @@ func (s *AccountWatchlistTvOK) Validate() error {
 }
 
 func (s *AccountWatchlistTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -663,6 +719,10 @@ func (s AccountWatchlistTvSortBy) Validate() error {
 }
 
 func (s *AlternativeNamesCopyOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -696,6 +756,10 @@ func (s *AlternativeNamesCopyOK) Validate() error {
 }
 
 func (s *AlternativeNamesCopyOKLogosItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -740,6 +804,10 @@ func (s *AlternativeNamesCopyOKLogosItem) Validate() error {
 }
 
 func (s *CollectionDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -773,6 +841,10 @@ func (s *CollectionDetailsOK) Validate() error {
 }
 
 func (s *CollectionDetailsOKPartsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -817,6 +889,10 @@ func (s *CollectionDetailsOKPartsItem) Validate() error {
 }
 
 func (s *CollectionImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -875,6 +951,10 @@ func (s *CollectionImagesOK) Validate() error {
 }
 
 func (s *CollectionImagesOKBackdropsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -919,6 +999,10 @@ func (s *CollectionImagesOKBackdropsItem) Validate() error {
 }
 
 func (s *CollectionImagesOKPostersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -963,6 +1047,10 @@ func (s *CollectionImagesOKPostersItem) Validate() error {
 }
 
 func (s *CompanyImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -996,6 +1084,10 @@ func (s *CompanyImagesOK) Validate() error {
 }
 
 func (s *CompanyImagesOKLogosItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -1040,6 +1132,10 @@ func (s *CompanyImagesOKLogosItem) Validate() error {
 }
 
 func (s *CreditDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Media.Get(); ok {
@@ -1084,6 +1180,10 @@ func (s *CreditDetailsOK) Validate() error {
 }
 
 func (s *CreditDetailsOKMedia) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1128,6 +1228,10 @@ func (s *CreditDetailsOKMedia) Validate() error {
 }
 
 func (s *CreditDetailsOKPerson) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1154,6 +1258,10 @@ func (s *CreditDetailsOKPerson) Validate() error {
 }
 
 func (s *DiscoverMovieOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1187,6 +1295,10 @@ func (s *DiscoverMovieOK) Validate() error {
 }
 
 func (s *DiscoverMovieOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1258,6 +1370,10 @@ func (s DiscoverMovieSortBy) Validate() error {
 }
 
 func (s *DiscoverTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1291,6 +1407,10 @@ func (s *DiscoverTvOK) Validate() error {
 }
 
 func (s *DiscoverTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1387,6 +1507,10 @@ func (s FindByIDExternalSource) Validate() error {
 }
 
 func (s *FindByIDOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1420,6 +1544,10 @@ func (s *FindByIDOK) Validate() error {
 }
 
 func (s *FindByIDOKMovieResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1464,6 +1592,10 @@ func (s *FindByIDOKMovieResultsItem) Validate() error {
 }
 
 func (s *GuestSessionRatedMoviesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1497,6 +1629,10 @@ func (s *GuestSessionRatedMoviesOK) Validate() error {
 }
 
 func (s *GuestSessionRatedMoviesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1570,6 +1706,10 @@ func (s GuestSessionRatedMoviesSortBy) Validate() error {
 }
 
 func (s *GuestSessionRatedTvEpisodesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1603,6 +1743,10 @@ func (s *GuestSessionRatedTvEpisodesOK) Validate() error {
 }
 
 func (s *GuestSessionRatedTvEpisodesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -1658,6 +1802,10 @@ func (s GuestSessionRatedTvEpisodesSortBy) Validate() error {
 }
 
 func (s *GuestSessionRatedTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1691,6 +1839,10 @@ func (s *GuestSessionRatedTvOK) Validate() error {
 }
 
 func (s *GuestSessionRatedTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1764,6 +1916,10 @@ func (s GuestSessionRatedTvSortBy) Validate() error {
 }
 
 func (s *KeywordMoviesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1797,6 +1953,10 @@ func (s *KeywordMoviesOK) Validate() error {
 }
 
 func (s *KeywordMoviesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1841,6 +2001,10 @@ func (s *KeywordMoviesOKResultsItem) Validate() error {
 }
 
 func (s *ListDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1874,6 +2038,10 @@ func (s *ListDetailsOK) Validate() error {
 }
 
 func (s *ListDetailsOKItemsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -1918,6 +2086,10 @@ func (s *ListDetailsOKItemsItem) Validate() error {
 }
 
 func (s *MovieCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -1976,6 +2148,10 @@ func (s *MovieCreditsOK) Validate() error {
 }
 
 func (s *MovieCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2002,6 +2178,10 @@ func (s *MovieCreditsOKCastItem) Validate() error {
 }
 
 func (s *MovieCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2028,6 +2208,10 @@ func (s *MovieCreditsOKCrewItem) Validate() error {
 }
 
 func (s *MovieDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2072,6 +2256,10 @@ func (s *MovieDetailsOK) Validate() error {
 }
 
 func (s *MovieImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2155,6 +2343,10 @@ func (s *MovieImagesOK) Validate() error {
 }
 
 func (s *MovieImagesOKBackdropsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -2199,6 +2391,10 @@ func (s *MovieImagesOKBackdropsItem) Validate() error {
 }
 
 func (s *MovieImagesOKLogosItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -2243,6 +2439,10 @@ func (s *MovieImagesOKLogosItem) Validate() error {
 }
 
 func (s *MovieImagesOKPostersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -2287,6 +2487,10 @@ func (s *MovieImagesOKPostersItem) Validate() error {
 }
 
 func (s *MovieLatestIDOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -2313,6 +2517,10 @@ func (s *MovieLatestIDOK) Validate() error {
 }
 
 func (s *MovieNowPlayingListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2346,6 +2554,10 @@ func (s *MovieNowPlayingListOK) Validate() error {
 }
 
 func (s *MovieNowPlayingListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2390,6 +2602,10 @@ func (s *MovieNowPlayingListOKResultsItem) Validate() error {
 }
 
 func (s *MoviePopularListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2423,6 +2639,10 @@ func (s *MoviePopularListOK) Validate() error {
 }
 
 func (s *MoviePopularListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2467,6 +2687,10 @@ func (s *MoviePopularListOKResultsItem) Validate() error {
 }
 
 func (s *MovieReviewsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2500,6 +2724,10 @@ func (s *MovieReviewsOK) Validate() error {
 }
 
 func (s *MovieReviewsOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AuthorDetails.Get(); ok {
@@ -2526,6 +2754,10 @@ func (s *MovieReviewsOKResultsItem) Validate() error {
 }
 
 func (s *MovieReviewsOKResultsItemAuthorDetails) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Rating.Get(); ok {
@@ -2552,6 +2784,10 @@ func (s *MovieReviewsOKResultsItemAuthorDetails) Validate() error {
 }
 
 func (s *MovieSimilarOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2585,6 +2821,10 @@ func (s *MovieSimilarOK) Validate() error {
 }
 
 func (s *MovieSimilarOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2629,6 +2869,10 @@ func (s *MovieSimilarOKResultsItem) Validate() error {
 }
 
 func (s *MovieTopRatedListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2662,6 +2906,10 @@ func (s *MovieTopRatedListOK) Validate() error {
 }
 
 func (s *MovieTopRatedListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2706,6 +2954,10 @@ func (s *MovieTopRatedListOKResultsItem) Validate() error {
 }
 
 func (s *MovieUpcomingListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2739,6 +2991,10 @@ func (s *MovieUpcomingListOK) Validate() error {
 }
 
 func (s *MovieUpcomingListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2783,6 +3039,10 @@ func (s *MovieUpcomingListOKResultsItem) Validate() error {
 }
 
 func (s *PersonCombinedCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -2841,6 +3101,10 @@ func (s *PersonCombinedCreditsOK) Validate() error {
 }
 
 func (s *PersonCombinedCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2885,6 +3149,10 @@ func (s *PersonCombinedCreditsOKCastItem) Validate() error {
 }
 
 func (s *PersonCombinedCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2929,6 +3197,10 @@ func (s *PersonCombinedCreditsOKCrewItem) Validate() error {
 }
 
 func (s *PersonDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -2955,6 +3227,10 @@ func (s *PersonDetailsOK) Validate() error {
 }
 
 func (s *PersonMovieCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3013,6 +3289,10 @@ func (s *PersonMovieCreditsOK) Validate() error {
 }
 
 func (s *PersonMovieCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3057,6 +3337,10 @@ func (s *PersonMovieCreditsOKCastItem) Validate() error {
 }
 
 func (s *PersonMovieCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3101,6 +3385,10 @@ func (s *PersonMovieCreditsOKCrewItem) Validate() error {
 }
 
 func (s *PersonPopularListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3134,6 +3422,10 @@ func (s *PersonPopularListOK) Validate() error {
 }
 
 func (s *PersonPopularListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3185,6 +3477,10 @@ func (s *PersonPopularListOKResultsItem) Validate() error {
 }
 
 func (s *PersonPopularListOKResultsItemKnownForItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -3211,6 +3507,10 @@ func (s *PersonPopularListOKResultsItemKnownForItem) Validate() error {
 }
 
 func (s *PersonTaggedImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3244,6 +3544,10 @@ func (s *PersonTaggedImagesOK) Validate() error {
 }
 
 func (s *PersonTaggedImagesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -3306,6 +3610,10 @@ func (s *PersonTaggedImagesOKResultsItem) Validate() error {
 }
 
 func (s *PersonTaggedImagesOKResultsItemMedia) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3350,6 +3658,10 @@ func (s *PersonTaggedImagesOKResultsItemMedia) Validate() error {
 }
 
 func (s *PersonTvCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3408,6 +3720,10 @@ func (s *PersonTvCreditsOK) Validate() error {
 }
 
 func (s *PersonTvCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3452,6 +3768,10 @@ func (s *PersonTvCreditsOKCastItem) Validate() error {
 }
 
 func (s *PersonTvCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3496,6 +3816,10 @@ func (s *PersonTvCreditsOKCrewItem) Validate() error {
 }
 
 func (s *ReviewDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AuthorDetails.Get(); ok {
@@ -3522,6 +3846,10 @@ func (s *ReviewDetailsOK) Validate() error {
 }
 
 func (s *ReviewDetailsOKAuthorDetails) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Rating.Get(); ok {
@@ -3548,6 +3876,10 @@ func (s *ReviewDetailsOKAuthorDetails) Validate() error {
 }
 
 func (s *SearchMovieOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3581,6 +3913,10 @@ func (s *SearchMovieOK) Validate() error {
 }
 
 func (s *SearchMovieOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3625,6 +3961,10 @@ func (s *SearchMovieOKResultsItem) Validate() error {
 }
 
 func (s *SearchMultiOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3658,6 +3998,10 @@ func (s *SearchMultiOK) Validate() error {
 }
 
 func (s *SearchMultiOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3702,6 +4046,10 @@ func (s *SearchMultiOKResultsItem) Validate() error {
 }
 
 func (s *SearchPersonOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3735,6 +4083,10 @@ func (s *SearchPersonOK) Validate() error {
 }
 
 func (s *SearchPersonOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3786,6 +4138,10 @@ func (s *SearchPersonOKResultsItem) Validate() error {
 }
 
 func (s *SearchPersonOKResultsItemKnownForItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3830,6 +4186,10 @@ func (s *SearchPersonOKResultsItemKnownForItem) Validate() error {
 }
 
 func (s *SearchTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3863,6 +4223,10 @@ func (s *SearchTvOK) Validate() error {
 }
 
 func (s *SearchTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3907,6 +4271,10 @@ func (s *SearchTvOKResultsItem) Validate() error {
 }
 
 func (s *TrendingAllOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -3940,6 +4308,10 @@ func (s *TrendingAllOK) Validate() error {
 }
 
 func (s *TrendingAllOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -3995,6 +4367,10 @@ func (s TrendingAllTimeWindow) Validate() error {
 }
 
 func (s *TrendingMoviesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4028,6 +4404,10 @@ func (s *TrendingMoviesOK) Validate() error {
 }
 
 func (s *TrendingMoviesOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4083,6 +4463,10 @@ func (s TrendingMoviesTimeWindow) Validate() error {
 }
 
 func (s *TrendingPeopleOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4116,6 +4500,10 @@ func (s *TrendingPeopleOK) Validate() error {
 }
 
 func (s *TrendingPeopleOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4167,6 +4555,10 @@ func (s *TrendingPeopleOKResultsItem) Validate() error {
 }
 
 func (s *TrendingPeopleOKResultsItemKnownForItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4222,6 +4614,10 @@ func (s TrendingPeopleTimeWindow) Validate() error {
 }
 
 func (s *TrendingTvOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4255,6 +4651,10 @@ func (s *TrendingTvOK) Validate() error {
 }
 
 func (s *TrendingTvOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4310,6 +4710,10 @@ func (s TrendingTvTimeWindow) Validate() error {
 }
 
 func (s *TvEpisodeCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4393,6 +4797,10 @@ func (s *TvEpisodeCreditsOK) Validate() error {
 }
 
 func (s *TvEpisodeCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4419,6 +4827,10 @@ func (s *TvEpisodeCreditsOKCastItem) Validate() error {
 }
 
 func (s *TvEpisodeCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4445,6 +4857,10 @@ func (s *TvEpisodeCreditsOKCrewItem) Validate() error {
 }
 
 func (s *TvEpisodeCreditsOKGuestStarsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4471,6 +4887,10 @@ func (s *TvEpisodeCreditsOKGuestStarsItem) Validate() error {
 }
 
 func (s *TvEpisodeDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4547,6 +4967,10 @@ func (s *TvEpisodeDetailsOK) Validate() error {
 }
 
 func (s *TvEpisodeDetailsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4573,6 +4997,10 @@ func (s *TvEpisodeDetailsOKCrewItem) Validate() error {
 }
 
 func (s *TvEpisodeDetailsOKGuestStarsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4599,6 +5027,10 @@ func (s *TvEpisodeDetailsOKGuestStarsItem) Validate() error {
 }
 
 func (s *TvEpisodeGroupDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4632,6 +5064,10 @@ func (s *TvEpisodeGroupDetailsOK) Validate() error {
 }
 
 func (s *TvEpisodeGroupDetailsOKGroupsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4665,6 +5101,10 @@ func (s *TvEpisodeGroupDetailsOKGroupsItem) Validate() error {
 }
 
 func (s *TvEpisodeGroupDetailsOKGroupsItemEpisodesItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -4691,6 +5131,10 @@ func (s *TvEpisodeGroupDetailsOKGroupsItemEpisodesItem) Validate() error {
 }
 
 func (s *TvEpisodeImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4724,6 +5168,10 @@ func (s *TvEpisodeImagesOK) Validate() error {
 }
 
 func (s *TvEpisodeImagesOKStillsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -4768,6 +5216,10 @@ func (s *TvEpisodeImagesOKStillsItem) Validate() error {
 }
 
 func (s *TvSeasonAggregateCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4826,6 +5278,10 @@ func (s *TvSeasonAggregateCreditsOK) Validate() error {
 }
 
 func (s *TvSeasonAggregateCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4852,6 +5308,10 @@ func (s *TvSeasonAggregateCreditsOKCastItem) Validate() error {
 }
 
 func (s *TvSeasonAggregateCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4878,6 +5338,10 @@ func (s *TvSeasonAggregateCreditsOKCrewItem) Validate() error {
 }
 
 func (s *TvSeasonCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -4936,6 +5400,10 @@ func (s *TvSeasonCreditsOK) Validate() error {
 }
 
 func (s *TvSeasonCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4962,6 +5430,10 @@ func (s *TvSeasonCreditsOKCastItem) Validate() error {
 }
 
 func (s *TvSeasonCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -4988,6 +5460,10 @@ func (s *TvSeasonCreditsOKCrewItem) Validate() error {
 }
 
 func (s *TvSeasonDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5039,6 +5515,10 @@ func (s *TvSeasonDetailsOK) Validate() error {
 }
 
 func (s *TvSeasonDetailsOKEpisodesItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -5115,6 +5595,10 @@ func (s *TvSeasonDetailsOKEpisodesItem) Validate() error {
 }
 
 func (s *TvSeasonDetailsOKEpisodesItemCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5141,6 +5625,10 @@ func (s *TvSeasonDetailsOKEpisodesItemCrewItem) Validate() error {
 }
 
 func (s *TvSeasonDetailsOKEpisodesItemGuestStarsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5167,6 +5655,10 @@ func (s *TvSeasonDetailsOKEpisodesItemGuestStarsItem) Validate() error {
 }
 
 func (s *TvSeasonImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5200,6 +5692,10 @@ func (s *TvSeasonImagesOK) Validate() error {
 }
 
 func (s *TvSeasonImagesOKPostersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -5244,6 +5740,10 @@ func (s *TvSeasonImagesOKPostersItem) Validate() error {
 }
 
 func (s *TvSeriesAggregateCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5302,6 +5802,10 @@ func (s *TvSeriesAggregateCreditsOK) Validate() error {
 }
 
 func (s *TvSeriesAggregateCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5328,6 +5832,10 @@ func (s *TvSeriesAggregateCreditsOKCastItem) Validate() error {
 }
 
 func (s *TvSeriesAggregateCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5354,6 +5862,10 @@ func (s *TvSeriesAggregateCreditsOKCrewItem) Validate() error {
 }
 
 func (s *TvSeriesAiringTodayListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5387,6 +5899,10 @@ func (s *TvSeriesAiringTodayListOK) Validate() error {
 }
 
 func (s *TvSeriesAiringTodayListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5431,6 +5947,10 @@ func (s *TvSeriesAiringTodayListOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesCreditsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5489,6 +6009,10 @@ func (s *TvSeriesCreditsOK) Validate() error {
 }
 
 func (s *TvSeriesCreditsOKCastItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5515,6 +6039,10 @@ func (s *TvSeriesCreditsOKCastItem) Validate() error {
 }
 
 func (s *TvSeriesCreditsOKCrewItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -5541,6 +6069,10 @@ func (s *TvSeriesCreditsOKCrewItem) Validate() error {
 }
 
 func (s *TvSeriesDetailsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.LastEpisodeToAir.Get(); ok {
@@ -5628,6 +6160,10 @@ func (s *TvSeriesDetailsOK) Validate() error {
 }
 
 func (s *TvSeriesDetailsOKLastEpisodeToAir) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -5654,6 +6190,10 @@ func (s *TvSeriesDetailsOKLastEpisodeToAir) Validate() error {
 }
 
 func (s *TvSeriesDetailsOKSeasonsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -5680,6 +6220,10 @@ func (s *TvSeriesDetailsOKSeasonsItem) Validate() error {
 }
 
 func (s *TvSeriesImagesOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5763,6 +6307,10 @@ func (s *TvSeriesImagesOK) Validate() error {
 }
 
 func (s *TvSeriesImagesOKBackdropsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -5807,6 +6355,10 @@ func (s *TvSeriesImagesOKBackdropsItem) Validate() error {
 }
 
 func (s *TvSeriesImagesOKLogosItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -5851,6 +6403,10 @@ func (s *TvSeriesImagesOKLogosItem) Validate() error {
 }
 
 func (s *TvSeriesImagesOKPostersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AspectRatio.Get(); ok {
@@ -5895,6 +6451,10 @@ func (s *TvSeriesImagesOKPostersItem) Validate() error {
 }
 
 func (s *TvSeriesLatestIDOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.LastEpisodeToAir.Get(); ok {
@@ -5939,6 +6499,10 @@ func (s *TvSeriesLatestIDOK) Validate() error {
 }
 
 func (s *TvSeriesLatestIDOKLastEpisodeToAir) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.VoteAverage.Get(); ok {
@@ -5965,6 +6529,10 @@ func (s *TvSeriesLatestIDOKLastEpisodeToAir) Validate() error {
 }
 
 func (s *TvSeriesOnTheAirListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -5998,6 +6566,10 @@ func (s *TvSeriesOnTheAirListOK) Validate() error {
 }
 
 func (s *TvSeriesOnTheAirListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -6042,6 +6614,10 @@ func (s *TvSeriesOnTheAirListOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesPopularListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -6075,6 +6651,10 @@ func (s *TvSeriesPopularListOK) Validate() error {
 }
 
 func (s *TvSeriesPopularListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -6119,6 +6699,10 @@ func (s *TvSeriesPopularListOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesRecommendationsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -6152,6 +6736,10 @@ func (s *TvSeriesRecommendationsOK) Validate() error {
 }
 
 func (s *TvSeriesRecommendationsOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -6196,6 +6784,10 @@ func (s *TvSeriesRecommendationsOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesReviewsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -6229,6 +6821,10 @@ func (s *TvSeriesReviewsOK) Validate() error {
 }
 
 func (s *TvSeriesReviewsOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.AuthorDetails.Get(); ok {
@@ -6255,6 +6851,10 @@ func (s *TvSeriesReviewsOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesReviewsOKResultsItemAuthorDetails) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Rating.Get(); ok {
@@ -6281,6 +6881,10 @@ func (s *TvSeriesReviewsOKResultsItemAuthorDetails) Validate() error {
 }
 
 func (s *TvSeriesSimilarOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -6314,6 +6918,10 @@ func (s *TvSeriesSimilarOK) Validate() error {
 }
 
 func (s *TvSeriesSimilarOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {
@@ -6358,6 +6966,10 @@ func (s *TvSeriesSimilarOKResultsItem) Validate() error {
 }
 
 func (s *TvSeriesTopRatedListOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		var failures []validate.FieldError
@@ -6391,6 +7003,10 @@ func (s *TvSeriesTopRatedListOK) Validate() error {
 }
 
 func (s *TvSeriesTopRatedListOKResultsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
 	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.Popularity.Get(); ok {

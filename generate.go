@@ -1,4 +1,4 @@
 package tmdb
 
 //go:generate python3 _tools/schema_gen.py
-//go:generate go run github.com/ogen-go/ogen/cmd/ogen@v0.77.0 --generate-tests --no-server --package tmdb --target . openapi.json
+//go:generate go run github.com/ogen-go/ogen/cmd/ogen@v0.78.0 --config generate.yml --package tmdb --target . openapi.json

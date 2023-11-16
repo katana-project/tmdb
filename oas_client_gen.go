@@ -6,19 +6,12 @@ import (
 	"context"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/go-faster/errors"
-	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/codes"
-	"go.opentelemetry.io/otel/metric"
-	semconv "go.opentelemetry.io/otel/semconv/v1.19.0"
-	"go.opentelemetry.io/otel/trace"
 
 	"github.com/ogen-go/ogen/conv"
 	ht "github.com/ogen-go/ogen/http"
 	"github.com/ogen-go/ogen/ogenerrors"
-	"github.com/ogen-go/ogen/otelogen"
 	"github.com/ogen-go/ogen/uri"
 )
 
@@ -989,40 +982,7 @@ func (c *Client) AccountAddFavorite(ctx context.Context, request OptAccountAddFa
 }
 
 func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountAddFavoriteReq, params AccountAddFavoriteParams) (res *AccountAddFavoriteOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-add-favorite"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountAddFavorite",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -1050,7 +1010,6 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 	pathParts[2] = "/favorite"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -1071,7 +1030,6 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1084,7 +1042,7 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountAddFavorite", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1113,14 +1071,12 @@ func (c *Client) sendAccountAddFavorite(ctx context.Context, request OptAccountA
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountAddFavoriteResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -1140,40 +1096,7 @@ func (c *Client) AccountAddToWatchlist(ctx context.Context, request OptAccountAd
 }
 
 func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccountAddToWatchlistReq, params AccountAddToWatchlistParams) (res *AccountAddToWatchlistOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-add-to-watchlist"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountAddToWatchlist",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -1201,7 +1124,6 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 	pathParts[2] = "/watchlist"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -1222,7 +1144,6 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1235,7 +1156,7 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountAddToWatchlist", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1264,14 +1185,12 @@ func (c *Client) sendAccountAddToWatchlist(ctx context.Context, request OptAccou
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountAddToWatchlistResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -1291,40 +1210,7 @@ func (c *Client) AccountDetails(ctx context.Context, params AccountDetailsParams
 }
 
 func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsParams) (res *AccountDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/account/"
@@ -1351,7 +1237,6 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -1372,7 +1257,6 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1382,7 +1266,7 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1411,14 +1295,12 @@ func (c *Client) sendAccountDetails(ctx context.Context, params AccountDetailsPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -1438,40 +1320,7 @@ func (c *Client) AccountFavoriteTv(ctx context.Context, params AccountFavoriteTv
 }
 
 func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavoriteTvParams) (res *AccountFavoriteTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-favorite-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountFavoriteTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -1499,7 +1348,6 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 	pathParts[2] = "/favorite/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -1571,7 +1419,6 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1581,7 +1428,7 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountFavoriteTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1610,14 +1457,12 @@ func (c *Client) sendAccountFavoriteTv(ctx context.Context, params AccountFavori
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountFavoriteTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -1637,40 +1482,7 @@ func (c *Client) AccountGetFavorites(ctx context.Context, params AccountGetFavor
 }
 
 func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetFavoritesParams) (res *AccountGetFavoritesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-get-favorites"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/favorite/movies"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountGetFavorites",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -1698,7 +1510,6 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 	pathParts[2] = "/favorite/movies"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -1770,7 +1581,6 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1780,7 +1590,7 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountGetFavorites", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1809,14 +1619,12 @@ func (c *Client) sendAccountGetFavorites(ctx context.Context, params AccountGetF
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountGetFavoritesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -1836,40 +1644,7 @@ func (c *Client) AccountLists(ctx context.Context, params AccountListsParams) (*
 }
 
 func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams) (res *AccountListsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-lists"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/lists"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountLists",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -1897,7 +1672,6 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 	pathParts[2] = "/lists"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "page" parameter.
@@ -1935,7 +1709,6 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -1945,7 +1718,7 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountLists", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -1974,14 +1747,12 @@ func (c *Client) sendAccountLists(ctx context.Context, params AccountListsParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountListsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2001,40 +1772,7 @@ func (c *Client) AccountRatedMovies(ctx context.Context, params AccountRatedMovi
 }
 
 func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRatedMoviesParams) (res *AccountRatedMoviesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-rated-movies"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/movies"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountRatedMovies",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -2062,7 +1800,6 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 	pathParts[2] = "/rated/movies"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -2134,7 +1871,6 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -2144,7 +1880,7 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountRatedMovies", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -2173,14 +1909,12 @@ func (c *Client) sendAccountRatedMovies(ctx context.Context, params AccountRated
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountRatedMoviesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2200,40 +1934,7 @@ func (c *Client) AccountRatedTv(ctx context.Context, params AccountRatedTvParams
 }
 
 func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvParams) (res *AccountRatedTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-rated-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountRatedTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -2261,7 +1962,6 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 	pathParts[2] = "/rated/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -2333,7 +2033,6 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -2343,7 +2042,7 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountRatedTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -2372,14 +2071,12 @@ func (c *Client) sendAccountRatedTv(ctx context.Context, params AccountRatedTvPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountRatedTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2399,40 +2096,7 @@ func (c *Client) AccountRatedTvEpisodes(ctx context.Context, params AccountRated
 }
 
 func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountRatedTvEpisodesParams) (res *AccountRatedTvEpisodesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-rated-tv-episodes"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/rated/tv/episodes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountRatedTvEpisodes",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -2460,7 +2124,6 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 	pathParts[2] = "/rated/tv/episodes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -2532,7 +2195,6 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -2542,7 +2204,7 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountRatedTvEpisodes", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -2571,14 +2233,12 @@ func (c *Client) sendAccountRatedTvEpisodes(ctx context.Context, params AccountR
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountRatedTvEpisodesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2598,40 +2258,7 @@ func (c *Client) AccountWatchlistMovies(ctx context.Context, params AccountWatch
 }
 
 func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountWatchlistMoviesParams) (res *AccountWatchlistMoviesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-watchlist-movies"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist/movies"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountWatchlistMovies",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -2659,7 +2286,6 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 	pathParts[2] = "/watchlist/movies"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -2731,7 +2357,6 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -2741,7 +2366,7 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountWatchlistMovies", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -2770,14 +2395,12 @@ func (c *Client) sendAccountWatchlistMovies(ctx context.Context, params AccountW
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountWatchlistMoviesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2797,40 +2420,7 @@ func (c *Client) AccountWatchlistTv(ctx context.Context, params AccountWatchlist
 }
 
 func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatchlistTvParams) (res *AccountWatchlistTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("account-watchlist-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/account/{account_id}/watchlist/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AccountWatchlistTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/account/"
@@ -2858,7 +2448,6 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 	pathParts[2] = "/watchlist/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -2930,7 +2519,6 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -2940,7 +2528,7 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AccountWatchlistTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -2969,14 +2557,12 @@ func (c *Client) sendAccountWatchlistTv(ctx context.Context, params AccountWatch
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAccountWatchlistTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -2996,40 +2582,7 @@ func (c *Client) AlternativeNamesCopy(ctx context.Context, params AlternativeNam
 }
 
 func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params AlternativeNamesCopyParams) (res *AlternativeNamesCopyOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("alternative-names-copy"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/network/{network_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AlternativeNamesCopy",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/network/"
@@ -3054,7 +2607,6 @@ func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params Alternativ
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3064,7 +2616,7 @@ func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params Alternativ
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AlternativeNamesCopy", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3093,14 +2645,12 @@ func (c *Client) sendAlternativeNamesCopy(ctx context.Context, params Alternativ
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAlternativeNamesCopyResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3120,46 +2670,12 @@ func (c *Client) AuthenticationCreateGuestSession(ctx context.Context) (*Authent
 }
 
 func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res *AuthenticationCreateGuestSessionOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-create-guest-session"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/authentication/guest_session/new"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationCreateGuestSession",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/guest_session/new"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3169,7 +2685,7 @@ func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationCreateGuestSession", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3198,14 +2714,12 @@ func (c *Client) sendAuthenticationCreateGuestSession(ctx context.Context) (res 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationCreateGuestSessionResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3225,46 +2739,12 @@ func (c *Client) AuthenticationCreateRequestToken(ctx context.Context) (*Authent
 }
 
 func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res *AuthenticationCreateRequestTokenOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-create-request-token"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/authentication/token/new"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationCreateRequestToken",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/token/new"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3274,7 +2754,7 @@ func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationCreateRequestToken", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3303,14 +2783,12 @@ func (c *Client) sendAuthenticationCreateRequestToken(ctx context.Context) (res 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationCreateRequestTokenResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3330,46 +2808,12 @@ func (c *Client) AuthenticationCreateSession(ctx context.Context, request OptAut
 }
 
 func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request OptAuthenticationCreateSessionReq) (res *AuthenticationCreateSessionOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-create-session"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/authentication/session/new"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationCreateSession",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/session/new"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3382,7 +2826,7 @@ func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request Op
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationCreateSession", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3411,14 +2855,12 @@ func (c *Client) sendAuthenticationCreateSession(ctx context.Context, request Op
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationCreateSessionResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3438,46 +2880,12 @@ func (c *Client) AuthenticationCreateSessionFromLogin(ctx context.Context, reque
 }
 
 func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, request OptAuthenticationCreateSessionFromLoginReq) (res *AuthenticationCreateSessionFromLoginOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-create-session-from-login"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/authentication/token/validate_with_login"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationCreateSessionFromLogin",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/token/validate_with_login"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3490,7 +2898,7 @@ func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, r
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationCreateSessionFromLogin", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3519,14 +2927,12 @@ func (c *Client) sendAuthenticationCreateSessionFromLogin(ctx context.Context, r
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationCreateSessionFromLoginResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3546,46 +2952,12 @@ func (c *Client) AuthenticationCreateSessionFromV4Token(ctx context.Context, req
 }
 
 func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context, request OptAuthenticationCreateSessionFromV4TokenReq) (res *AuthenticationCreateSessionFromV4TokenOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-create-session-from-v4-token"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/authentication/session/convert/4"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationCreateSessionFromV4Token",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/session/convert/4"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3598,7 +2970,7 @@ func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context,
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationCreateSessionFromV4Token", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3627,14 +2999,12 @@ func (c *Client) sendAuthenticationCreateSessionFromV4Token(ctx context.Context,
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationCreateSessionFromV4TokenResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3654,46 +3024,12 @@ func (c *Client) AuthenticationDeleteSession(ctx context.Context, request OptAut
 }
 
 func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request OptAuthenticationDeleteSessionReq) (res *AuthenticationDeleteSessionOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-delete-session"),
-		semconv.HTTPMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/3/authentication/session"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationDeleteSession",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication/session"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3706,7 +3042,7 @@ func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request Op
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationDeleteSession", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3735,14 +3071,12 @@ func (c *Client) sendAuthenticationDeleteSession(ctx context.Context, request Op
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationDeleteSessionResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3762,46 +3096,12 @@ func (c *Client) AuthenticationValidateKey(ctx context.Context) (AuthenticationV
 }
 
 func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res AuthenticationValidateKeyRes, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("authentication-validate-key"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/authentication"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "AuthenticationValidateKey",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/authentication"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3811,7 +3111,7 @@ func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res Authent
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "AuthenticationValidateKey", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3840,14 +3140,12 @@ func (c *Client) sendAuthenticationValidateKey(ctx context.Context) (res Authent
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeAuthenticationValidateKeyResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3867,46 +3165,12 @@ func (c *Client) CertificationMovieList(ctx context.Context) (*CertificationMovi
 }
 
 func (c *Client) sendCertificationMovieList(ctx context.Context) (res *CertificationMovieListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("certification-movie-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/certification/movie/list"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CertificationMovieList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/certification/movie/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -3916,7 +3180,7 @@ func (c *Client) sendCertificationMovieList(ctx context.Context) (res *Certifica
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CertificationMovieList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -3945,14 +3209,12 @@ func (c *Client) sendCertificationMovieList(ctx context.Context) (res *Certifica
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCertificationMovieListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -3972,46 +3234,12 @@ func (c *Client) CertificationsTvList(ctx context.Context) (*CertificationsTvLis
 }
 
 func (c *Client) sendCertificationsTvList(ctx context.Context) (res *CertificationsTvListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("certifications-tv-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/certification/tv/list"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CertificationsTvList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/certification/tv/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4021,7 +3249,7 @@ func (c *Client) sendCertificationsTvList(ctx context.Context) (res *Certificati
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CertificationsTvList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4050,14 +3278,12 @@ func (c *Client) sendCertificationsTvList(ctx context.Context) (res *Certificati
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCertificationsTvListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4077,46 +3303,12 @@ func (c *Client) ChangesMovieList(ctx context.Context, params ChangesMovieListPa
 }
 
 func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieListParams) (res *ChangesMovieListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("changes-movie-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ChangesMovieList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -4171,7 +3363,6 @@ func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieLi
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4181,7 +3372,7 @@ func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieLi
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ChangesMovieList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4210,14 +3401,12 @@ func (c *Client) sendChangesMovieList(ctx context.Context, params ChangesMovieLi
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeChangesMovieListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4237,46 +3426,12 @@ func (c *Client) ChangesPeopleList(ctx context.Context, params ChangesPeopleList
 }
 
 func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeopleListParams) (res *ChangesPeopleListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("changes-people-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ChangesPeopleList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/person/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -4331,7 +3486,6 @@ func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeople
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4341,7 +3495,7 @@ func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeople
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ChangesPeopleList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4370,14 +3524,12 @@ func (c *Client) sendChangesPeopleList(ctx context.Context, params ChangesPeople
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeChangesPeopleListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4397,46 +3549,12 @@ func (c *Client) ChangesTvList(ctx context.Context, params ChangesTvListParams) 
 }
 
 func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListParams) (res *ChangesTvListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("changes-tv-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ChangesTvList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -4491,7 +3609,6 @@ func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4501,7 +3618,7 @@ func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ChangesTvList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4530,14 +3647,12 @@ func (c *Client) sendChangesTvList(ctx context.Context, params ChangesTvListPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeChangesTvListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4557,40 +3672,7 @@ func (c *Client) CollectionDetails(ctx context.Context, params CollectionDetails
 }
 
 func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDetailsParams) (res *CollectionDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("collection-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/collection/{collection_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CollectionDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/collection/"
@@ -4614,7 +3696,6 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -4635,7 +3716,6 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4645,7 +3725,7 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CollectionDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4674,14 +3754,12 @@ func (c *Client) sendCollectionDetails(ctx context.Context, params CollectionDet
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCollectionDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4701,40 +3779,7 @@ func (c *Client) CollectionImages(ctx context.Context, params CollectionImagesPa
 }
 
 func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImagesParams) (res *CollectionImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("collection-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/collection/{collection_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CollectionImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/collection/"
@@ -4759,7 +3804,6 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_image_language" parameter.
@@ -4797,7 +3841,6 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4807,7 +3850,7 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CollectionImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4836,14 +3879,12 @@ func (c *Client) sendCollectionImages(ctx context.Context, params CollectionImag
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCollectionImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4863,40 +3904,7 @@ func (c *Client) CollectionTranslations(ctx context.Context, params CollectionTr
 }
 
 func (c *Client) sendCollectionTranslations(ctx context.Context, params CollectionTranslationsParams) (res *CollectionTranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("collection-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/collection/{collection_id}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CollectionTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/collection/"
@@ -4921,7 +3929,6 @@ func (c *Client) sendCollectionTranslations(ctx context.Context, params Collecti
 	pathParts[2] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -4931,7 +3938,7 @@ func (c *Client) sendCollectionTranslations(ctx context.Context, params Collecti
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CollectionTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -4960,14 +3967,12 @@ func (c *Client) sendCollectionTranslations(ctx context.Context, params Collecti
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCollectionTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -4987,40 +3992,7 @@ func (c *Client) CompanyAlternativeNames(ctx context.Context, params CompanyAlte
 }
 
 func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params CompanyAlternativeNamesParams) (res *CompanyAlternativeNamesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("company-alternative-names"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/company/{company_id}/alternative_names"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CompanyAlternativeNames",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/company/"
@@ -5045,7 +4017,6 @@ func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params Company
 	pathParts[2] = "/alternative_names"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5055,7 +4026,7 @@ func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params Company
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CompanyAlternativeNames", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5084,14 +4055,12 @@ func (c *Client) sendCompanyAlternativeNames(ctx context.Context, params Company
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCompanyAlternativeNamesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5111,40 +4080,7 @@ func (c *Client) CompanyDetails(ctx context.Context, params CompanyDetailsParams
 }
 
 func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsParams) (res *CompanyDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("company-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/company/{company_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CompanyDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/company/"
@@ -5168,7 +4104,6 @@ func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsPa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5178,7 +4113,7 @@ func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CompanyDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5207,14 +4142,12 @@ func (c *Client) sendCompanyDetails(ctx context.Context, params CompanyDetailsPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCompanyDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5234,40 +4167,7 @@ func (c *Client) CompanyImages(ctx context.Context, params CompanyImagesParams) 
 }
 
 func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesParams) (res *CompanyImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("company-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/company/{company_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CompanyImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/company/"
@@ -5292,7 +4192,6 @@ func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesPara
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5302,7 +4201,7 @@ func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CompanyImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5331,14 +4230,12 @@ func (c *Client) sendCompanyImages(ctx context.Context, params CompanyImagesPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCompanyImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5358,46 +4255,12 @@ func (c *Client) ConfigurationCountries(ctx context.Context, params Configuratio
 }
 
 func (c *Client) sendConfigurationCountries(ctx context.Context, params ConfigurationCountriesParams) (res []ConfigurationCountriesOKItem, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-countries"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration/countries"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationCountries",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration/countries"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -5418,7 +4281,6 @@ func (c *Client) sendConfigurationCountries(ctx context.Context, params Configur
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5428,7 +4290,7 @@ func (c *Client) sendConfigurationCountries(ctx context.Context, params Configur
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationCountries", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5457,14 +4319,12 @@ func (c *Client) sendConfigurationCountries(ctx context.Context, params Configur
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationCountriesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5484,46 +4344,12 @@ func (c *Client) ConfigurationDetails(ctx context.Context) (*ConfigurationDetail
 }
 
 func (c *Client) sendConfigurationDetails(ctx context.Context) (res *ConfigurationDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5533,7 +4359,7 @@ func (c *Client) sendConfigurationDetails(ctx context.Context) (res *Configurati
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5562,14 +4388,12 @@ func (c *Client) sendConfigurationDetails(ctx context.Context) (res *Configurati
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5589,46 +4413,12 @@ func (c *Client) ConfigurationJobs(ctx context.Context) ([]ConfigurationJobsOKIt
 }
 
 func (c *Client) sendConfigurationJobs(ctx context.Context) (res []ConfigurationJobsOKItem, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-jobs"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration/jobs"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationJobs",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration/jobs"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5638,7 +4428,7 @@ func (c *Client) sendConfigurationJobs(ctx context.Context) (res []Configuration
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationJobs", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5667,14 +4457,12 @@ func (c *Client) sendConfigurationJobs(ctx context.Context) (res []Configuration
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationJobsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5694,46 +4482,12 @@ func (c *Client) ConfigurationLanguages(ctx context.Context) ([]ConfigurationLan
 }
 
 func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []ConfigurationLanguagesOKItem, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-languages"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration/languages"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationLanguages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration/languages"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5743,7 +4497,7 @@ func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []Configur
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationLanguages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5772,14 +4526,12 @@ func (c *Client) sendConfigurationLanguages(ctx context.Context) (res []Configur
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationLanguagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5799,46 +4551,12 @@ func (c *Client) ConfigurationPrimaryTranslations(ctx context.Context) ([]string
 }
 
 func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res []string, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-primary-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration/primary_translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationPrimaryTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration/primary_translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5848,7 +4566,7 @@ func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationPrimaryTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5877,14 +4595,12 @@ func (c *Client) sendConfigurationPrimaryTranslations(ctx context.Context) (res 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationPrimaryTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -5904,46 +4620,12 @@ func (c *Client) ConfigurationTimezones(ctx context.Context) ([]ConfigurationTim
 }
 
 func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []ConfigurationTimezonesOKItem, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("configuration-timezones"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/configuration/timezones"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ConfigurationTimezones",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/configuration/timezones"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -5953,7 +4635,7 @@ func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []Configur
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ConfigurationTimezones", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -5982,14 +4664,12 @@ func (c *Client) sendConfigurationTimezones(ctx context.Context) (res []Configur
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeConfigurationTimezonesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -6009,40 +4689,7 @@ func (c *Client) CreditDetails(ctx context.Context, params CreditDetailsParams) 
 }
 
 func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsParams) (res *CreditDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("credit-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/credit/{credit_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "CreditDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/credit/"
@@ -6066,7 +4713,6 @@ func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsPara
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -6076,7 +4722,7 @@ func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "CreditDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -6105,14 +4751,12 @@ func (c *Client) sendCreditDetails(ctx context.Context, params CreditDetailsPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeCreditDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -6132,40 +4776,7 @@ func (c *Client) DetailsCopy(ctx context.Context, params DetailsCopyParams) (*De
 }
 
 func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) (res *DetailsCopyOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("details-copy"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/network/{network_id}/alternative_names"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "DetailsCopy",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/network/"
@@ -6190,7 +4801,6 @@ func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) 
 	pathParts[2] = "/alternative_names"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -6200,7 +4810,7 @@ func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "DetailsCopy", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -6229,14 +4839,12 @@ func (c *Client) sendDetailsCopy(ctx context.Context, params DetailsCopyParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeDetailsCopyResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -6256,46 +4864,12 @@ func (c *Client) DiscoverMovie(ctx context.Context, params DiscoverMovieParams) 
 }
 
 func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMovieParams) (res *DiscoverMovieOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("discover-movie"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/discover/movie"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "DiscoverMovie",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/discover/movie"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "certification" parameter.
@@ -6945,7 +5519,6 @@ func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMoviePara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -6955,7 +5528,7 @@ func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMoviePara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "DiscoverMovie", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -6984,14 +5557,12 @@ func (c *Client) sendDiscoverMovie(ctx context.Context, params DiscoverMoviePara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeDiscoverMovieResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -7011,46 +5582,12 @@ func (c *Client) DiscoverTv(ctx context.Context, params DiscoverTvParams) (*Disc
 }
 
 func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (res *DiscoverTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("discover-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/discover/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "DiscoverTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/discover/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "air_date.gte" parameter.
@@ -7615,7 +6152,6 @@ func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (r
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -7625,7 +6161,7 @@ func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (r
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "DiscoverTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -7654,14 +6190,12 @@ func (c *Client) sendDiscoverTv(ctx context.Context, params DiscoverTvParams) (r
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeDiscoverTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -7681,40 +6215,7 @@ func (c *Client) FindByID(ctx context.Context, params FindByIDParams) (*FindByID
 }
 
 func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *FindByIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("find-by-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/find/{external_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "FindByID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/find/"
@@ -7738,7 +6239,6 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "external_source" parameter.
@@ -7773,7 +6273,6 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -7783,7 +6282,7 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "FindByID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -7812,14 +6311,12 @@ func (c *Client) sendFindByID(ctx context.Context, params FindByIDParams) (res *
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeFindByIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -7839,46 +6336,12 @@ func (c *Client) GenreMovieList(ctx context.Context, params GenreMovieListParams
 }
 
 func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListParams) (res *GenreMovieListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("genre-movie-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/genre/movie/list"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GenreMovieList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/genre/movie/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -7899,7 +6362,6 @@ func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -7909,7 +6371,7 @@ func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "GenreMovieList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -7938,14 +6400,12 @@ func (c *Client) sendGenreMovieList(ctx context.Context, params GenreMovieListPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeGenreMovieListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -7965,46 +6425,12 @@ func (c *Client) GenreTvList(ctx context.Context, params GenreTvListParams) (*Ge
 }
 
 func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) (res *GenreTvListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("genre-tv-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/genre/tv/list"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GenreTvList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/genre/tv/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -8025,7 +6451,6 @@ func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8035,7 +6460,7 @@ func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "GenreTvList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8064,14 +6489,12 @@ func (c *Client) sendGenreTvList(ctx context.Context, params GenreTvListParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeGenreTvListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8091,40 +6514,7 @@ func (c *Client) GuestSessionRatedMovies(ctx context.Context, params GuestSessio
 }
 
 func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSessionRatedMoviesParams) (res *GuestSessionRatedMoviesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("guest-session-rated-movies"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/movies"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GuestSessionRatedMovies",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/guest_session/"
@@ -8149,7 +6539,6 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 	pathParts[2] = "/rated/movies"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -8204,7 +6593,6 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8214,7 +6602,7 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "GuestSessionRatedMovies", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8243,14 +6631,12 @@ func (c *Client) sendGuestSessionRatedMovies(ctx context.Context, params GuestSe
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeGuestSessionRatedMoviesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8270,40 +6656,7 @@ func (c *Client) GuestSessionRatedTv(ctx context.Context, params GuestSessionRat
 }
 
 func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessionRatedTvParams) (res *GuestSessionRatedTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("guest-session-rated-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GuestSessionRatedTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/guest_session/"
@@ -8328,7 +6681,6 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 	pathParts[2] = "/rated/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -8383,7 +6735,6 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8393,7 +6744,7 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "GuestSessionRatedTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8422,14 +6773,12 @@ func (c *Client) sendGuestSessionRatedTv(ctx context.Context, params GuestSessio
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeGuestSessionRatedTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8449,40 +6798,7 @@ func (c *Client) GuestSessionRatedTvEpisodes(ctx context.Context, params GuestSe
 }
 
 func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params GuestSessionRatedTvEpisodesParams) (res *GuestSessionRatedTvEpisodesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("guest-session-rated-tv-episodes"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/guest_session/{guest_session_id}/rated/tv/episodes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GuestSessionRatedTvEpisodes",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/guest_session/"
@@ -8507,7 +6823,6 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 	pathParts[2] = "/rated/tv/episodes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -8562,7 +6877,6 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8572,7 +6886,7 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "GuestSessionRatedTvEpisodes", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8601,14 +6915,12 @@ func (c *Client) sendGuestSessionRatedTvEpisodes(ctx context.Context, params Gue
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeGuestSessionRatedTvEpisodesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8628,40 +6940,7 @@ func (c *Client) KeywordDetails(ctx context.Context, params KeywordDetailsParams
 }
 
 func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsParams) (res *KeywordDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("keyword-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/keyword/{keyword_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "KeywordDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/keyword/"
@@ -8685,7 +6964,6 @@ func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsPa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8695,7 +6973,7 @@ func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "KeywordDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8724,14 +7002,12 @@ func (c *Client) sendKeywordDetails(ctx context.Context, params KeywordDetailsPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeKeywordDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8751,40 +7027,7 @@ func (c *Client) KeywordMovies(ctx context.Context, params KeywordMoviesParams) 
 }
 
 func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesParams) (res *KeywordMoviesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("keyword-movies"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/keyword/{keyword_id}/movies"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "KeywordMovies",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/keyword/"
@@ -8809,7 +7052,6 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 	pathParts[2] = "/movies"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_adult" parameter.
@@ -8864,7 +7106,6 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -8874,7 +7115,7 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "KeywordMovies", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -8903,14 +7144,12 @@ func (c *Client) sendKeywordMovies(ctx context.Context, params KeywordMoviesPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeKeywordMoviesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -8930,40 +7169,7 @@ func (c *Client) ListAddMovie(ctx context.Context, request OptListAddMovieReq, p
 }
 
 func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieReq, params ListAddMovieParams) (res *ListAddMovieOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-add-movie"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}/add_item"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListAddMovie",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/list/"
@@ -8988,7 +7194,6 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 	pathParts[2] = "/add_item"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -9006,7 +7211,6 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9019,7 +7223,7 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListAddMovie", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9048,14 +7252,12 @@ func (c *Client) sendListAddMovie(ctx context.Context, request OptListAddMovieRe
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListAddMovieResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9075,40 +7277,7 @@ func (c *Client) ListCheckItemStatus(ctx context.Context, params ListCheckItemSt
 }
 
 func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckItemStatusParams) (res *ListCheckItemStatusOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-check-item-status"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}/item_status"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListCheckItemStatus",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/list/"
@@ -9133,7 +7302,6 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 	pathParts[2] = "/item_status"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -9171,7 +7339,6 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9181,7 +7348,7 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListCheckItemStatus", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9210,14 +7377,12 @@ func (c *Client) sendListCheckItemStatus(ctx context.Context, params ListCheckIt
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListCheckItemStatusResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9237,40 +7402,7 @@ func (c *Client) ListClear(ctx context.Context, params ListClearParams) (*ListCl
 }
 
 func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res *ListClearOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-clear"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}/clear"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListClear",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/list/"
@@ -9295,7 +7427,6 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 	pathParts[2] = "/clear"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -9327,7 +7458,6 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9337,7 +7467,7 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListClear", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9366,14 +7496,12 @@ func (c *Client) sendListClear(ctx context.Context, params ListClearParams) (res
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListClearResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9393,46 +7521,12 @@ func (c *Client) ListCreate(ctx context.Context, request OptListCreateReq, param
 }
 
 func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, params ListCreateParams) (res *ListCreateOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-create"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/list"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListCreate",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -9450,7 +7544,6 @@ func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, p
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9463,7 +7556,7 @@ func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, p
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListCreate", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9492,14 +7585,12 @@ func (c *Client) sendListCreate(ctx context.Context, request OptListCreateReq, p
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListCreateResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9519,40 +7610,7 @@ func (c *Client) ListDelete(ctx context.Context, params ListDeleteParams) (*List
 }
 
 func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (res *ListDeleteOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-delete"),
-		semconv.HTTPMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListDelete",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/list/"
@@ -9576,7 +7634,6 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -9594,7 +7651,6 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9604,7 +7660,7 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListDelete", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9633,14 +7689,12 @@ func (c *Client) sendListDelete(ctx context.Context, params ListDeleteParams) (r
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListDeleteResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9660,40 +7714,7 @@ func (c *Client) ListDetails(ctx context.Context, params ListDetailsParams) (*Li
 }
 
 func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) (res *ListDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/list/"
@@ -9717,7 +7738,6 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -9736,9 +7756,25 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 			return res, errors.Wrap(err, "encode query")
 		}
 	}
+	{
+		// Encode "page" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Page.Get(); ok {
+				return e.EncodeValue(conv.Int32ToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9748,7 +7784,7 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9777,14 +7813,12 @@ func (c *Client) sendListDetails(ctx context.Context, params ListDetailsParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9804,40 +7838,7 @@ func (c *Client) ListRemoveMovie(ctx context.Context, request OptListRemoveMovie
 }
 
 func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveMovieReq, params ListRemoveMovieParams) (res *ListRemoveMovieOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("list-remove-movie"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/list/{list_id}/remove_item"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListRemoveMovie",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/list/"
@@ -9862,7 +7863,6 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 	pathParts[2] = "/remove_item"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -9880,7 +7880,6 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -9893,7 +7892,7 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ListRemoveMovie", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -9922,14 +7921,12 @@ func (c *Client) sendListRemoveMovie(ctx context.Context, request OptListRemoveM
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeListRemoveMovieResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -9949,40 +7946,7 @@ func (c *Client) MovieAccountStates(ctx context.Context, params MovieAccountStat
 }
 
 func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccountStatesParams) (res *MovieAccountStatesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-account-states"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/account_states"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieAccountStates",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10007,7 +7971,6 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 	pathParts[2] = "/account_states"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -10045,7 +8008,6 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10055,7 +8017,7 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieAccountStates", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10084,14 +8046,12 @@ func (c *Client) sendMovieAccountStates(ctx context.Context, params MovieAccount
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieAccountStatesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10111,40 +8071,7 @@ func (c *Client) MovieAddRating(ctx context.Context, request OptMovieAddRatingRe
 }
 
 func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRatingReq, params MovieAddRatingParams) (res *MovieAddRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-add-rating"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieAddRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10169,7 +8096,6 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 	pathParts[2] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -10207,7 +8133,6 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10220,7 +8145,7 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieAddRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10249,14 +8174,12 @@ func (c *Client) sendMovieAddRating(ctx context.Context, request OptMovieAddRati
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieAddRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10276,40 +8199,7 @@ func (c *Client) MovieAlternativeTitles(ctx context.Context, params MovieAlterna
 }
 
 func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlternativeTitlesParams) (res *MovieAlternativeTitlesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-alternative-titles"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/alternative_titles"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieAlternativeTitles",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10334,7 +8224,6 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 	pathParts[2] = "/alternative_titles"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "country" parameter.
@@ -10355,7 +8244,6 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10365,7 +8253,7 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieAlternativeTitles", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10394,14 +8282,12 @@ func (c *Client) sendMovieAlternativeTitles(ctx context.Context, params MovieAlt
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieAlternativeTitlesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10421,40 +8307,7 @@ func (c *Client) MovieChanges(ctx context.Context, params MovieChangesParams) (*
 }
 
 func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams) (res *MovieChangesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-changes"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieChanges",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10479,7 +8332,6 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 	pathParts[2] = "/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -10534,7 +8386,6 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10544,7 +8395,7 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieChanges", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10573,14 +8424,12 @@ func (c *Client) sendMovieChanges(ctx context.Context, params MovieChangesParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieChangesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10600,40 +8449,7 @@ func (c *Client) MovieCredits(ctx context.Context, params MovieCreditsParams) (*
 }
 
 func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams) (res *MovieCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10658,7 +8474,6 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 	pathParts[2] = "/credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -10679,7 +8494,6 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10689,7 +8503,7 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10718,14 +8532,12 @@ func (c *Client) sendMovieCredits(ctx context.Context, params MovieCreditsParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10745,40 +8557,7 @@ func (c *Client) MovieDeleteRating(ctx context.Context, params MovieDeleteRating
 }
 
 func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRatingParams) (res *MovieDeleteRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-delete-rating"),
-		semconv.HTTPMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieDeleteRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -10803,7 +8582,6 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 	pathParts[2] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -10841,7 +8619,6 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -10851,7 +8628,7 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieDeleteRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -10880,14 +8657,12 @@ func (c *Client) sendMovieDeleteRating(ctx context.Context, params MovieDeleteRa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieDeleteRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -10907,40 +8682,7 @@ func (c *Client) MovieDetails(ctx context.Context, params MovieDetailsParams) (*
 }
 
 func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams) (res *MovieDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/movie/"
@@ -10964,7 +8706,6 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "append_to_response" parameter.
@@ -11002,7 +8743,6 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11012,7 +8752,7 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11041,14 +8781,12 @@ func (c *Client) sendMovieDetails(ctx context.Context, params MovieDetailsParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11068,40 +8806,7 @@ func (c *Client) MovieExternalIds(ctx context.Context, params MovieExternalIdsPa
 }
 
 func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalIdsParams) (res *MovieExternalIdsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-external-ids"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/external_ids"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieExternalIds",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -11126,7 +8831,6 @@ func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalI
 	pathParts[2] = "/external_ids"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11136,7 +8840,7 @@ func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalI
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieExternalIds", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11165,14 +8869,12 @@ func (c *Client) sendMovieExternalIds(ctx context.Context, params MovieExternalI
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieExternalIdsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11192,40 +8894,7 @@ func (c *Client) MovieImages(ctx context.Context, params MovieImagesParams) (*Mo
 }
 
 func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) (res *MovieImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -11250,7 +8919,6 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_image_language" parameter.
@@ -11288,7 +8956,6 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11298,7 +8965,7 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11327,14 +8994,12 @@ func (c *Client) sendMovieImages(ctx context.Context, params MovieImagesParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11354,40 +9019,7 @@ func (c *Client) MovieKeywords(ctx context.Context, params MovieKeywordsParams) 
 }
 
 func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsParams) (res *MovieKeywordsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-keywords"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/keywords"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieKeywords",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -11412,7 +9044,6 @@ func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsPara
 	pathParts[2] = "/keywords"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11422,7 +9053,7 @@ func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieKeywords", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11451,14 +9082,12 @@ func (c *Client) sendMovieKeywords(ctx context.Context, params MovieKeywordsPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieKeywordsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11478,46 +9107,12 @@ func (c *Client) MovieLatestID(ctx context.Context) (*MovieLatestIDOK, error) {
 }
 
 func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-latest-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/latest"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieLatestID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/latest"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11527,7 +9122,7 @@ func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, e
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieLatestID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11556,14 +9151,12 @@ func (c *Client) sendMovieLatestID(ctx context.Context) (res *MovieLatestIDOK, e
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieLatestIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11583,40 +9176,7 @@ func (c *Client) MovieLists(ctx context.Context, params MovieListsParams) (*Movi
 }
 
 func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (res *MovieListsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-lists"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/lists"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieLists",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -11641,7 +9201,6 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 	pathParts[2] = "/lists"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -11679,7 +9238,6 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11689,7 +9247,7 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieLists", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11718,14 +9276,12 @@ func (c *Client) sendMovieLists(ctx context.Context, params MovieListsParams) (r
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieListsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11745,46 +9301,12 @@ func (c *Client) MovieNowPlayingList(ctx context.Context, params MovieNowPlaying
 }
 
 func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPlayingListParams) (res *MovieNowPlayingListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-now-playing-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/now_playing"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieNowPlayingList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/now_playing"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -11839,7 +9361,6 @@ func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPla
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -11849,7 +9370,7 @@ func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPla
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieNowPlayingList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -11878,14 +9399,12 @@ func (c *Client) sendMovieNowPlayingList(ctx context.Context, params MovieNowPla
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieNowPlayingListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -11905,46 +9424,12 @@ func (c *Client) MoviePopularList(ctx context.Context, params MoviePopularListPa
 }
 
 func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularListParams) (res *MoviePopularListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-popular-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/popular"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MoviePopularList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/popular"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -11999,7 +9484,6 @@ func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularLi
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12009,7 +9493,7 @@ func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularLi
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MoviePopularList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12038,14 +9522,12 @@ func (c *Client) sendMoviePopularList(ctx context.Context, params MoviePopularLi
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMoviePopularListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12065,40 +9547,7 @@ func (c *Client) MovieRecommendations(ctx context.Context, params MovieRecommend
 }
 
 func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecommendationsParams) (res *MovieRecommendationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-recommendations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/recommendations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieRecommendations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -12123,7 +9572,6 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 	pathParts[2] = "/recommendations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -12161,7 +9609,6 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12171,7 +9618,7 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieRecommendations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12200,14 +9647,12 @@ func (c *Client) sendMovieRecommendations(ctx context.Context, params MovieRecom
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieRecommendationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12227,40 +9672,7 @@ func (c *Client) MovieReleaseDates(ctx context.Context, params MovieReleaseDates
 }
 
 func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseDatesParams) (res *MovieReleaseDatesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-release-dates"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/release_dates"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieReleaseDates",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -12285,7 +9697,6 @@ func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseD
 	pathParts[2] = "/release_dates"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12295,7 +9706,7 @@ func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseD
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieReleaseDates", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12324,14 +9735,12 @@ func (c *Client) sendMovieReleaseDates(ctx context.Context, params MovieReleaseD
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieReleaseDatesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12351,40 +9760,7 @@ func (c *Client) MovieReviews(ctx context.Context, params MovieReviewsParams) (*
 }
 
 func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams) (res *MovieReviewsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-reviews"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/reviews"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieReviews",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -12409,7 +9785,6 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 	pathParts[2] = "/reviews"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -12447,7 +9822,6 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12457,7 +9831,7 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieReviews", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12486,14 +9860,12 @@ func (c *Client) sendMovieReviews(ctx context.Context, params MovieReviewsParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieReviewsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12513,40 +9885,7 @@ func (c *Client) MovieSimilar(ctx context.Context, params MovieSimilarParams) (*
 }
 
 func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams) (res *MovieSimilarOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-similar"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/similar"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieSimilar",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -12571,7 +9910,6 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 	pathParts[2] = "/similar"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -12609,7 +9947,6 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12619,7 +9956,7 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieSimilar", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12648,14 +9985,12 @@ func (c *Client) sendMovieSimilar(ctx context.Context, params MovieSimilarParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieSimilarResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12675,46 +10010,12 @@ func (c *Client) MovieTopRatedList(ctx context.Context, params MovieTopRatedList
 }
 
 func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRatedListParams) (res *MovieTopRatedListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-top-rated-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/top_rated"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieTopRatedList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/top_rated"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -12769,7 +10070,6 @@ func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRated
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12779,7 +10079,7 @@ func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRated
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieTopRatedList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12808,14 +10108,12 @@ func (c *Client) sendMovieTopRatedList(ctx context.Context, params MovieTopRated
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieTopRatedListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12835,40 +10133,7 @@ func (c *Client) MovieTranslations(ctx context.Context, params MovieTranslations
 }
 
 func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslationsParams) (res *MovieTranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -12893,7 +10158,6 @@ func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslat
 	pathParts[2] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -12903,7 +10167,7 @@ func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslat
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -12932,14 +10196,12 @@ func (c *Client) sendMovieTranslations(ctx context.Context, params MovieTranslat
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -12959,46 +10221,12 @@ func (c *Client) MovieUpcomingList(ctx context.Context, params MovieUpcomingList
 }
 
 func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcomingListParams) (res *MovieUpcomingListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-upcoming-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/upcoming"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieUpcomingList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/movie/upcoming"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -13053,7 +10281,6 @@ func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcoming
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13063,7 +10290,7 @@ func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcoming
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieUpcomingList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13092,14 +10319,12 @@ func (c *Client) sendMovieUpcomingList(ctx context.Context, params MovieUpcoming
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieUpcomingListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13119,40 +10344,7 @@ func (c *Client) MovieVideos(ctx context.Context, params MovieVideosParams) (*Mo
 }
 
 func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) (res *MovieVideosOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-videos"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/videos"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieVideos",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -13177,7 +10369,6 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 	pathParts[2] = "/videos"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -13198,7 +10389,6 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13208,7 +10398,7 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieVideos", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13237,14 +10427,12 @@ func (c *Client) sendMovieVideos(ctx context.Context, params MovieVideosParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieVideosResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13264,40 +10452,7 @@ func (c *Client) MovieWatchProviders(ctx context.Context, params MovieWatchProvi
 }
 
 func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchProvidersParams) (res *MovieWatchProvidersOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("movie-watch-providers"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/movie/{movie_id}/watch/providers"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "MovieWatchProviders",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/movie/"
@@ -13322,7 +10477,6 @@ func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchP
 	pathParts[2] = "/watch/providers"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13332,7 +10486,7 @@ func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchP
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "MovieWatchProviders", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13361,14 +10515,12 @@ func (c *Client) sendMovieWatchProviders(ctx context.Context, params MovieWatchP
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeMovieWatchProvidersResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13388,40 +10540,7 @@ func (c *Client) NetworkDetails(ctx context.Context, params NetworkDetailsParams
 }
 
 func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsParams) (res *NetworkDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("network-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/network/{network_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "NetworkDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/network/"
@@ -13445,7 +10564,6 @@ func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsPa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13455,7 +10573,7 @@ func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "NetworkDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13484,14 +10602,12 @@ func (c *Client) sendNetworkDetails(ctx context.Context, params NetworkDetailsPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeNetworkDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13511,40 +10627,7 @@ func (c *Client) PersonChanges(ctx context.Context, params PersonChangesParams) 
 }
 
 func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesParams) (res *PersonChangesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-changes"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonChanges",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -13569,7 +10652,6 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 	pathParts[2] = "/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -13624,7 +10706,6 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13634,7 +10715,7 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonChanges", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13663,14 +10744,12 @@ func (c *Client) sendPersonChanges(ctx context.Context, params PersonChangesPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonChangesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13690,40 +10769,7 @@ func (c *Client) PersonCombinedCredits(ctx context.Context, params PersonCombine
 }
 
 func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCombinedCreditsParams) (res *PersonCombinedCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-combined-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/combined_credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonCombinedCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -13748,7 +10794,6 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 	pathParts[2] = "/combined_credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -13769,7 +10814,6 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13779,7 +10823,7 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonCombinedCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13808,14 +10852,12 @@ func (c *Client) sendPersonCombinedCredits(ctx context.Context, params PersonCom
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonCombinedCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13835,40 +10877,7 @@ func (c *Client) PersonDetails(ctx context.Context, params PersonDetailsParams) 
 }
 
 func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsParams) (res *PersonDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/person/"
@@ -13892,7 +10901,6 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "append_to_response" parameter.
@@ -13930,7 +10938,6 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -13940,7 +10947,7 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -13969,14 +10976,12 @@ func (c *Client) sendPersonDetails(ctx context.Context, params PersonDetailsPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -13996,40 +11001,7 @@ func (c *Client) PersonExternalIds(ctx context.Context, params PersonExternalIds
 }
 
 func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExternalIdsParams) (res *PersonExternalIdsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-external-ids"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/external_ids"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonExternalIds",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -14054,7 +11026,6 @@ func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExterna
 	pathParts[2] = "/external_ids"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14064,7 +11035,7 @@ func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExterna
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonExternalIds", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14093,14 +11064,12 @@ func (c *Client) sendPersonExternalIds(ctx context.Context, params PersonExterna
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonExternalIdsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14120,40 +11089,7 @@ func (c *Client) PersonImages(ctx context.Context, params PersonImagesParams) er
 }
 
 func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams) (res *PersonImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -14178,7 +11114,6 @@ func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14188,7 +11123,7 @@ func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14217,14 +11152,12 @@ func (c *Client) sendPersonImages(ctx context.Context, params PersonImagesParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14244,46 +11177,12 @@ func (c *Client) PersonLatestID(ctx context.Context) (*PersonLatestIDOK, error) 
 }
 
 func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-latest-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/latest"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonLatestID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/person/latest"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14293,7 +11192,7 @@ func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK,
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonLatestID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14322,14 +11221,12 @@ func (c *Client) sendPersonLatestID(ctx context.Context) (res *PersonLatestIDOK,
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonLatestIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14349,40 +11246,7 @@ func (c *Client) PersonMovieCredits(ctx context.Context, params PersonMovieCredi
 }
 
 func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieCreditsParams) (res *PersonMovieCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-movie-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/movie_credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonMovieCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -14407,7 +11271,6 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 	pathParts[2] = "/movie_credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -14428,7 +11291,6 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14438,7 +11300,7 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonMovieCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14467,14 +11329,12 @@ func (c *Client) sendPersonMovieCredits(ctx context.Context, params PersonMovieC
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonMovieCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14494,46 +11354,12 @@ func (c *Client) PersonPopularList(ctx context.Context, params PersonPopularList
 }
 
 func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopularListParams) (res *PersonPopularListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-popular-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/popular"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonPopularList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/person/popular"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -14571,7 +11397,6 @@ func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopular
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14581,7 +11406,7 @@ func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopular
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonPopularList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14610,14 +11435,12 @@ func (c *Client) sendPersonPopularList(ctx context.Context, params PersonPopular
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonPopularListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14637,40 +11460,7 @@ func (c *Client) PersonTaggedImages(ctx context.Context, params PersonTaggedImag
 }
 
 func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTaggedImagesParams) (res *PersonTaggedImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-tagged-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/tagged_images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonTaggedImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -14695,7 +11485,6 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 	pathParts[2] = "/tagged_images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "page" parameter.
@@ -14716,7 +11505,6 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14726,7 +11514,7 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonTaggedImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14755,14 +11543,12 @@ func (c *Client) sendPersonTaggedImages(ctx context.Context, params PersonTagged
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonTaggedImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14782,40 +11568,7 @@ func (c *Client) PersonTvCredits(ctx context.Context, params PersonTvCreditsPara
 }
 
 func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCreditsParams) (res *PersonTvCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("person-tv-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/tv_credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "PersonTvCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -14840,7 +11593,6 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 	pathParts[2] = "/tv_credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -14861,7 +11613,6 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14871,7 +11622,7 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "PersonTvCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -14900,14 +11651,12 @@ func (c *Client) sendPersonTvCredits(ctx context.Context, params PersonTvCredits
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodePersonTvCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -14927,40 +11676,7 @@ func (c *Client) ReviewDetails(ctx context.Context, params ReviewDetailsParams) 
 }
 
 func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsParams) (res *ReviewDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("review-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/review/{review_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ReviewDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/review/"
@@ -14984,7 +11700,6 @@ func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsPara
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -14994,7 +11709,7 @@ func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "ReviewDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15023,14 +11738,12 @@ func (c *Client) sendReviewDetails(ctx context.Context, params ReviewDetailsPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeReviewDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15050,46 +11763,12 @@ func (c *Client) SearchCollection(ctx context.Context, params SearchCollectionPa
 }
 
 func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollectionParams) (res *SearchCollectionOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-collection"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/collection"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchCollection",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/collection"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -15175,7 +11854,6 @@ func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollecti
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -15185,7 +11863,7 @@ func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollecti
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchCollection", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15214,14 +11892,12 @@ func (c *Client) sendSearchCollection(ctx context.Context, params SearchCollecti
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchCollectionResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15241,46 +11917,12 @@ func (c *Client) SearchCompany(ctx context.Context, params SearchCompanyParams) 
 }
 
 func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyParams) (res *SearchCompanyOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-company"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/company"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchCompany",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/company"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -15315,7 +11957,6 @@ func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -15325,7 +11966,7 @@ func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchCompany", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15354,14 +11995,12 @@ func (c *Client) sendSearchCompany(ctx context.Context, params SearchCompanyPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchCompanyResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15381,46 +12020,12 @@ func (c *Client) SearchKeyword(ctx context.Context, params SearchKeywordParams) 
 }
 
 func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordParams) (res *SearchKeywordOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-keyword"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/keyword"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchKeyword",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/keyword"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -15455,7 +12060,6 @@ func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordPara
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -15465,7 +12069,7 @@ func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordPara
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchKeyword", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15494,14 +12098,12 @@ func (c *Client) sendSearchKeyword(ctx context.Context, params SearchKeywordPara
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchKeywordResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15521,46 +12123,12 @@ func (c *Client) SearchMovie(ctx context.Context, params SearchMovieParams) (*Se
 }
 
 func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) (res *SearchMovieOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-movie"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/movie"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchMovie",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/movie"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -15680,7 +12248,6 @@ func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -15690,7 +12257,7 @@ func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchMovie", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15719,14 +12286,12 @@ func (c *Client) sendSearchMovie(ctx context.Context, params SearchMovieParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchMovieResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15746,46 +12311,12 @@ func (c *Client) SearchMulti(ctx context.Context, params SearchMultiParams) (*Se
 }
 
 func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) (res *SearchMultiOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-multi"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/multi"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchMulti",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/multi"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -15854,7 +12385,6 @@ func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -15864,7 +12394,7 @@ func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchMulti", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -15893,14 +12423,12 @@ func (c *Client) sendSearchMulti(ctx context.Context, params SearchMultiParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchMultiResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -15920,46 +12448,12 @@ func (c *Client) SearchPerson(ctx context.Context, params SearchPersonParams) (*
 }
 
 func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams) (res *SearchPersonOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-person"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/person"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchPerson",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/person"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -16028,7 +12522,6 @@ func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16038,7 +12531,7 @@ func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchPerson", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16067,14 +12560,12 @@ func (c *Client) sendSearchPerson(ctx context.Context, params SearchPersonParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchPersonResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16094,46 +12585,12 @@ func (c *Client) SearchTv(ctx context.Context, params SearchTvParams) (*SearchTv
 }
 
 func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *SearchTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("search-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/search/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "SearchTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/search/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "query" parameter.
@@ -16236,7 +12693,6 @@ func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16246,7 +12702,7 @@ func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "SearchTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16275,14 +12731,12 @@ func (c *Client) sendSearchTv(ctx context.Context, params SearchTvParams) (res *
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeSearchTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16302,40 +12756,7 @@ func (c *Client) Translations(ctx context.Context, params TranslationsParams) (*
 }
 
 func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams) (res *TranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/person/{person_id}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "Translations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/person/"
@@ -16360,7 +12781,6 @@ func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams
 	pathParts[2] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16370,7 +12790,7 @@ func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "Translations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16399,14 +12819,12 @@ func (c *Client) sendTranslations(ctx context.Context, params TranslationsParams
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16426,40 +12844,7 @@ func (c *Client) TrendingAll(ctx context.Context, params TrendingAllParams) (*Tr
 }
 
 func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) (res *TrendingAllOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("trending-all"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/trending/all/{time_window}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TrendingAll",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/trending/all/"
@@ -16483,7 +12868,6 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -16504,7 +12888,6 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16514,7 +12897,7 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TrendingAll", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16543,14 +12926,12 @@ func (c *Client) sendTrendingAll(ctx context.Context, params TrendingAllParams) 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTrendingAllResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16570,40 +12951,7 @@ func (c *Client) TrendingMovies(ctx context.Context, params TrendingMoviesParams
 }
 
 func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesParams) (res *TrendingMoviesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("trending-movies"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/trending/movie/{time_window}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TrendingMovies",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/trending/movie/"
@@ -16627,7 +12975,6 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -16648,7 +12995,6 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16658,7 +13004,7 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TrendingMovies", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16687,14 +13033,12 @@ func (c *Client) sendTrendingMovies(ctx context.Context, params TrendingMoviesPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTrendingMoviesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16714,40 +13058,7 @@ func (c *Client) TrendingPeople(ctx context.Context, params TrendingPeopleParams
 }
 
 func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeopleParams) (res *TrendingPeopleOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("trending-people"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/trending/person/{time_window}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TrendingPeople",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/trending/person/"
@@ -16771,7 +13082,6 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -16792,7 +13102,6 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16802,7 +13111,7 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TrendingPeople", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16831,14 +13140,12 @@ func (c *Client) sendTrendingPeople(ctx context.Context, params TrendingPeoplePa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTrendingPeopleResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -16858,40 +13165,7 @@ func (c *Client) TrendingTv(ctx context.Context, params TrendingTvParams) (*Tren
 }
 
 func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (res *TrendingTvOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("trending-tv"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/trending/tv/{time_window}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TrendingTv",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/trending/tv/"
@@ -16915,7 +13189,6 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -16936,7 +13209,6 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -16946,7 +13218,7 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TrendingTv", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -16975,14 +13247,12 @@ func (c *Client) sendTrendingTv(ctx context.Context, params TrendingTvParams) (r
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTrendingTvResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17002,40 +13272,7 @@ func (c *Client) TvEpisodeAccountStates(ctx context.Context, params TvEpisodeAcc
 }
 
 func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisodeAccountStatesParams) (res *TvEpisodeAccountStatesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-account-states"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/account_states"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeAccountStates",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -17098,7 +13335,6 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 	pathParts[6] = "/account_states"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -17136,7 +13372,6 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -17146,7 +13381,7 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeAccountStates", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -17175,14 +13410,12 @@ func (c *Client) sendTvEpisodeAccountStates(ctx context.Context, params TvEpisod
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeAccountStatesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17202,40 +13435,7 @@ func (c *Client) TvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAdd
 }
 
 func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisodeAddRatingReq, params TvEpisodeAddRatingParams) (res *TvEpisodeAddRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-add-rating"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeAddRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -17298,7 +13498,6 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 	pathParts[6] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -17336,7 +13535,6 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -17349,7 +13547,7 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeAddRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -17378,14 +13576,12 @@ func (c *Client) sendTvEpisodeAddRating(ctx context.Context, request OptTvEpisod
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeAddRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17405,40 +13601,7 @@ func (c *Client) TvEpisodeChangesByID(ctx context.Context, params TvEpisodeChang
 }
 
 func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeChangesByIDParams) (res *TvEpisodeChangesByIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-changes-by-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/episode/{episode_id}/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeChangesByID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/episode/"
@@ -17463,7 +13626,6 @@ func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeC
 	pathParts[2] = "/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -17473,7 +13635,7 @@ func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeC
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeChangesByID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -17502,14 +13664,12 @@ func (c *Client) sendTvEpisodeChangesByID(ctx context.Context, params TvEpisodeC
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeChangesByIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17529,40 +13689,7 @@ func (c *Client) TvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsPa
 }
 
 func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCreditsParams) (res *TvEpisodeCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -17625,7 +13752,6 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 	pathParts[6] = "/credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -17646,7 +13772,6 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -17656,7 +13781,7 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -17685,14 +13810,12 @@ func (c *Client) sendTvEpisodeCredits(ctx context.Context, params TvEpisodeCredi
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17712,40 +13835,7 @@ func (c *Client) TvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDele
 }
 
 func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisodeDeleteRatingParams) (res *TvEpisodeDeleteRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-delete-rating"),
-		semconv.HTTPMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeDeleteRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -17808,7 +13898,6 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 	pathParts[6] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -17846,7 +13935,6 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -17856,7 +13944,7 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeDeleteRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -17885,14 +13973,12 @@ func (c *Client) sendTvEpisodeDeleteRating(ctx context.Context, params TvEpisode
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeDeleteRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -17912,40 +13998,7 @@ func (c *Client) TvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsPa
 }
 
 func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetailsParams) (res *TvEpisodeDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [6]string
 	pathParts[0] = "/3/tv/"
@@ -18007,7 +14060,6 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "append_to_response" parameter.
@@ -18045,7 +14097,6 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18055,7 +14106,7 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18084,14 +14135,12 @@ func (c *Client) sendTvEpisodeDetails(ctx context.Context, params TvEpisodeDetai
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18111,40 +14160,7 @@ func (c *Client) TvEpisodeExternalIds(ctx context.Context, params TvEpisodeExter
 }
 
 func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeExternalIdsParams) (res *TvEpisodeExternalIdsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-external-ids"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/external_ids"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeExternalIds",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -18207,7 +14223,6 @@ func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeE
 	pathParts[6] = "/external_ids"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18217,7 +14232,7 @@ func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeE
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeExternalIds", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18246,14 +14261,12 @@ func (c *Client) sendTvEpisodeExternalIds(ctx context.Context, params TvEpisodeE
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeExternalIdsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18273,40 +14286,7 @@ func (c *Client) TvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGrou
 }
 
 func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisodeGroupDetailsParams) (res *TvEpisodeGroupDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-group-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/episode_group/{tv_episode_group_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeGroupDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/tv/episode_group/"
@@ -18330,7 +14310,6 @@ func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisode
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18340,7 +14319,7 @@ func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisode
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeGroupDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18369,14 +14348,12 @@ func (c *Client) sendTvEpisodeGroupDetails(ctx context.Context, params TvEpisode
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeGroupDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18396,40 +14373,7 @@ func (c *Client) TvEpisodeImages(ctx context.Context, params TvEpisodeImagesPara
 }
 
 func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImagesParams) (res *TvEpisodeImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -18492,7 +14436,6 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 	pathParts[6] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_image_language" parameter.
@@ -18530,7 +14473,6 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18540,7 +14482,7 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18569,14 +14511,12 @@ func (c *Client) sendTvEpisodeImages(ctx context.Context, params TvEpisodeImages
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18596,40 +14536,7 @@ func (c *Client) TvEpisodeTranslations(ctx context.Context, params TvEpisodeTran
 }
 
 func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisodeTranslationsParams) (res *TvEpisodeTranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -18692,7 +14599,6 @@ func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisode
 	pathParts[6] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18702,7 +14608,7 @@ func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisode
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18731,14 +14637,12 @@ func (c *Client) sendTvEpisodeTranslations(ctx context.Context, params TvEpisode
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18758,40 +14662,7 @@ func (c *Client) TvEpisodeVideos(ctx context.Context, params TvEpisodeVideosPara
 }
 
 func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideosParams) (res *TvEpisodeVideosOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-episode-videos"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/episode/{episode_number}/videos"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvEpisodeVideos",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [7]string
 	pathParts[0] = "/3/tv/"
@@ -18854,7 +14725,6 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 	pathParts[6] = "/videos"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_video_language" parameter.
@@ -18892,7 +14762,6 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -18902,7 +14771,7 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvEpisodeVideos", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -18931,14 +14800,12 @@ func (c *Client) sendTvEpisodeVideos(ctx context.Context, params TvEpisodeVideos
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvEpisodeVideosResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -18958,40 +14825,7 @@ func (c *Client) TvSeasonAccountStates(ctx context.Context, params TvSeasonAccou
 }
 
 func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonAccountStatesParams) (res *TvSeasonAccountStatesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-account-states"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/account_states"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonAccountStates",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -19035,7 +14869,6 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 	pathParts[4] = "/account_states"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -19073,7 +14906,6 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19083,7 +14915,7 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonAccountStates", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19112,14 +14944,12 @@ func (c *Client) sendTvSeasonAccountStates(ctx context.Context, params TvSeasonA
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonAccountStatesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19139,40 +14969,7 @@ func (c *Client) TvSeasonAggregateCredits(ctx context.Context, params TvSeasonAg
 }
 
 func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeasonAggregateCreditsParams) (res *TvSeasonAggregateCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-aggregate-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/aggregate_credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonAggregateCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -19216,7 +15013,6 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 	pathParts[4] = "/aggregate_credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -19237,7 +15033,6 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19247,7 +15042,7 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonAggregateCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19276,14 +15071,12 @@ func (c *Client) sendTvSeasonAggregateCredits(ctx context.Context, params TvSeas
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonAggregateCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19303,40 +15096,7 @@ func (c *Client) TvSeasonChangesByID(ctx context.Context, params TvSeasonChanges
 }
 
 func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonChangesByIDParams) (res *TvSeasonChangesByIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-changes-by-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/season/{season_id}/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonChangesByID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/season/"
@@ -19361,7 +15121,6 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 	pathParts[2] = "/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -19416,7 +15175,6 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19426,7 +15184,7 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonChangesByID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19455,14 +15213,12 @@ func (c *Client) sendTvSeasonChangesByID(ctx context.Context, params TvSeasonCha
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonChangesByIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19482,40 +15238,7 @@ func (c *Client) TvSeasonCredits(ctx context.Context, params TvSeasonCreditsPara
 }
 
 func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCreditsParams) (res *TvSeasonCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -19559,7 +15282,6 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 	pathParts[4] = "/credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -19580,7 +15302,6 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19590,7 +15311,7 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19619,14 +15340,12 @@ func (c *Client) sendTvSeasonCredits(ctx context.Context, params TvSeasonCredits
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19646,40 +15365,7 @@ func (c *Client) TvSeasonDetails(ctx context.Context, params TvSeasonDetailsPara
 }
 
 func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetailsParams) (res *TvSeasonDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [4]string
 	pathParts[0] = "/3/tv/"
@@ -19722,7 +15408,6 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "append_to_response" parameter.
@@ -19760,7 +15445,6 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19770,7 +15454,7 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19799,14 +15483,12 @@ func (c *Client) sendTvSeasonDetails(ctx context.Context, params TvSeasonDetails
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19826,40 +15508,7 @@ func (c *Client) TvSeasonExternalIds(ctx context.Context, params TvSeasonExterna
 }
 
 func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExternalIdsParams) (res *TvSeasonExternalIdsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-external-ids"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/external_ids"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonExternalIds",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -19903,7 +15552,6 @@ func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExt
 	pathParts[4] = "/external_ids"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -19913,7 +15561,7 @@ func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExt
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonExternalIds", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -19942,14 +15590,12 @@ func (c *Client) sendTvSeasonExternalIds(ctx context.Context, params TvSeasonExt
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonExternalIdsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -19969,40 +15615,7 @@ func (c *Client) TvSeasonImages(ctx context.Context, params TvSeasonImagesParams
 }
 
 func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesParams) (res *TvSeasonImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -20046,7 +15659,6 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 	pathParts[4] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_image_language" parameter.
@@ -20084,7 +15696,6 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20094,7 +15705,7 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20123,14 +15734,12 @@ func (c *Client) sendTvSeasonImages(ctx context.Context, params TvSeasonImagesPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20150,40 +15759,7 @@ func (c *Client) TvSeasonTranslations(ctx context.Context, params TvSeasonTransl
 }
 
 func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTranslationsParams) (res *TvSeasonTranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -20227,7 +15803,6 @@ func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTr
 	pathParts[4] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20237,7 +15812,7 @@ func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTr
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20266,14 +15841,12 @@ func (c *Client) sendTvSeasonTranslations(ctx context.Context, params TvSeasonTr
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20293,40 +15866,7 @@ func (c *Client) TvSeasonVideos(ctx context.Context, params TvSeasonVideosParams
 }
 
 func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosParams) (res *TvSeasonVideosOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-videos"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/videos"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonVideos",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -20370,7 +15910,6 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 	pathParts[4] = "/videos"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_video_language" parameter.
@@ -20408,7 +15947,6 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20418,7 +15956,7 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonVideos", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20447,14 +15985,12 @@ func (c *Client) sendTvSeasonVideos(ctx context.Context, params TvSeasonVideosPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonVideosResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20474,40 +16010,7 @@ func (c *Client) TvSeasonWatchProviders(ctx context.Context, params TvSeasonWatc
 }
 
 func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeasonWatchProvidersParams) (res *TvSeasonWatchProvidersOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-season-watch-providers"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/season/{season_number}/watch/providers"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeasonWatchProviders",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [5]string
 	pathParts[0] = "/3/tv/"
@@ -20551,7 +16054,6 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 	pathParts[4] = "/watch/providers"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -20572,7 +16074,6 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20582,7 +16083,7 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeasonWatchProviders", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20611,14 +16112,12 @@ func (c *Client) sendTvSeasonWatchProviders(ctx context.Context, params TvSeason
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeasonWatchProvidersResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20638,40 +16137,7 @@ func (c *Client) TvSeriesAccountStates(ctx context.Context, params TvSeriesAccou
 }
 
 func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesAccountStatesParams) (res *TvSeriesAccountStatesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-account-states"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/account_states"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesAccountStates",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -20696,7 +16162,6 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 	pathParts[2] = "/account_states"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "session_id" parameter.
@@ -20734,7 +16199,6 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20744,7 +16208,7 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesAccountStates", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20773,14 +16237,12 @@ func (c *Client) sendTvSeriesAccountStates(ctx context.Context, params TvSeriesA
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesAccountStatesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20800,40 +16262,7 @@ func (c *Client) TvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRa
 }
 
 func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesAddRatingReq, params TvSeriesAddRatingParams) (res *TvSeriesAddRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-add-rating"),
-		semconv.HTTPMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesAddRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -20858,7 +16287,6 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 	pathParts[2] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -20896,7 +16324,6 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "POST", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -20909,7 +16336,7 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesAddRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -20938,14 +16365,12 @@ func (c *Client) sendTvSeriesAddRating(ctx context.Context, request OptTvSeriesA
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesAddRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -20965,40 +16390,7 @@ func (c *Client) TvSeriesAggregateCredits(ctx context.Context, params TvSeriesAg
 }
 
 func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeriesAggregateCreditsParams) (res *TvSeriesAggregateCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-aggregate-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/aggregate_credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesAggregateCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21023,7 +16415,6 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 	pathParts[2] = "/aggregate_credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -21044,7 +16435,6 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21054,7 +16444,7 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesAggregateCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21083,14 +16473,12 @@ func (c *Client) sendTvSeriesAggregateCredits(ctx context.Context, params TvSeri
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesAggregateCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21110,46 +16498,12 @@ func (c *Client) TvSeriesAiringTodayList(ctx context.Context, params TvSeriesAir
 }
 
 func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSeriesAiringTodayListParams) (res *TvSeriesAiringTodayListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-airing-today-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/airing_today"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesAiringTodayList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/airing_today"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -21204,7 +16558,6 @@ func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSerie
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21214,7 +16567,7 @@ func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSerie
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesAiringTodayList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21243,14 +16596,12 @@ func (c *Client) sendTvSeriesAiringTodayList(ctx context.Context, params TvSerie
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesAiringTodayListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21270,40 +16621,7 @@ func (c *Client) TvSeriesAlternativeTitles(ctx context.Context, params TvSeriesA
 }
 
 func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSeriesAlternativeTitlesParams) (res *TvSeriesAlternativeTitlesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-alternative-titles"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/alternative_titles"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesAlternativeTitles",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21328,7 +16646,6 @@ func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSer
 	pathParts[2] = "/alternative_titles"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21338,7 +16655,7 @@ func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSer
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesAlternativeTitles", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21367,14 +16684,12 @@ func (c *Client) sendTvSeriesAlternativeTitles(ctx context.Context, params TvSer
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesAlternativeTitlesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21394,40 +16709,7 @@ func (c *Client) TvSeriesChanges(ctx context.Context, params TvSeriesChangesPara
 }
 
 func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChangesParams) (res *TvSeriesChangesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-changes"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/changes"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesChanges",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21452,7 +16734,6 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 	pathParts[2] = "/changes"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "end_date" parameter.
@@ -21507,7 +16788,6 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21517,7 +16797,7 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesChanges", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21546,14 +16826,12 @@ func (c *Client) sendTvSeriesChanges(ctx context.Context, params TvSeriesChanges
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesChangesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21573,40 +16851,7 @@ func (c *Client) TvSeriesContentRatings(ctx context.Context, params TvSeriesCont
 }
 
 func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeriesContentRatingsParams) (res *TvSeriesContentRatingsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-content-ratings"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/content_ratings"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesContentRatings",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21631,7 +16876,6 @@ func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeries
 	pathParts[2] = "/content_ratings"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21641,7 +16885,7 @@ func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeries
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesContentRatings", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21670,14 +16914,12 @@ func (c *Client) sendTvSeriesContentRatings(ctx context.Context, params TvSeries
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesContentRatingsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21697,40 +16939,7 @@ func (c *Client) TvSeriesCredits(ctx context.Context, params TvSeriesCreditsPara
 }
 
 func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCreditsParams) (res *TvSeriesCreditsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-credits"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/credits"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesCredits",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21755,7 +16964,6 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 	pathParts[2] = "/credits"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -21776,7 +16984,6 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21786,7 +16993,7 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesCredits", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21815,14 +17022,12 @@ func (c *Client) sendTvSeriesCredits(ctx context.Context, params TvSeriesCredits
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesCreditsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -21842,40 +17047,7 @@ func (c *Client) TvSeriesDeleteRating(ctx context.Context, params TvSeriesDelete
 }
 
 func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDeleteRatingParams) (res *TvSeriesDeleteRatingOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-delete-rating"),
-		semconv.HTTPMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/rating"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesDeleteRating",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -21900,7 +17072,6 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 	pathParts[2] = "/rating"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "guest_session_id" parameter.
@@ -21938,7 +17109,6 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -21948,7 +17118,7 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesDeleteRating", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -21977,14 +17147,12 @@ func (c *Client) sendTvSeriesDeleteRating(ctx context.Context, params TvSeriesDe
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesDeleteRatingResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22004,40 +17172,7 @@ func (c *Client) TvSeriesDetails(ctx context.Context, params TvSeriesDetailsPara
 }
 
 func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetailsParams) (res *TvSeriesDetailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-details"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesDetails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
 	pathParts[0] = "/3/tv/"
@@ -22061,7 +17196,6 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "append_to_response" parameter.
@@ -22099,7 +17233,6 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22109,7 +17242,7 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesDetails", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22138,14 +17271,12 @@ func (c *Client) sendTvSeriesDetails(ctx context.Context, params TvSeriesDetails
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesDetailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22165,40 +17296,7 @@ func (c *Client) TvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpiso
 }
 
 func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesEpisodeGroupsParams) (res *TvSeriesEpisodeGroupsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-episode-groups"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/episode_groups"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesEpisodeGroups",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -22223,7 +17321,6 @@ func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesE
 	pathParts[2] = "/episode_groups"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22233,7 +17330,7 @@ func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesE
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesEpisodeGroups", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22262,14 +17359,12 @@ func (c *Client) sendTvSeriesEpisodeGroups(ctx context.Context, params TvSeriesE
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesEpisodeGroupsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22289,40 +17384,7 @@ func (c *Client) TvSeriesExternalIds(ctx context.Context, params TvSeriesExterna
 }
 
 func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExternalIdsParams) (res *TvSeriesExternalIdsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-external-ids"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/external_ids"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesExternalIds",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -22347,7 +17409,6 @@ func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExt
 	pathParts[2] = "/external_ids"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22357,7 +17418,7 @@ func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExt
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesExternalIds", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22386,14 +17447,12 @@ func (c *Client) sendTvSeriesExternalIds(ctx context.Context, params TvSeriesExt
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesExternalIdsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22413,40 +17472,7 @@ func (c *Client) TvSeriesImages(ctx context.Context, params TvSeriesImagesParams
 }
 
 func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesParams) (res *TvSeriesImagesOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-images"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/images"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesImages",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -22471,7 +17497,6 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 	pathParts[2] = "/images"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_image_language" parameter.
@@ -22509,7 +17534,6 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22519,7 +17543,7 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesImages", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22548,14 +17572,12 @@ func (c *Client) sendTvSeriesImages(ctx context.Context, params TvSeriesImagesPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesImagesResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22575,40 +17597,7 @@ func (c *Client) TvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsPa
 }
 
 func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywordsParams) (res *TvSeriesKeywordsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-keywords"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/keywords"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesKeywords",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -22633,7 +17622,6 @@ func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywor
 	pathParts[2] = "/keywords"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22643,7 +17631,7 @@ func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywor
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesKeywords", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22672,14 +17660,12 @@ func (c *Client) sendTvSeriesKeywords(ctx context.Context, params TvSeriesKeywor
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesKeywordsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22699,46 +17685,12 @@ func (c *Client) TvSeriesLatestID(ctx context.Context) (*TvSeriesLatestIDOK, err
 }
 
 func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestIDOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-latest-id"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/latest"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesLatestID",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/latest"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22748,7 +17700,7 @@ func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestI
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesLatestID", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22777,14 +17729,12 @@ func (c *Client) sendTvSeriesLatestID(ctx context.Context) (res *TvSeriesLatestI
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesLatestIDResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22804,46 +17754,12 @@ func (c *Client) TvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheA
 }
 
 func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOnTheAirListParams) (res *TvSeriesOnTheAirListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-on-the-air-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/on_the_air"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesOnTheAirList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/on_the_air"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -22898,7 +17814,6 @@ func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOn
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -22908,7 +17823,7 @@ func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOn
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesOnTheAirList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -22937,14 +17852,12 @@ func (c *Client) sendTvSeriesOnTheAirList(ctx context.Context, params TvSeriesOn
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesOnTheAirListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -22964,46 +17877,12 @@ func (c *Client) TvSeriesPopularList(ctx context.Context, params TvSeriesPopular
 }
 
 func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPopularListParams) (res *TvSeriesPopularListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-popular-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/popular"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesPopularList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/popular"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -23041,7 +17920,6 @@ func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPop
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23051,7 +17929,7 @@ func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPop
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesPopularList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23080,14 +17958,12 @@ func (c *Client) sendTvSeriesPopularList(ctx context.Context, params TvSeriesPop
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesPopularListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23107,40 +17983,7 @@ func (c *Client) TvSeriesRecommendations(ctx context.Context, params TvSeriesRec
 }
 
 func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSeriesRecommendationsParams) (res *TvSeriesRecommendationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-recommendations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/recommendations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesRecommendations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -23165,7 +18008,6 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 	pathParts[2] = "/recommendations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -23203,7 +18045,6 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23213,7 +18054,7 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesRecommendations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23242,14 +18083,12 @@ func (c *Client) sendTvSeriesRecommendations(ctx context.Context, params TvSerie
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesRecommendationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23269,40 +18108,7 @@ func (c *Client) TvSeriesReviews(ctx context.Context, params TvSeriesReviewsPara
 }
 
 func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviewsParams) (res *TvSeriesReviewsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-reviews"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/reviews"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesReviews",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -23327,7 +18133,6 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 	pathParts[2] = "/reviews"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -23365,7 +18170,6 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23375,7 +18179,7 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesReviews", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23404,14 +18208,12 @@ func (c *Client) sendTvSeriesReviews(ctx context.Context, params TvSeriesReviews
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesReviewsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23431,40 +18233,7 @@ func (c *Client) TvSeriesScreenedTheatrically(ctx context.Context, params TvSeri
 }
 
 func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params TvSeriesScreenedTheatricallyParams) (res *TvSeriesScreenedTheatricallyOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-screened-theatrically"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/screened_theatrically"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesScreenedTheatrically",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -23489,7 +18258,6 @@ func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params Tv
 	pathParts[2] = "/screened_theatrically"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23499,7 +18267,7 @@ func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params Tv
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesScreenedTheatrically", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23528,14 +18296,12 @@ func (c *Client) sendTvSeriesScreenedTheatrically(ctx context.Context, params Tv
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesScreenedTheatricallyResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23555,40 +18321,7 @@ func (c *Client) TvSeriesSimilar(ctx context.Context, params TvSeriesSimilarPara
 }
 
 func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilarParams) (res *TvSeriesSimilarOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-similar"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/similar"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesSimilar",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -23613,7 +18346,6 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 	pathParts[2] = "/similar"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -23651,7 +18383,6 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23661,7 +18392,7 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesSimilar", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23690,14 +18421,12 @@ func (c *Client) sendTvSeriesSimilar(ctx context.Context, params TvSeriesSimilar
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesSimilarResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23717,46 +18446,12 @@ func (c *Client) TvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRat
 }
 
 func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTopRatedListParams) (res *TvSeriesTopRatedListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-top-rated-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/top_rated"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesTopRatedList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/tv/top_rated"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -23794,7 +18489,6 @@ func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTo
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23804,7 +18498,7 @@ func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTo
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesTopRatedList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23833,14 +18527,12 @@ func (c *Client) sendTvSeriesTopRatedList(ctx context.Context, params TvSeriesTo
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesTopRatedListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23860,40 +18552,7 @@ func (c *Client) TvSeriesTranslations(ctx context.Context, params TvSeriesTransl
 }
 
 func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTranslationsParams) (res *TvSeriesTranslationsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-translations"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/translations"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesTranslations",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -23918,7 +18577,6 @@ func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTr
 	pathParts[2] = "/translations"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -23928,7 +18586,7 @@ func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTr
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesTranslations", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -23957,14 +18615,12 @@ func (c *Client) sendTvSeriesTranslations(ctx context.Context, params TvSeriesTr
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesTranslationsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -23984,40 +18640,7 @@ func (c *Client) TvSeriesVideos(ctx context.Context, params TvSeriesVideosParams
 }
 
 func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosParams) (res *TvSeriesVideosOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-videos"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/videos"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesVideos",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -24042,7 +18665,6 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 	pathParts[2] = "/videos"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "include_video_language" parameter.
@@ -24080,7 +18702,6 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -24090,7 +18711,7 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesVideos", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -24119,14 +18740,12 @@ func (c *Client) sendTvSeriesVideos(ctx context.Context, params TvSeriesVideosPa
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesVideosResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -24146,40 +18765,7 @@ func (c *Client) TvSeriesWatchProviders(ctx context.Context, params TvSeriesWatc
 }
 
 func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeriesWatchProvidersParams) (res *TvSeriesWatchProvidersOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("tv-series-watch-providers"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/tv/{series_id}/watch/providers"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "TvSeriesWatchProviders",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [3]string
 	pathParts[0] = "/3/tv/"
@@ -24204,7 +18790,6 @@ func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeries
 	pathParts[2] = "/watch/providers"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -24214,7 +18799,7 @@ func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeries
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "TvSeriesWatchProviders", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -24243,14 +18828,12 @@ func (c *Client) sendTvSeriesWatchProviders(ctx context.Context, params TvSeries
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeTvSeriesWatchProvidersResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -24270,46 +18853,12 @@ func (c *Client) WatchProviderTvList(ctx context.Context, params WatchProviderTv
 }
 
 func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProviderTvListParams) (res *WatchProviderTvListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("watch-provider-tv-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/watch/providers/tv"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "WatchProviderTvList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/watch/providers/tv"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -24347,7 +18896,6 @@ func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProvid
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -24357,7 +18905,7 @@ func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProvid
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "WatchProviderTvList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -24386,14 +18934,12 @@ func (c *Client) sendWatchProviderTvList(ctx context.Context, params WatchProvid
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeWatchProviderTvListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -24413,46 +18959,12 @@ func (c *Client) WatchProvidersAvailableRegions(ctx context.Context, params Watc
 }
 
 func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params WatchProvidersAvailableRegionsParams) (res *WatchProvidersAvailableRegionsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("watch-providers-available-regions"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/watch/providers/regions"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "WatchProvidersAvailableRegions",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/watch/providers/regions"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -24473,7 +18985,6 @@ func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params 
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -24483,7 +18994,7 @@ func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params 
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "WatchProvidersAvailableRegions", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -24512,14 +19023,12 @@ func (c *Client) sendWatchProvidersAvailableRegions(ctx context.Context, params 
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeWatchProvidersAvailableRegionsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
@@ -24539,46 +19048,12 @@ func (c *Client) WatchProvidersMovieList(ctx context.Context, params WatchProvid
 }
 
 func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchProvidersMovieListParams) (res *WatchProvidersMovieListOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("watch-providers-movie-list"),
-		semconv.HTTPMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/3/watch/providers/movie"),
-	}
 
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "WatchProvidersMovieList",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
 	pathParts[0] = "/3/watch/providers/movie"
 	uri.AddPathParts(u, pathParts[:]...)
 
-	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
 	{
 		// Encode "language" parameter.
@@ -24616,7 +19091,6 @@ func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchPr
 	}
 	u.RawQuery = q.Values().Encode()
 
-	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
@@ -24626,7 +19100,7 @@ func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchPr
 		type bitset = [1]uint8
 		var satisfied bitset
 		{
-			stage = "Security:Sec0"
+
 			switch err := c.securitySec0(ctx, "WatchProvidersMovieList", r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
@@ -24655,14 +19129,12 @@ func (c *Client) sendWatchProvidersMovieList(ctx context.Context, params WatchPr
 		}
 	}
 
-	stage = "SendRequest"
 	resp, err := c.cfg.Client.Do(r)
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
 	defer resp.Body.Close()
 
-	stage = "DecodeResponse"
 	result, err := decodeWatchProvidersMovieListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
