@@ -205,11 +205,13 @@ type DiscoverMovieParams struct {
 	WithOriginalLanguage OptString
 	// Can be a comma (`AND`) or pipe (`OR`) separated query.
 	WithPeople OptString
-	// Can be a comma (`AND`) or pipe (`OR`) separated query, can be used in conjunction with `region`.
+	// Possible values are: [1, 2, 3, 4, 5, 6] can be a comma (`AND`) or pipe (`OR`) separated query, can
+	// be used in conjunction with `region`.
 	WithReleaseType OptInt32
 	WithRuntimeGte  OptInt32
 	WithRuntimeLte  OptInt32
-	// Use in conjunction with `watch_region`, can be a comma (`AND`) or pipe (`OR`) separated query.
+	// Possible values are: [flatrate, free, ads, rent, buy] use in conjunction with `watch_region`, can
+	// be a comma (`AND`) or pipe (`OR`) separated query.
 	WithWatchMonetizationTypes OptString
 	// Use in conjunction with `watch_region`, can be a comma (`AND`) or pipe (`OR`) separated query.
 	WithWatchProviders    OptString
