@@ -1,0 +1,4 @@
+package: tmdb
+generate:
+  models: true
+output: models.gen.go

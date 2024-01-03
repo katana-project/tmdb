@@ -1,0 +1,4 @@
+package: tmdb
+generate:
+  client: true
+output: client.gen.go
