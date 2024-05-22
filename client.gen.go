@@ -13571,13 +13571,13 @@ type AccountDetailsResponse struct {
 				Hash *string `json:"hash,omitempty"`
 			} `json:"gravatar,omitempty"`
 			Tmdb *struct {
-				AvatarPath *string `json:"avatar_path"`
+				AvatarPath *string `json:"avatar_path,omitempty"`
 			} `json:"tmdb,omitempty"`
 		} `json:"avatar,omitempty"`
 		Id           *int    `json:"id,omitempty"`
 		IncludeAdult *bool   `json:"include_adult,omitempty"`
 		Iso31661     *string `json:"iso_3166_1,omitempty"`
-		Iso6391      *string `json:"iso_639_1"`
+		Iso6391      *string `json:"iso_639_1,omitempty"`
 		Name         *string `json:"name,omitempty"`
 		Username     *string `json:"username,omitempty"`
 	}
@@ -13630,15 +13630,15 @@ type AccountGetFavoritesResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -13672,8 +13672,8 @@ type AccountFavoriteTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -13683,7 +13683,7 @@ type AccountFavoriteTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -13717,7 +13717,7 @@ type AccountListsResponse struct {
 			Description   *string `json:"description,omitempty"`
 			FavoriteCount *int    `json:"favorite_count,omitempty"`
 			Id            *int    `json:"id,omitempty"`
-			Iso6391       *string `json:"iso_639_1"`
+			Iso6391       *string `json:"iso_639_1,omitempty"`
 			ItemCount     *int    `json:"item_count,omitempty"`
 			ListType      *string `json:"list_type,omitempty"`
 			Name          *string `json:"name,omitempty"`
@@ -13750,16 +13750,16 @@ type AccountRatedMoviesResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
-			Rating           *float32 `json:"rating"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
+			Rating           *float32 `json:"rating,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -13793,8 +13793,8 @@ type AccountRatedTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -13804,8 +13804,8 @@ type AccountRatedTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
-			Rating           *float32  `json:"rating"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			Rating           *float32  `json:"rating,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -13842,11 +13842,11 @@ type AccountRatedTvEpisodesResponse struct {
 			Name           *string  `json:"name,omitempty"`
 			Overview       *string  `json:"overview,omitempty"`
 			ProductionCode *string  `json:"production_code,omitempty"`
-			Rating         *float32 `json:"rating"`
+			Rating         *float32 `json:"rating,omitempty"`
 			Runtime        *int     `json:"runtime,omitempty"`
 			SeasonNumber   *int     `json:"season_number,omitempty"`
 			ShowId         *int     `json:"show_id,omitempty"`
-			StillPath      *string  `json:"still_path"`
+			StillPath      *string  `json:"still_path,omitempty"`
 			VoteAverage    *float32 `json:"vote_average,omitempty"`
 			VoteCount      *int     `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -13902,15 +13902,15 @@ type AccountWatchlistMoviesResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -13944,7 +13944,7 @@ type AccountWatchlistTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
+			Adult            *bool     `json:"adult,omitempty"`
 			BackdropPath     *string   `json:"backdrop_path"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
@@ -13955,7 +13955,7 @@ type AccountWatchlistTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -14642,13 +14642,13 @@ type CollectionDetailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		BackdropPath *string `json:"backdrop_path"`
+		BackdropPath *string `json:"backdrop_path,omitempty"`
 		Id           *int    `json:"id,omitempty"`
 		Name         *string `json:"name,omitempty"`
 		Overview     *string `json:"overview,omitempty"`
 		Parts        *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			MediaType        *string  `json:"media_type,omitempty"`
@@ -14656,14 +14656,14 @@ type CollectionDetailsResponse struct {
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
 			VoteAverage      *float32 `json:"vote_average,omitempty"`
 			VoteCount        *int     `json:"vote_count,omitempty"`
 		} `json:"parts,omitempty"`
-		PosterPath *string `json:"poster_path"`
+		PosterPath *string `json:"poster_path,omitempty"`
 	}
 }
 
@@ -14689,7 +14689,7 @@ type CollectionImagesResponse struct {
 	JSON200      *struct {
 		Backdrops *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -14699,7 +14699,7 @@ type CollectionImagesResponse struct {
 		Id      *int `json:"id,omitempty"`
 		Posters *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -14738,7 +14738,7 @@ type CollectionTranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -14768,10 +14768,10 @@ type CompanyDetailsResponse struct {
 		Headquarters  *string      `json:"headquarters,omitempty"`
 		Homepage      *string      `json:"homepage,omitempty"`
 		Id            *int         `json:"id,omitempty"`
-		LogoPath      *string      `json:"logo_path"`
+		LogoPath      *string      `json:"logo_path,omitempty"`
 		Name          *string      `json:"name,omitempty"`
 		OriginCountry *string      `json:"origin_country,omitempty"`
-		ParentCompany *interface{} `json:"parent_company,omitempty"`
+		ParentCompany *interface{} `json:"parent_company"`
 	}
 }
 
@@ -14826,7 +14826,7 @@ type CompanyImagesResponse struct {
 		Id    *int `json:"id,omitempty"`
 		Logos *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			FileType    *string  `json:"file_type,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Id          *string  `json:"id,omitempty"`
@@ -14942,7 +14942,7 @@ type ConfigurationLanguagesResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *[]struct {
 		EnglishName *string `json:"english_name,omitempty"`
-		Iso6391     *string `json:"iso_639_1"`
+		Iso6391     *string `json:"iso_639_1,omitempty"`
 		Name        *string `json:"name,omitempty"`
 	}
 }
@@ -15019,8 +15019,8 @@ type CreditDetailsResponse struct {
 		Id         *string `json:"id,omitempty"`
 		Job        *string `json:"job,omitempty"`
 		Media      *struct {
-			Adult            *bool          `json:"adult"`
-			BackdropPath     *string        `json:"backdrop_path"`
+			Adult            *bool          `json:"adult,omitempty"`
+			BackdropPath     *string        `json:"backdrop_path,omitempty"`
 			Character        *string        `json:"character,omitempty"`
 			Episodes         *[]interface{} `json:"episodes,omitempty"`
 			FirstAirDate     *string        `json:"first_air_date,omitempty"`
@@ -15033,14 +15033,14 @@ type CreditDetailsResponse struct {
 			OriginalName     *string        `json:"original_name,omitempty"`
 			Overview         *string        `json:"overview,omitempty"`
 			Popularity       *float32       `json:"popularity,omitempty"`
-			PosterPath       *string        `json:"poster_path"`
+			PosterPath       *string        `json:"poster_path,omitempty"`
 			Seasons          *[]struct {
 				AirDate      *string `json:"air_date,omitempty"`
 				EpisodeCount *int    `json:"episode_count,omitempty"`
 				Id           *int    `json:"id,omitempty"`
 				Name         *string `json:"name,omitempty"`
 				Overview     *string `json:"overview,omitempty"`
-				PosterPath   *string `json:"poster_path"`
+				PosterPath   *string `json:"poster_path,omitempty"`
 				SeasonNumber *int    `json:"season_number,omitempty"`
 				ShowId       *int    `json:"show_id,omitempty"`
 			} `json:"seasons,omitempty"`
@@ -15049,7 +15049,7 @@ type CreditDetailsResponse struct {
 		} `json:"media,omitempty"`
 		MediaType *string `json:"media_type,omitempty"`
 		Person    *struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
 			Id                 *int     `json:"id,omitempty"`
 			KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -15057,7 +15057,7 @@ type CreditDetailsResponse struct {
 			Name               *string  `json:"name,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"person,omitempty"`
 	}
 }
@@ -15084,15 +15084,15 @@ type DiscoverMovieResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15136,8 +15136,8 @@ type DiscoverTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
-			VoteAverage      *float32  `json:"vote_average"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -15166,8 +15166,8 @@ type FindByIdResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		MovieResults *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			MediaType        *string  `json:"media_type,omitempty"`
@@ -15175,7 +15175,7 @@ type FindByIdResponse struct {
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15265,15 +15265,15 @@ type GuestSessionRatedMoviesResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			Rating           *float32 `json:"rating,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
@@ -15308,8 +15308,8 @@ type GuestSessionRatedTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -15319,7 +15319,7 @@ type GuestSessionRatedTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			Rating           *float32  `json:"rating,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
@@ -15361,7 +15361,7 @@ type GuestSessionRatedTvEpisodesResponse struct {
 			Runtime        *int     `json:"runtime,omitempty"`
 			SeasonNumber   *int     `json:"season_number,omitempty"`
 			ShowId         *int     `json:"show_id,omitempty"`
-			StillPath      *string  `json:"still_path"`
+			StillPath      *string  `json:"still_path,omitempty"`
 			VoteAverage    *float32 `json:"vote_average,omitempty"`
 			VoteCount      *int     `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -15418,15 +15418,15 @@ type KeywordMoviesResponse struct {
 		Id      *int `json:"id,omitempty"`
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15514,11 +15514,11 @@ type ListDetailsResponse struct {
 		Description   *string `json:"description,omitempty"`
 		FavoriteCount *int    `json:"favorite_count,omitempty"`
 		Id            *string `json:"id,omitempty"`
-		Iso6391       *string `json:"iso_639_1"`
+		Iso6391       *string `json:"iso_639_1,omitempty"`
 		ItemCount     *int    `json:"item_count,omitempty"`
 		Items         *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			MediaType        *string  `json:"media_type,omitempty"`
@@ -15526,15 +15526,15 @@ type ListDetailsResponse struct {
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average"`
+			VoteAverage      *float32 `json:"vote_average,omitempty"`
 			VoteCount        *int     `json:"vote_count,omitempty"`
 		} `json:"items,omitempty"`
 		Name       *string `json:"name,omitempty"`
-		PosterPath *string `json:"poster_path"`
+		PosterPath *string `json:"poster_path,omitempty"`
 	}
 }
 
@@ -15688,18 +15688,18 @@ type MovieLatestIdResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult               *bool          `json:"adult"`
+		Adult               *bool          `json:"adult,omitempty"`
 		BackdropPath        *string        `json:"backdrop_path"`
-		BelongsToCollection *interface{}   `json:"belongs_to_collection,omitempty"`
+		BelongsToCollection *interface{}   `json:"belongs_to_collection"`
 		Budget              *int           `json:"budget,omitempty"`
 		Genres              *[]interface{} `json:"genres,omitempty"`
 		Homepage            *string        `json:"homepage,omitempty"`
 		Id                  *int           `json:"id,omitempty"`
-		ImdbId              *interface{}   `json:"imdb_id,omitempty"`
+		ImdbId              *interface{}   `json:"imdb_id"`
 		OriginalLanguage    *string        `json:"original_language,omitempty"`
 		OriginalTitle       *string        `json:"original_title,omitempty"`
 		Overview            *string        `json:"overview,omitempty"`
-		Popularity          *int           `json:"popularity,omitempty"`
+		Popularity          *float32       `json:"popularity,omitempty"`
 		PosterPath          *string        `json:"poster_path"`
 		ProductionCompanies *[]interface{} `json:"production_companies,omitempty"`
 		ProductionCountries *[]interface{} `json:"production_countries,omitempty"`
@@ -15711,7 +15711,7 @@ type MovieLatestIdResponse struct {
 		Tagline             *string        `json:"tagline,omitempty"`
 		Title               *string        `json:"title,omitempty"`
 		Video               *bool          `json:"video,omitempty"`
-		VoteAverage         *float32       `json:"vote_average"`
+		VoteAverage         *float32       `json:"vote_average,omitempty"`
 		VoteCount           *int           `json:"vote_count,omitempty"`
 	}
 }
@@ -15742,15 +15742,15 @@ type MovieNowPlayingListResponse struct {
 		} `json:"dates,omitempty"`
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15784,15 +15784,15 @@ type MoviePopularListResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15826,15 +15826,15 @@ type MovieTopRatedListResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -15872,19 +15872,19 @@ type MovieUpcomingListResponse struct {
 		} `json:"dates,omitempty"`
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			OriginalLanguage *string  `json:"original_language,omitempty"`
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average"`
+			VoteAverage      *float32 `json:"vote_average,omitempty"`
 			VoteCount        *int     `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -15912,9 +15912,9 @@ type MovieDetailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult               *bool        `json:"adult"`
-		BackdropPath        *string      `json:"backdrop_path"`
-		BelongsToCollection *interface{} `json:"belongs_to_collection,omitempty"`
+		Adult               *bool        `json:"adult,omitempty"`
+		BackdropPath        *string      `json:"backdrop_path,omitempty"`
+		BelongsToCollection *interface{} `json:"belongs_to_collection"`
 		Budget              *int         `json:"budget,omitempty"`
 		Genres              *[]struct {
 			Id   *int    `json:"id,omitempty"`
@@ -15927,7 +15927,7 @@ type MovieDetailsResponse struct {
 		OriginalTitle       *string  `json:"original_title,omitempty"`
 		Overview            *string  `json:"overview,omitempty"`
 		Popularity          *float32 `json:"popularity,omitempty"`
-		PosterPath          *string  `json:"poster_path"`
+		PosterPath          *string  `json:"poster_path,omitempty"`
 		ProductionCompanies *[]struct {
 			Id            *int    `json:"id,omitempty"`
 			LogoPath      *string `json:"logo_path"`
@@ -15943,7 +15943,7 @@ type MovieDetailsResponse struct {
 		Runtime         *int    `json:"runtime,omitempty"`
 		SpokenLanguages *[]struct {
 			EnglishName *string `json:"english_name,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"spoken_languages,omitempty"`
 		Status      *string  `json:"status,omitempty"`
@@ -15978,7 +15978,7 @@ type MovieAccountStatesResponse struct {
 		Favorite *bool `json:"favorite,omitempty"`
 		Id       *int  `json:"id,omitempty"`
 		Rated    *struct {
-			Value *int `json:"value,omitempty"`
+			Value *float32 `json:"value,omitempty"`
 		} `json:"rated,omitempty"`
 		Watchlist *bool `json:"watchlist,omitempty"`
 	}
@@ -16038,11 +16038,13 @@ type MovieChangesResponse struct {
 				Action   *string `json:"action,omitempty"`
 				Id       *string `json:"id,omitempty"`
 				Iso31661 *string `json:"iso_3166_1,omitempty"`
-				Iso6391  *string `json:"iso_639_1"`
+				Iso6391  *string `json:"iso_639_1,omitempty"`
 				Time     *string `json:"time,omitempty"`
 				Value    *struct {
+					Id     *int    `json:"id,omitempty"`
+					Name   *string `json:"name,omitempty"`
 					Poster *struct {
-						FilePath *string `json:"file_path"`
+						FilePath *string `json:"file_path,omitempty"`
 					} `json:"poster,omitempty"`
 				} `json:"value,omitempty"`
 			} `json:"items,omitempty"`
@@ -16072,7 +16074,7 @@ type MovieCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CastId             *int     `json:"cast_id,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
@@ -16086,7 +16088,7 @@ type MovieCreditsResponse struct {
 			ProfilePath        *string  `json:"profile_path"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Department         *string  `json:"department,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -16125,9 +16127,9 @@ type MovieExternalIdsResponse struct {
 		FacebookId  *string      `json:"facebook_id,omitempty"`
 		Id          *int         `json:"id,omitempty"`
 		ImdbId      *string      `json:"imdb_id,omitempty"`
-		InstagramId *interface{} `json:"instagram_id,omitempty"`
-		TwitterId   *interface{} `json:"twitter_id,omitempty"`
-		WikidataId  *interface{} `json:"wikidata_id,omitempty"`
+		InstagramId *interface{} `json:"instagram_id"`
+		TwitterId   *interface{} `json:"twitter_id"`
+		WikidataId  *interface{} `json:"wikidata_id"`
 	}
 }
 
@@ -16153,7 +16155,7 @@ type MovieImagesResponse struct {
 	JSON200      *struct {
 		Backdrops *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -16163,16 +16165,16 @@ type MovieImagesResponse struct {
 		Id    *int `json:"id,omitempty"`
 		Logos *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
-			Iso6391     *string  `json:"iso_639_1"`
+			Iso6391     *string  `json:"iso_639_1,omitempty"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
 			VoteCount   *int     `json:"vote_count,omitempty"`
 			Width       *int     `json:"width,omitempty"`
 		} `json:"logos,omitempty"`
 		Posters *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -16236,7 +16238,7 @@ type MovieListsResponse struct {
 			Description   *string `json:"description,omitempty"`
 			FavoriteCount *int    `json:"favorite_count,omitempty"`
 			Id            *int    `json:"id,omitempty"`
-			Iso6391       *string `json:"iso_639_1"`
+			Iso6391       *string `json:"iso_639_1,omitempty"`
 			ItemCount     *int    `json:"item_count,omitempty"`
 			ListType      *string `json:"list_type,omitempty"`
 			Name          *string `json:"name,omitempty"`
@@ -16345,7 +16347,7 @@ type MovieReleaseDatesResponse struct {
 			ReleaseDates *[]struct {
 				Certification *string        `json:"certification,omitempty"`
 				Descriptors   *[]interface{} `json:"descriptors,omitempty"`
-				Iso6391       *string        `json:"iso_639_1"`
+				Iso6391       *string        `json:"iso_639_1,omitempty"`
 				Note          *string        `json:"note,omitempty"`
 				ReleaseDate   *string        `json:"release_date,omitempty"`
 				Type          *int           `json:"type,omitempty"`
@@ -16417,7 +16419,7 @@ type MovieSimilarResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
+			Adult            *bool    `json:"adult,omitempty"`
 			BackdropPath     *string  `json:"backdrop_path"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
@@ -16468,7 +16470,7 @@ type MovieTranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -16498,7 +16500,7 @@ type MovieVideosResponse struct {
 		Results *[]struct {
 			Id          *string `json:"id,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Key         *string `json:"key,omitempty"`
 			Name        *string `json:"name,omitempty"`
 			Official    *bool   `json:"official,omitempty"`
@@ -16535,20 +16537,20 @@ type MovieWatchProvidersResponse struct {
 			AE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16556,7 +16558,7 @@ type MovieWatchProvidersResponse struct {
 			AL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
@@ -16565,20 +16567,20 @@ type MovieWatchProvidersResponse struct {
 			AR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16586,20 +16588,20 @@ type MovieWatchProvidersResponse struct {
 			AT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16607,13 +16609,13 @@ type MovieWatchProvidersResponse struct {
 			AU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16622,13 +16624,13 @@ type MovieWatchProvidersResponse struct {
 			BA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16637,7 +16639,7 @@ type MovieWatchProvidersResponse struct {
 			BB *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16646,20 +16648,20 @@ type MovieWatchProvidersResponse struct {
 			BE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16667,20 +16669,20 @@ type MovieWatchProvidersResponse struct {
 			BG *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16688,7 +16690,7 @@ type MovieWatchProvidersResponse struct {
 			BH *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
@@ -16697,7 +16699,7 @@ type MovieWatchProvidersResponse struct {
 			BO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16706,7 +16708,7 @@ type MovieWatchProvidersResponse struct {
 			BR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16715,7 +16717,7 @@ type MovieWatchProvidersResponse struct {
 			BS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16724,20 +16726,20 @@ type MovieWatchProvidersResponse struct {
 			CA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16745,20 +16747,20 @@ type MovieWatchProvidersResponse struct {
 			CH *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16766,20 +16768,20 @@ type MovieWatchProvidersResponse struct {
 			CL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16787,20 +16789,20 @@ type MovieWatchProvidersResponse struct {
 			CO *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16808,7 +16810,7 @@ type MovieWatchProvidersResponse struct {
 			CR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16817,14 +16819,14 @@ type MovieWatchProvidersResponse struct {
 			CV *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16832,20 +16834,20 @@ type MovieWatchProvidersResponse struct {
 			CZ *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16853,20 +16855,20 @@ type MovieWatchProvidersResponse struct {
 			DE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16874,20 +16876,20 @@ type MovieWatchProvidersResponse struct {
 			DK *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16895,7 +16897,7 @@ type MovieWatchProvidersResponse struct {
 			DO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -16904,20 +16906,20 @@ type MovieWatchProvidersResponse struct {
 			EC *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16925,20 +16927,20 @@ type MovieWatchProvidersResponse struct {
 			EE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16946,14 +16948,14 @@ type MovieWatchProvidersResponse struct {
 			EG *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16961,26 +16963,26 @@ type MovieWatchProvidersResponse struct {
 			ES *struct {
 				Ads *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"ads,omitempty"`
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -16988,20 +16990,20 @@ type MovieWatchProvidersResponse struct {
 			FI *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17009,7 +17011,7 @@ type MovieWatchProvidersResponse struct {
 			FJ *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
@@ -17018,20 +17020,20 @@ type MovieWatchProvidersResponse struct {
 			FR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17039,20 +17041,20 @@ type MovieWatchProvidersResponse struct {
 			GB *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17060,7 +17062,7 @@ type MovieWatchProvidersResponse struct {
 			GF *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17069,7 +17071,7 @@ type MovieWatchProvidersResponse struct {
 			GI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17078,20 +17080,20 @@ type MovieWatchProvidersResponse struct {
 			GR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17099,7 +17101,7 @@ type MovieWatchProvidersResponse struct {
 			GT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17108,7 +17110,7 @@ type MovieWatchProvidersResponse struct {
 			HK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17117,7 +17119,7 @@ type MovieWatchProvidersResponse struct {
 			HN *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17126,19 +17128,19 @@ type MovieWatchProvidersResponse struct {
 			HR *struct {
 				Ads *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"ads,omitempty"`
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17147,20 +17149,20 @@ type MovieWatchProvidersResponse struct {
 			HU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17168,7 +17170,7 @@ type MovieWatchProvidersResponse struct {
 			ID *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17177,20 +17179,20 @@ type MovieWatchProvidersResponse struct {
 			IE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17198,13 +17200,13 @@ type MovieWatchProvidersResponse struct {
 			IL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17213,20 +17215,20 @@ type MovieWatchProvidersResponse struct {
 			IN *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17234,7 +17236,7 @@ type MovieWatchProvidersResponse struct {
 			IQ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17243,13 +17245,13 @@ type MovieWatchProvidersResponse struct {
 			IS *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17258,20 +17260,20 @@ type MovieWatchProvidersResponse struct {
 			IT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17279,7 +17281,7 @@ type MovieWatchProvidersResponse struct {
 			JM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17288,13 +17290,13 @@ type MovieWatchProvidersResponse struct {
 			JO *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17303,20 +17305,20 @@ type MovieWatchProvidersResponse struct {
 			JP *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17324,13 +17326,13 @@ type MovieWatchProvidersResponse struct {
 			KR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17339,13 +17341,13 @@ type MovieWatchProvidersResponse struct {
 			KW *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17354,13 +17356,13 @@ type MovieWatchProvidersResponse struct {
 			LB *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17369,7 +17371,7 @@ type MovieWatchProvidersResponse struct {
 			LI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17378,20 +17380,20 @@ type MovieWatchProvidersResponse struct {
 			LT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17399,13 +17401,13 @@ type MovieWatchProvidersResponse struct {
 			LV *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17414,13 +17416,13 @@ type MovieWatchProvidersResponse struct {
 			MD *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17429,13 +17431,13 @@ type MovieWatchProvidersResponse struct {
 			MK *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17444,20 +17446,20 @@ type MovieWatchProvidersResponse struct {
 			MT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17465,14 +17467,14 @@ type MovieWatchProvidersResponse struct {
 			MU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17480,7 +17482,7 @@ type MovieWatchProvidersResponse struct {
 			MX *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17489,7 +17491,7 @@ type MovieWatchProvidersResponse struct {
 			MY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17498,14 +17500,14 @@ type MovieWatchProvidersResponse struct {
 			MZ *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17513,20 +17515,20 @@ type MovieWatchProvidersResponse struct {
 			NL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17534,20 +17536,20 @@ type MovieWatchProvidersResponse struct {
 			NO *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17555,13 +17557,13 @@ type MovieWatchProvidersResponse struct {
 			NZ *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17570,20 +17572,20 @@ type MovieWatchProvidersResponse struct {
 			OM *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17591,7 +17593,7 @@ type MovieWatchProvidersResponse struct {
 			PA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17600,20 +17602,20 @@ type MovieWatchProvidersResponse struct {
 			PE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17621,7 +17623,7 @@ type MovieWatchProvidersResponse struct {
 			PH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17630,7 +17632,7 @@ type MovieWatchProvidersResponse struct {
 			PK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17639,20 +17641,20 @@ type MovieWatchProvidersResponse struct {
 			PL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17660,7 +17662,7 @@ type MovieWatchProvidersResponse struct {
 			PS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17669,20 +17671,20 @@ type MovieWatchProvidersResponse struct {
 			PT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17690,7 +17692,7 @@ type MovieWatchProvidersResponse struct {
 			PY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17699,13 +17701,13 @@ type MovieWatchProvidersResponse struct {
 			QA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17714,7 +17716,7 @@ type MovieWatchProvidersResponse struct {
 			RO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17723,13 +17725,13 @@ type MovieWatchProvidersResponse struct {
 			RS *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17738,20 +17740,20 @@ type MovieWatchProvidersResponse struct {
 			RU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17759,20 +17761,20 @@ type MovieWatchProvidersResponse struct {
 			SA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17780,20 +17782,20 @@ type MovieWatchProvidersResponse struct {
 			SE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17801,7 +17803,7 @@ type MovieWatchProvidersResponse struct {
 			SG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17810,13 +17812,13 @@ type MovieWatchProvidersResponse struct {
 			SI *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17825,20 +17827,20 @@ type MovieWatchProvidersResponse struct {
 			SK *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17846,7 +17848,7 @@ type MovieWatchProvidersResponse struct {
 			SM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17855,7 +17857,7 @@ type MovieWatchProvidersResponse struct {
 			SV *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17864,7 +17866,7 @@ type MovieWatchProvidersResponse struct {
 			TH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17873,20 +17875,20 @@ type MovieWatchProvidersResponse struct {
 			TR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17894,7 +17896,7 @@ type MovieWatchProvidersResponse struct {
 			TT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17903,7 +17905,7 @@ type MovieWatchProvidersResponse struct {
 			TW *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17912,14 +17914,14 @@ type MovieWatchProvidersResponse struct {
 			UG *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17927,20 +17929,20 @@ type MovieWatchProvidersResponse struct {
 			US *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17948,7 +17950,7 @@ type MovieWatchProvidersResponse struct {
 			UY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17957,20 +17959,20 @@ type MovieWatchProvidersResponse struct {
 			VE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -17978,7 +17980,7 @@ type MovieWatchProvidersResponse struct {
 			YE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -17987,20 +17989,20 @@ type MovieWatchProvidersResponse struct {
 			ZA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -18032,7 +18034,7 @@ type NetworkDetailsResponse struct {
 		Headquarters  *string `json:"headquarters,omitempty"`
 		Homepage      *string `json:"homepage,omitempty"`
 		Id            *int    `json:"id,omitempty"`
-		LogoPath      *string `json:"logo_path"`
+		LogoPath      *string `json:"logo_path,omitempty"`
 		Name          *string `json:"name,omitempty"`
 		OriginCountry *string `json:"origin_country,omitempty"`
 	}
@@ -18089,7 +18091,7 @@ type AlternativeNamesCopyResponse struct {
 		Id    *int `json:"id,omitempty"`
 		Logos *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			FileType    *string  `json:"file_type,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Id          *string  `json:"id,omitempty"`
@@ -18150,19 +18152,19 @@ type PersonLatestIdResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult              *bool          `json:"adult"`
+		Adult              *bool          `json:"adult,omitempty"`
 		AlsoKnownAs        *[]interface{} `json:"also_known_as,omitempty"`
 		Biography          *string        `json:"biography,omitempty"`
-		Birthday           *interface{}   `json:"birthday,omitempty"`
-		Deathday           *interface{}   `json:"deathday,omitempty"`
+		Birthday           *interface{}   `json:"birthday"`
+		Deathday           *interface{}   `json:"deathday"`
 		Gender             *int           `json:"gender,omitempty"`
-		Homepage           *interface{}   `json:"homepage,omitempty"`
+		Homepage           *interface{}   `json:"homepage"`
 		Id                 *int           `json:"id,omitempty"`
-		ImdbId             *interface{}   `json:"imdb_id,omitempty"`
-		KnownForDepartment *interface{}   `json:"known_for_department,omitempty"`
+		ImdbId             *interface{}   `json:"imdb_id"`
+		KnownForDepartment *interface{}   `json:"known_for_department"`
 		Name               *string        `json:"name,omitempty"`
-		PlaceOfBirth       *interface{}   `json:"place_of_birth,omitempty"`
-		Popularity         *int           `json:"popularity,omitempty"`
+		PlaceOfBirth       *interface{}   `json:"place_of_birth"`
+		Popularity         *float32       `json:"popularity,omitempty"`
 		ProfilePath        *string        `json:"profile_path"`
 	}
 }
@@ -18189,29 +18191,33 @@ type PersonPopularListResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult    *bool `json:"adult"`
+			Adult    *bool `json:"adult,omitempty"`
 			Gender   *int  `json:"gender,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			KnownFor *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"known_for,omitempty"`
 			KnownForDepartment *string  `json:"known_for_department,omitempty"`
 			Name               *string  `json:"name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -18238,20 +18244,20 @@ type PersonDetailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult              *bool        `json:"adult"`
+		Adult              *bool        `json:"adult,omitempty"`
 		AlsoKnownAs        *[]string    `json:"also_known_as,omitempty"`
 		Biography          *string      `json:"biography,omitempty"`
 		Birthday           *string      `json:"birthday,omitempty"`
-		Deathday           *interface{} `json:"deathday,omitempty"`
+		Deathday           *interface{} `json:"deathday"`
 		Gender             *int         `json:"gender,omitempty"`
-		Homepage           *interface{} `json:"homepage,omitempty"`
+		Homepage           *interface{} `json:"homepage"`
 		Id                 *int         `json:"id,omitempty"`
 		ImdbId             *string      `json:"imdb_id,omitempty"`
 		KnownForDepartment *string      `json:"known_for_department,omitempty"`
 		Name               *string      `json:"name,omitempty"`
 		PlaceOfBirth       *string      `json:"place_of_birth,omitempty"`
 		Popularity         *float32     `json:"popularity,omitempty"`
-		ProfilePath        *string      `json:"profile_path"`
+		ProfilePath        *string      `json:"profile_path,omitempty"`
 	}
 }
 
@@ -18280,7 +18286,7 @@ type PersonChangesResponse struct {
 				Action   *string `json:"action,omitempty"`
 				Id       *string `json:"id,omitempty"`
 				Iso31661 *string `json:"iso_3166_1,omitempty"`
-				Iso6391  *string `json:"iso_639_1"`
+				Iso6391  *string `json:"iso_639_1,omitempty"`
 				Time     *string `json:"time,omitempty"`
 				Value    *string `json:"value,omitempty"`
 			} `json:"items,omitempty"`
@@ -18310,44 +18316,54 @@ type PersonCombinedCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
-			Character        *string  `json:"character,omitempty"`
-			CreditId         *string  `json:"credit_id,omitempty"`
-			GenreIds         *[]int   `json:"genre_ids,omitempty"`
-			Id               *int     `json:"id,omitempty"`
-			MediaType        *string  `json:"media_type,omitempty"`
-			Order            *int     `json:"order,omitempty"`
-			OriginalLanguage *string  `json:"original_language,omitempty"`
-			OriginalTitle    *string  `json:"original_title,omitempty"`
-			Overview         *string  `json:"overview,omitempty"`
-			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
-			ReleaseDate      *string  `json:"release_date,omitempty"`
-			Title            *string  `json:"title,omitempty"`
-			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average,omitempty"`
-			VoteCount        *int     `json:"vote_count,omitempty"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path"`
+			Character        *string   `json:"character,omitempty"`
+			CreditId         *string   `json:"credit_id,omitempty"`
+			EpisodeCount     *int      `json:"episode_count,omitempty"`
+			FirstAirDate     *string   `json:"first_air_date,omitempty"`
+			GenreIds         *[]int    `json:"genre_ids,omitempty"`
+			Id               *int      `json:"id,omitempty"`
+			MediaType        *string   `json:"media_type,omitempty"`
+			Name             *string   `json:"name,omitempty"`
+			Order            *int      `json:"order,omitempty"`
+			OriginCountry    *[]string `json:"origin_country,omitempty"`
+			OriginalLanguage *string   `json:"original_language,omitempty"`
+			OriginalName     *string   `json:"original_name,omitempty"`
+			OriginalTitle    *string   `json:"original_title,omitempty"`
+			Overview         *string   `json:"overview,omitempty"`
+			Popularity       *float32  `json:"popularity,omitempty"`
+			PosterPath       *string   `json:"poster_path"`
+			ReleaseDate      *string   `json:"release_date,omitempty"`
+			Title            *string   `json:"title,omitempty"`
+			Video            *bool     `json:"video,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
+			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
-			CreditId         *string  `json:"credit_id,omitempty"`
-			Department       *string  `json:"department,omitempty"`
-			GenreIds         *[]int   `json:"genre_ids,omitempty"`
-			Id               *int     `json:"id,omitempty"`
-			Job              *string  `json:"job,omitempty"`
-			MediaType        *string  `json:"media_type,omitempty"`
-			OriginalLanguage *string  `json:"original_language,omitempty"`
-			OriginalTitle    *string  `json:"original_title,omitempty"`
-			Overview         *string  `json:"overview,omitempty"`
-			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
-			ReleaseDate      *string  `json:"release_date,omitempty"`
-			Title            *string  `json:"title,omitempty"`
-			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average,omitempty"`
-			VoteCount        *int     `json:"vote_count,omitempty"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path"`
+			CreditId         *string   `json:"credit_id,omitempty"`
+			Department       *string   `json:"department,omitempty"`
+			EpisodeCount     *int      `json:"episode_count,omitempty"`
+			FirstAirDate     *string   `json:"first_air_date,omitempty"`
+			GenreIds         *[]int    `json:"genre_ids,omitempty"`
+			Id               *int      `json:"id,omitempty"`
+			Job              *string   `json:"job,omitempty"`
+			MediaType        *string   `json:"media_type,omitempty"`
+			Name             *string   `json:"name,omitempty"`
+			OriginCountry    *[]string `json:"origin_country,omitempty"`
+			OriginalLanguage *string   `json:"original_language,omitempty"`
+			OriginalName     *string   `json:"original_name,omitempty"`
+			OriginalTitle    *string   `json:"original_title,omitempty"`
+			Overview         *string   `json:"overview,omitempty"`
+			Popularity       *float32  `json:"popularity,omitempty"`
+			PosterPath       *string   `json:"poster_path"`
+			ReleaseDate      *string   `json:"release_date,omitempty"`
+			Title            *string   `json:"title,omitempty"`
+			Video            *bool     `json:"video,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
+			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"crew,omitempty"`
 		Id *int `json:"id,omitempty"`
 	}
@@ -18383,7 +18399,7 @@ type PersonExternalIdsResponse struct {
 		TvrageId    *int         `json:"tvrage_id,omitempty"`
 		TwitterId   *string      `json:"twitter_id,omitempty"`
 		WikidataId  *string      `json:"wikidata_id,omitempty"`
-		YoutubeId   *interface{} `json:"youtube_id,omitempty"`
+		YoutubeId   *interface{} `json:"youtube_id"`
 	}
 }
 
@@ -18409,13 +18425,13 @@ type PersonImagesResponse struct {
 	JSON200      *struct {
 		Id       *int `json:"id,omitempty"`
 		Profiles *[]struct {
-			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
-			Height      *int     `json:"height,omitempty"`
-			Iso6391     *string  `json:"iso_639_1"`
-			VoteAverage *float32 `json:"vote_average,omitempty"`
-			VoteCount   *int     `json:"vote_count,omitempty"`
-			Width       *int     `json:"width,omitempty"`
+			AspectRatio *float32     `json:"aspect_ratio,omitempty"`
+			FilePath    *string      `json:"file_path,omitempty"`
+			Height      *int         `json:"height,omitempty"`
+			Iso6391     *interface{} `json:"iso_639_1"`
+			VoteAverage *float32     `json:"vote_average,omitempty"`
+			VoteCount   *int         `json:"vote_count,omitempty"`
+			Width       *int         `json:"width,omitempty"`
 		} `json:"profiles,omitempty"`
 	}
 }
@@ -18441,7 +18457,7 @@ type PersonMovieCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult            *bool    `json:"adult"`
+			Adult            *bool    `json:"adult,omitempty"`
 			BackdropPath     *string  `json:"backdrop_path"`
 			Character        *string  `json:"character,omitempty"`
 			CreditId         *string  `json:"credit_id,omitempty"`
@@ -18460,7 +18476,7 @@ type PersonMovieCreditsResponse struct {
 			VoteCount        *int     `json:"vote_count,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult            *bool    `json:"adult"`
+			Adult            *bool    `json:"adult,omitempty"`
 			BackdropPath     *string  `json:"backdrop_path"`
 			CreditId         *string  `json:"credit_id,omitempty"`
 			Department       *string  `json:"department,omitempty"`
@@ -18506,23 +18522,31 @@ type PersonTaggedImagesResponse struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Id          *string  `json:"id,omitempty"`
 			ImageType   *string  `json:"image_type,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			Media       *struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				AirDate          *string  `json:"air_date,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
+				EpisodeNumber    *int     `json:"episode_number,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
+				Name             *string  `json:"name,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
+				ProductionCode   *string  `json:"production_code,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
+				Runtime          *int     `json:"runtime,omitempty"`
+				SeasonNumber     *int     `json:"season_number,omitempty"`
+				ShowId           *int     `json:"show_id,omitempty"`
+				StillPath        *string  `json:"still_path,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
 				VoteAverage      *float32 `json:"vote_average,omitempty"`
@@ -18565,7 +18589,7 @@ type TranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -18592,7 +18616,7 @@ type PersonTvCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult            *bool     `json:"adult"`
+			Adult            *bool     `json:"adult,omitempty"`
 			BackdropPath     *string   `json:"backdrop_path"`
 			Character        *string   `json:"character,omitempty"`
 			CreditId         *string   `json:"credit_id,omitempty"`
@@ -18611,7 +18635,7 @@ type PersonTvCreditsResponse struct {
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult            *bool     `json:"adult"`
+			Adult            *bool     `json:"adult,omitempty"`
 			BackdropPath     *string   `json:"backdrop_path"`
 			CreditId         *string   `json:"credit_id,omitempty"`
 			Department       *string   `json:"department,omitempty"`
@@ -18656,15 +18680,15 @@ type ReviewDetailsResponse struct {
 	JSON200      *struct {
 		Author        *string `json:"author,omitempty"`
 		AuthorDetails *struct {
-			AvatarPath *string  `json:"avatar_path"`
+			AvatarPath *string  `json:"avatar_path,omitempty"`
 			Name       *string  `json:"name,omitempty"`
-			Rating     *float32 `json:"rating"`
+			Rating     *float32 `json:"rating,omitempty"`
 			Username   *string  `json:"username,omitempty"`
 		} `json:"author_details,omitempty"`
 		Content    *string `json:"content,omitempty"`
 		CreatedAt  *string `json:"created_at,omitempty"`
 		Id         *string `json:"id,omitempty"`
-		Iso6391    *string `json:"iso_639_1"`
+		Iso6391    *string `json:"iso_639_1,omitempty"`
 		MediaId    *int    `json:"media_id,omitempty"`
 		MediaTitle *string `json:"media_title,omitempty"`
 		MediaType  *string `json:"media_type,omitempty"`
@@ -18695,14 +18719,14 @@ type SearchCollectionResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool   `json:"adult"`
-			BackdropPath     *string `json:"backdrop_path"`
+			Adult            *bool   `json:"adult,omitempty"`
+			BackdropPath     *string `json:"backdrop_path,omitempty"`
 			Id               *int    `json:"id,omitempty"`
 			Name             *string `json:"name,omitempty"`
 			OriginalLanguage *string `json:"original_language,omitempty"`
 			OriginalName     *string `json:"original_name,omitempty"`
 			Overview         *string `json:"overview,omitempty"`
-			PosterPath       *string `json:"poster_path"`
+			PosterPath       *string `json:"poster_path,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -18793,7 +18817,7 @@ type SearchMovieResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
+			Adult            *bool    `json:"adult,omitempty"`
 			BackdropPath     *string  `json:"backdrop_path"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
@@ -18835,21 +18859,25 @@ type SearchMultiResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
-			GenreIds         *[]int   `json:"genre_ids,omitempty"`
-			Id               *int     `json:"id,omitempty"`
-			MediaType        *string  `json:"media_type,omitempty"`
-			OriginalLanguage *string  `json:"original_language,omitempty"`
-			OriginalTitle    *string  `json:"original_title,omitempty"`
-			Overview         *string  `json:"overview,omitempty"`
-			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
-			ReleaseDate      *string  `json:"release_date,omitempty"`
-			Title            *string  `json:"title,omitempty"`
-			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average,omitempty"`
-			VoteCount        *int     `json:"vote_count,omitempty"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path"`
+			FirstAirDate     *string   `json:"first_air_date,omitempty"`
+			GenreIds         *[]int    `json:"genre_ids,omitempty"`
+			Id               *int      `json:"id,omitempty"`
+			MediaType        *string   `json:"media_type,omitempty"`
+			Name             *string   `json:"name,omitempty"`
+			OriginCountry    *[]string `json:"origin_country,omitempty"`
+			OriginalLanguage *string   `json:"original_language,omitempty"`
+			OriginalName     *string   `json:"original_name,omitempty"`
+			OriginalTitle    *string   `json:"original_title,omitempty"`
+			Overview         *string   `json:"overview,omitempty"`
+			Popularity       *float32  `json:"popularity,omitempty"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			ReleaseDate      *string   `json:"release_date,omitempty"`
+			Title            *string   `json:"title,omitempty"`
+			Video            *bool     `json:"video,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
+			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -18878,12 +18906,12 @@ type SearchPersonResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult    *bool `json:"adult"`
+			Adult    *bool `json:"adult,omitempty"`
 			Gender   *int  `json:"gender,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			KnownFor *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
@@ -18891,7 +18919,7 @@ type SearchPersonResponse struct {
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -18902,7 +18930,7 @@ type SearchPersonResponse struct {
 			Name               *string  `json:"name,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -18931,8 +18959,8 @@ type SearchTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -18942,7 +18970,7 @@ type SearchTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -18973,21 +19001,25 @@ type TrendingAllResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
-			GenreIds         *[]int   `json:"genre_ids,omitempty"`
-			Id               *int     `json:"id,omitempty"`
-			MediaType        *string  `json:"media_type,omitempty"`
-			OriginalLanguage *string  `json:"original_language,omitempty"`
-			OriginalTitle    *string  `json:"original_title,omitempty"`
-			Overview         *string  `json:"overview,omitempty"`
-			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
-			ReleaseDate      *string  `json:"release_date,omitempty"`
-			Title            *string  `json:"title,omitempty"`
-			Video            *bool    `json:"video,omitempty"`
-			VoteAverage      *float32 `json:"vote_average,omitempty"`
-			VoteCount        *int     `json:"vote_count,omitempty"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
+			FirstAirDate     *string   `json:"first_air_date,omitempty"`
+			GenreIds         *[]int    `json:"genre_ids,omitempty"`
+			Id               *int      `json:"id,omitempty"`
+			MediaType        *string   `json:"media_type,omitempty"`
+			Name             *string   `json:"name,omitempty"`
+			OriginCountry    *[]string `json:"origin_country,omitempty"`
+			OriginalLanguage *string   `json:"original_language,omitempty"`
+			OriginalName     *string   `json:"original_name,omitempty"`
+			OriginalTitle    *string   `json:"original_title,omitempty"`
+			Overview         *string   `json:"overview,omitempty"`
+			Popularity       *float32  `json:"popularity,omitempty"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			ReleaseDate      *string   `json:"release_date,omitempty"`
+			Title            *string   `json:"title,omitempty"`
+			Video            *bool     `json:"video,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
+			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -19016,8 +19048,8 @@ type TrendingMoviesResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool    `json:"adult"`
-			BackdropPath     *string  `json:"backdrop_path"`
+			Adult            *bool    `json:"adult,omitempty"`
+			BackdropPath     *string  `json:"backdrop_path,omitempty"`
 			GenreIds         *[]int   `json:"genre_ids,omitempty"`
 			Id               *int     `json:"id,omitempty"`
 			MediaType        *string  `json:"media_type,omitempty"`
@@ -19025,7 +19057,7 @@ type TrendingMoviesResponse struct {
 			OriginalTitle    *string  `json:"original_title,omitempty"`
 			Overview         *string  `json:"overview,omitempty"`
 			Popularity       *float32 `json:"popularity,omitempty"`
-			PosterPath       *string  `json:"poster_path"`
+			PosterPath       *string  `json:"poster_path,omitempty"`
 			ReleaseDate      *string  `json:"release_date,omitempty"`
 			Title            *string  `json:"title,omitempty"`
 			Video            *bool    `json:"video,omitempty"`
@@ -19059,32 +19091,36 @@ type TrendingPeopleResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult    *bool `json:"adult"`
+			Adult    *bool `json:"adult,omitempty"`
 			Gender   *int  `json:"gender,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			KnownFor *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				Popularity       *float32  `json:"popularity,omitempty"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"known_for,omitempty"`
 			KnownForDepartment *string  `json:"known_for_department,omitempty"`
 			MediaType          *string  `json:"media_type,omitempty"`
 			Name               *string  `json:"name,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
 		TotalResults *int `json:"total_results,omitempty"`
@@ -19113,8 +19149,8 @@ type TrendingTvResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -19125,7 +19161,7 @@ type TrendingTvResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -19166,8 +19202,8 @@ type TvSeriesAiringTodayListResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
-			VoteAverage      *float32  `json:"vote_average"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -19227,10 +19263,12 @@ type TvEpisodeChangesByIdResponse struct {
 	JSON200      *struct {
 		Changes *[]struct {
 			Items *[]struct {
-				Action *string `json:"action,omitempty"`
-				Id     *string `json:"id,omitempty"`
-				Time   *string `json:"time,omitempty"`
-				Value  *string `json:"value,omitempty"`
+				Action        *string `json:"action,omitempty"`
+				Id            *string `json:"id,omitempty"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
+				OriginalValue *string `json:"original_value,omitempty"`
+				Time          *string `json:"time,omitempty"`
+				Value         *string `json:"value,omitempty"`
 			} `json:"items,omitempty"`
 			Key *string `json:"key,omitempty"`
 		} `json:"changes,omitempty"`
@@ -19269,10 +19307,10 @@ type TvEpisodeGroupDetailsResponse struct {
 				Order          *int         `json:"order,omitempty"`
 				Overview       *string      `json:"overview,omitempty"`
 				ProductionCode *string      `json:"production_code,omitempty"`
-				Runtime        *interface{} `json:"runtime,omitempty"`
+				Runtime        *interface{} `json:"runtime"`
 				SeasonNumber   *int         `json:"season_number,omitempty"`
 				ShowId         *int         `json:"show_id,omitempty"`
-				StillPath      *string      `json:"still_path"`
+				StillPath      *string      `json:"still_path,omitempty"`
 				VoteAverage    *float32     `json:"vote_average,omitempty"`
 				VoteCount      *int         `json:"vote_count,omitempty"`
 			} `json:"episodes,omitempty"`
@@ -19285,7 +19323,7 @@ type TvEpisodeGroupDetailsResponse struct {
 		Name    *string `json:"name,omitempty"`
 		Network *struct {
 			Id            *int    `json:"id,omitempty"`
-			LogoPath      *string `json:"logo_path"`
+			LogoPath      *string `json:"logo_path,omitempty"`
 			Name          *string `json:"name,omitempty"`
 			OriginCountry *string `json:"origin_country,omitempty"`
 		} `json:"network,omitempty"`
@@ -19313,7 +19351,7 @@ type TvSeriesLatestIdResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult            *bool          `json:"adult"`
+		Adult            *bool          `json:"adult,omitempty"`
 		BackdropPath     *string        `json:"backdrop_path"`
 		CreatedBy        *[]interface{} `json:"created_by,omitempty"`
 		EpisodeRunTime   *[]interface{} `json:"episode_run_time,omitempty"`
@@ -19331,28 +19369,28 @@ type TvSeriesLatestIdResponse struct {
 			Name           *string      `json:"name,omitempty"`
 			Overview       *string      `json:"overview,omitempty"`
 			ProductionCode *string      `json:"production_code,omitempty"`
-			Runtime        *interface{} `json:"runtime,omitempty"`
+			Runtime        *interface{} `json:"runtime"`
 			SeasonNumber   *int         `json:"season_number,omitempty"`
 			ShowId         *int         `json:"show_id,omitempty"`
 			StillPath      *string      `json:"still_path"`
-			VoteAverage    *float32     `json:"vote_average"`
+			VoteAverage    *float32     `json:"vote_average,omitempty"`
 			VoteCount      *int         `json:"vote_count,omitempty"`
 		} `json:"last_episode_to_air,omitempty"`
 		Name                *string        `json:"name,omitempty"`
 		Networks            *[]interface{} `json:"networks,omitempty"`
-		NextEpisodeToAir    *interface{}   `json:"next_episode_to_air,omitempty"`
+		NextEpisodeToAir    *interface{}   `json:"next_episode_to_air"`
 		NumberOfEpisodes    *int           `json:"number_of_episodes,omitempty"`
 		NumberOfSeasons     *int           `json:"number_of_seasons,omitempty"`
 		OriginCountry       *[]string      `json:"origin_country,omitempty"`
 		OriginalLanguage    *string        `json:"original_language,omitempty"`
 		OriginalName        *string        `json:"original_name,omitempty"`
 		Overview            *string        `json:"overview,omitempty"`
-		Popularity          *int           `json:"popularity,omitempty"`
+		Popularity          *float32       `json:"popularity,omitempty"`
 		PosterPath          *string        `json:"poster_path"`
 		ProductionCompanies *[]interface{} `json:"production_companies,omitempty"`
 		ProductionCountries *[]interface{} `json:"production_countries,omitempty"`
 		Seasons             *[]struct {
-			AirDate      *interface{} `json:"air_date,omitempty"`
+			AirDate      *interface{} `json:"air_date"`
 			EpisodeCount *int         `json:"episode_count,omitempty"`
 			Id           *int         `json:"id,omitempty"`
 			Name         *string      `json:"name,omitempty"`
@@ -19364,7 +19402,7 @@ type TvSeriesLatestIdResponse struct {
 		Status          *string        `json:"status,omitempty"`
 		Tagline         *string        `json:"tagline,omitempty"`
 		Type            *string        `json:"type,omitempty"`
-		VoteAverage     *float32       `json:"vote_average"`
+		VoteAverage     *float32       `json:"vote_average,omitempty"`
 		VoteCount       *int           `json:"vote_count,omitempty"`
 	}
 }
@@ -19401,8 +19439,8 @@ type TvSeriesOnTheAirListResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
-			VoteAverage      *float32  `json:"vote_average"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -19442,8 +19480,8 @@ type TvSeriesPopularListResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
-			VoteAverage      *float32  `json:"vote_average"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -19473,13 +19511,12 @@ type TvSeasonChangesByIdResponse struct {
 	JSON200      *struct {
 		Changes *[]struct {
 			Items *[]struct {
-				Action *string `json:"action,omitempty"`
-				Id     *string `json:"id,omitempty"`
-				Time   *string `json:"time,omitempty"`
-				Value  *struct {
-					EpisodeId     *int `json:"episode_id,omitempty"`
-					EpisodeNumber *int `json:"episode_number,omitempty"`
-				} `json:"value,omitempty"`
+				Action        *string `json:"action,omitempty"`
+				Id            *string `json:"id,omitempty"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
+				OriginalValue *string `json:"original_value,omitempty"`
+				Time          *string `json:"time,omitempty"`
+				Value         *string `json:"value,omitempty"`
 			} `json:"items,omitempty"`
 			Key *string `json:"key,omitempty"`
 		} `json:"changes,omitempty"`
@@ -19508,7 +19545,7 @@ type TvSeriesTopRatedListResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			BackdropPath     *string   `json:"backdrop_path"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -19518,7 +19555,7 @@ type TvSeriesTopRatedListResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -19547,14 +19584,14 @@ type TvSeriesDetailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *struct {
-		Adult        *bool   `json:"adult"`
-		BackdropPath *string `json:"backdrop_path"`
+		Adult        *bool   `json:"adult,omitempty"`
+		BackdropPath *string `json:"backdrop_path,omitempty"`
 		CreatedBy    *[]struct {
 			CreditId    *string `json:"credit_id,omitempty"`
 			Gender      *int    `json:"gender,omitempty"`
 			Id          *int    `json:"id,omitempty"`
 			Name        *string `json:"name,omitempty"`
-			ProfilePath *string `json:"profile_path"`
+			ProfilePath *string `json:"profile_path,omitempty"`
 		} `json:"created_by,omitempty"`
 		EpisodeRunTime *[]int  `json:"episode_run_time,omitempty"`
 		FirstAirDate   *string `json:"first_air_date,omitempty"`
@@ -19577,18 +19614,18 @@ type TvSeriesDetailsResponse struct {
 			Runtime        *int     `json:"runtime,omitempty"`
 			SeasonNumber   *int     `json:"season_number,omitempty"`
 			ShowId         *int     `json:"show_id,omitempty"`
-			StillPath      *string  `json:"still_path"`
+			StillPath      *string  `json:"still_path,omitempty"`
 			VoteAverage    *float32 `json:"vote_average,omitempty"`
 			VoteCount      *int     `json:"vote_count,omitempty"`
 		} `json:"last_episode_to_air,omitempty"`
 		Name     *string `json:"name,omitempty"`
 		Networks *[]struct {
 			Id            *int    `json:"id,omitempty"`
-			LogoPath      *string `json:"logo_path"`
+			LogoPath      *string `json:"logo_path,omitempty"`
 			Name          *string `json:"name,omitempty"`
 			OriginCountry *string `json:"origin_country,omitempty"`
 		} `json:"networks,omitempty"`
-		NextEpisodeToAir    *interface{} `json:"next_episode_to_air,omitempty"`
+		NextEpisodeToAir    *interface{} `json:"next_episode_to_air"`
 		NumberOfEpisodes    *int         `json:"number_of_episodes,omitempty"`
 		NumberOfSeasons     *int         `json:"number_of_seasons,omitempty"`
 		OriginCountry       *[]string    `json:"origin_country,omitempty"`
@@ -19596,7 +19633,7 @@ type TvSeriesDetailsResponse struct {
 		OriginalName        *string      `json:"original_name,omitempty"`
 		Overview            *string      `json:"overview,omitempty"`
 		Popularity          *float32     `json:"popularity,omitempty"`
-		PosterPath          *string      `json:"poster_path"`
+		PosterPath          *string      `json:"poster_path,omitempty"`
 		ProductionCompanies *[]struct {
 			Id            *int    `json:"id,omitempty"`
 			LogoPath      *string `json:"logo_path"`
@@ -19613,13 +19650,13 @@ type TvSeriesDetailsResponse struct {
 			Id           *int     `json:"id,omitempty"`
 			Name         *string  `json:"name,omitempty"`
 			Overview     *string  `json:"overview,omitempty"`
-			PosterPath   *string  `json:"poster_path"`
+			PosterPath   *string  `json:"poster_path,omitempty"`
 			SeasonNumber *int     `json:"season_number,omitempty"`
-			VoteAverage  *float32 `json:"vote_average"`
+			VoteAverage  *float32 `json:"vote_average,omitempty"`
 		} `json:"seasons,omitempty"`
 		SpokenLanguages *[]struct {
 			EnglishName *string `json:"english_name,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"spoken_languages,omitempty"`
 		Status      *string  `json:"status,omitempty"`
@@ -19653,7 +19690,7 @@ type TvSeriesAccountStatesResponse struct {
 		Favorite *bool `json:"favorite,omitempty"`
 		Id       *int  `json:"id,omitempty"`
 		Rated    *struct {
-			Value *int `json:"value,omitempty"`
+			Value *float32 `json:"value,omitempty"`
 		} `json:"rated,omitempty"`
 		Watchlist *bool `json:"watchlist,omitempty"`
 	}
@@ -19680,7 +19717,7 @@ type TvSeriesAggregateCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
 			Id                 *int     `json:"id,omitempty"`
 			KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -19697,7 +19734,7 @@ type TvSeriesAggregateCreditsResponse struct {
 			TotalEpisodeCount *int `json:"total_episode_count,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult      *bool   `json:"adult"`
+			Adult      *bool   `json:"adult,omitempty"`
 			Department *string `json:"department,omitempty"`
 			Gender     *int    `json:"gender,omitempty"`
 			Id         *int    `json:"id,omitempty"`
@@ -19771,18 +19808,26 @@ type TvSeriesChangesResponse struct {
 				Action        *string `json:"action,omitempty"`
 				Id            *string `json:"id,omitempty"`
 				Iso31661      *string `json:"iso_3166_1,omitempty"`
-				Iso6391       *string `json:"iso_639_1"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
 				OriginalValue *struct {
+					Backdrop *struct {
+						FilePath *string `json:"file_path,omitempty"`
+						Iso6391  *string `json:"iso_639_1,omitempty"`
+					} `json:"backdrop,omitempty"`
 					Poster *struct {
-						FilePath *string `json:"file_path"`
+						FilePath *string `json:"file_path,omitempty"`
 						Iso6391  *string `json:"iso_639_1"`
 					} `json:"poster,omitempty"`
 				} `json:"original_value,omitempty"`
 				Time  *string `json:"time,omitempty"`
 				Value *struct {
+					Backdrop *struct {
+						FilePath *string `json:"file_path,omitempty"`
+						Iso6391  *string `json:"iso_639_1,omitempty"`
+					} `json:"backdrop,omitempty"`
 					Poster *struct {
-						FilePath *string `json:"file_path"`
-						Iso6391  *string `json:"iso_639_1"`
+						FilePath *string `json:"file_path,omitempty"`
+						Iso6391  *string `json:"iso_639_1,omitempty"`
 					} `json:"poster,omitempty"`
 				} `json:"value,omitempty"`
 			} `json:"items,omitempty"`
@@ -19841,7 +19886,7 @@ type TvSeriesCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -19851,10 +19896,10 @@ type TvSeriesCreditsResponse struct {
 			Order              *int     `json:"order,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Department         *string  `json:"department,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -19899,7 +19944,7 @@ type TvSeriesEpisodeGroupsResponse struct {
 			Name         *string `json:"name,omitempty"`
 			Network      *struct {
 				Id            *int    `json:"id,omitempty"`
-				LogoPath      *string `json:"logo_path"`
+				LogoPath      *string `json:"logo_path,omitempty"`
 				Name          *string `json:"name,omitempty"`
 				OriginCountry *string `json:"origin_country,omitempty"`
 			} `json:"network,omitempty"`
@@ -19963,7 +20008,7 @@ type TvSeriesImagesResponse struct {
 	JSON200      *struct {
 		Backdrops *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -19973,16 +20018,16 @@ type TvSeriesImagesResponse struct {
 		Id    *int `json:"id,omitempty"`
 		Logos *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
-			Iso6391     *string  `json:"iso_639_1"`
+			Iso6391     *string  `json:"iso_639_1,omitempty"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
 			VoteCount   *int     `json:"vote_count,omitempty"`
 			Width       *int     `json:"width,omitempty"`
 		} `json:"logos,omitempty"`
 		Posters *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -20047,7 +20092,7 @@ type ListsCopyResponse struct {
 			FavoriteCount *int    `json:"favorite_count,omitempty"`
 			Id            *int    `json:"id,omitempty"`
 			Iso31661      *string `json:"iso_3166_1,omitempty"`
-			Iso6391       *string `json:"iso_639_1"`
+			Iso6391       *string `json:"iso_639_1,omitempty"`
 			ItemCount     *int    `json:"item_count,omitempty"`
 			Name          *string `json:"name,omitempty"`
 			PosterPath    *string `json:"poster_path"`
@@ -20129,8 +20174,8 @@ type TvSeriesRecommendationsResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
-			BackdropPath     *string   `json:"backdrop_path"`
+			Adult            *bool     `json:"adult,omitempty"`
+			BackdropPath     *string   `json:"backdrop_path,omitempty"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
 			Id               *int      `json:"id,omitempty"`
@@ -20141,7 +20186,7 @@ type TvSeriesRecommendationsResponse struct {
 			OriginalName     *string   `json:"original_name,omitempty"`
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
-			PosterPath       *string   `json:"poster_path"`
+			PosterPath       *string   `json:"poster_path,omitempty"`
 			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
@@ -20177,7 +20222,7 @@ type TvSeriesReviewsResponse struct {
 			AuthorDetails *struct {
 				AvatarPath *string  `json:"avatar_path"`
 				Name       *string  `json:"name,omitempty"`
-				Rating     *float32 `json:"rating"`
+				Rating     *float32 `json:"rating,omitempty"`
 				Username   *string  `json:"username,omitempty"`
 			} `json:"author_details,omitempty"`
 			Content   *string `json:"content,omitempty"`
@@ -20244,7 +20289,7 @@ type TvSeasonDetailsResponse struct {
 		Episodes *[]struct {
 			AirDate *string `json:"air_date,omitempty"`
 			Crew    *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -20258,7 +20303,7 @@ type TvSeasonDetailsResponse struct {
 			} `json:"crew,omitempty"`
 			EpisodeNumber *int `json:"episode_number,omitempty"`
 			GuestStars    *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -20277,14 +20322,14 @@ type TvSeasonDetailsResponse struct {
 			Runtime        *int     `json:"runtime,omitempty"`
 			SeasonNumber   *int     `json:"season_number,omitempty"`
 			ShowId         *int     `json:"show_id,omitempty"`
-			StillPath      *string  `json:"still_path"`
+			StillPath      *string  `json:"still_path,omitempty"`
 			VoteAverage    *float32 `json:"vote_average,omitempty"`
 			VoteCount      *int     `json:"vote_count,omitempty"`
 		} `json:"episodes,omitempty"`
 		Id                   *int                   `json:"id,omitempty"`
 		Name                 *string                `json:"name,omitempty"`
 		Overview             *string                `json:"overview,omitempty"`
-		PosterPath           *string                `json:"poster_path"`
+		PosterPath           *string                `json:"poster_path,omitempty"`
 		SeasonNumber         *int                   `json:"season_number,omitempty"`
 		VoteAverage          *float32               `json:"vote_average,omitempty"`
 		AdditionalProperties map[string]interface{} `json:"-"`
@@ -20313,11 +20358,9 @@ type TvSeasonAccountStatesResponse struct {
 	JSON200      *struct {
 		Id      *int `json:"id,omitempty"`
 		Results *[]struct {
-			EpisodeNumber *int `json:"episode_number,omitempty"`
-			Id            *int `json:"id,omitempty"`
-			Rated         *struct {
-				Value *int `json:"value,omitempty"`
-			} `json:"rated,omitempty"`
+			EpisodeNumber *int  `json:"episode_number,omitempty"`
+			Id            *int  `json:"id,omitempty"`
+			Rated         *bool `json:"rated,omitempty"`
 		} `json:"results,omitempty"`
 	}
 }
@@ -20343,7 +20386,7 @@ type TvSeasonAggregateCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
 			Id                 *int     `json:"id,omitempty"`
 			KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -20360,7 +20403,7 @@ type TvSeasonAggregateCreditsResponse struct {
 			TotalEpisodeCount *int `json:"total_episode_count,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult      *bool   `json:"adult"`
+			Adult      *bool   `json:"adult,omitempty"`
 			Department *string `json:"department,omitempty"`
 			Gender     *int    `json:"gender,omitempty"`
 			Id         *int    `json:"id,omitempty"`
@@ -20401,7 +20444,7 @@ type TvSeasonCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20411,10 +20454,10 @@ type TvSeasonCreditsResponse struct {
 			Order              *int     `json:"order,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Department         *string  `json:"department,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20452,7 +20495,7 @@ type TvEpisodeDetailsResponse struct {
 	JSON200      *struct {
 		AirDate *string `json:"air_date,omitempty"`
 		Crew    *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Department         *string  `json:"department,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20466,7 +20509,7 @@ type TvEpisodeDetailsResponse struct {
 		} `json:"crew,omitempty"`
 		EpisodeNumber *int `json:"episode_number,omitempty"`
 		GuestStars    *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20476,7 +20519,7 @@ type TvEpisodeDetailsResponse struct {
 			Order              *int     `json:"order,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"guest_stars,omitempty"`
 		Id             *int     `json:"id,omitempty"`
 		Name           *string  `json:"name,omitempty"`
@@ -20484,7 +20527,7 @@ type TvEpisodeDetailsResponse struct {
 		ProductionCode *string  `json:"production_code,omitempty"`
 		Runtime        *int     `json:"runtime,omitempty"`
 		SeasonNumber   *int     `json:"season_number,omitempty"`
-		StillPath      *string  `json:"still_path"`
+		StillPath      *string  `json:"still_path,omitempty"`
 		VoteAverage    *float32 `json:"vote_average,omitempty"`
 		VoteCount      *int     `json:"vote_count,omitempty"`
 	}
@@ -20513,7 +20556,7 @@ type TvEpisodeAccountStatesResponse struct {
 		Favorite *bool `json:"favorite,omitempty"`
 		Id       *int  `json:"id,omitempty"`
 		Rated    *struct {
-			Value *int `json:"value,omitempty"`
+			Value *float32 `json:"value,omitempty"`
 		} `json:"rated,omitempty"`
 		Watchlist *bool `json:"watchlist,omitempty"`
 	}
@@ -20540,7 +20583,7 @@ type TvEpisodeCreditsResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *struct {
 		Cast *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20550,10 +20593,10 @@ type TvEpisodeCreditsResponse struct {
 			Order              *int     `json:"order,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"cast,omitempty"`
 		Crew *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Department         *string  `json:"department,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20566,7 +20609,7 @@ type TvEpisodeCreditsResponse struct {
 			ProfilePath        *string  `json:"profile_path"`
 		} `json:"crew,omitempty"`
 		GuestStars *[]struct {
-			Adult              *bool    `json:"adult"`
+			Adult              *bool    `json:"adult,omitempty"`
 			Character          *string  `json:"character,omitempty"`
 			CreditId           *string  `json:"credit_id,omitempty"`
 			Gender             *int     `json:"gender,omitempty"`
@@ -20576,7 +20619,7 @@ type TvEpisodeCreditsResponse struct {
 			Order              *int     `json:"order,omitempty"`
 			OriginalName       *string  `json:"original_name,omitempty"`
 			Popularity         *float32 `json:"popularity,omitempty"`
-			ProfilePath        *string  `json:"profile_path"`
+			ProfilePath        *string  `json:"profile_path,omitempty"`
 		} `json:"guest_stars,omitempty"`
 		Id *int `json:"id,omitempty"`
 	}
@@ -20634,13 +20677,13 @@ type TvEpisodeImagesResponse struct {
 	JSON200      *struct {
 		Id     *int `json:"id,omitempty"`
 		Stills *[]struct {
-			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
-			Height      *int     `json:"height,omitempty"`
-			Iso6391     *string  `json:"iso_639_1"`
-			VoteAverage *float32 `json:"vote_average,omitempty"`
-			VoteCount   *int     `json:"vote_count,omitempty"`
-			Width       *int     `json:"width,omitempty"`
+			AspectRatio *float32     `json:"aspect_ratio,omitempty"`
+			FilePath    *string      `json:"file_path,omitempty"`
+			Height      *int         `json:"height,omitempty"`
+			Iso6391     *interface{} `json:"iso_639_1"`
+			VoteAverage *float32     `json:"vote_average,omitempty"`
+			VoteCount   *int         `json:"vote_count,omitempty"`
+			Width       *int         `json:"width,omitempty"`
 		} `json:"stills,omitempty"`
 	}
 }
@@ -20723,7 +20766,7 @@ type TvEpisodeTranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -20753,7 +20796,7 @@ type TvEpisodeVideosResponse struct {
 		Results *[]struct {
 			Id          *string `json:"id,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Key         *string `json:"key,omitempty"`
 			Name        *string `json:"name,omitempty"`
 			Official    *bool   `json:"official,omitempty"`
@@ -20789,7 +20832,7 @@ type TvSeasonExternalIdsResponse struct {
 		FreebaseMid *string      `json:"freebase_mid,omitempty"`
 		Id          *int         `json:"id,omitempty"`
 		TvdbId      *int         `json:"tvdb_id,omitempty"`
-		TvrageId    *interface{} `json:"tvrage_id,omitempty"`
+		TvrageId    *interface{} `json:"tvrage_id"`
 		WikidataId  *string      `json:"wikidata_id,omitempty"`
 	}
 }
@@ -20817,7 +20860,7 @@ type TvSeasonImagesResponse struct {
 		Id      *int `json:"id,omitempty"`
 		Posters *[]struct {
 			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-			FilePath    *string  `json:"file_path"`
+			FilePath    *string  `json:"file_path,omitempty"`
 			Height      *int     `json:"height,omitempty"`
 			Iso6391     *string  `json:"iso_639_1"`
 			VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -20855,7 +20898,7 @@ type TvSeasonTranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -20885,7 +20928,7 @@ type TvSeasonVideosResponse struct {
 		Results *[]struct {
 			Id          *string `json:"id,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Key         *string `json:"key,omitempty"`
 			Name        *string `json:"name,omitempty"`
 			Official    *bool   `json:"official,omitempty"`
@@ -20922,7 +20965,7 @@ type TvSeasonWatchProvidersResponse struct {
 			AE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20931,7 +20974,7 @@ type TvSeasonWatchProvidersResponse struct {
 			AR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20940,13 +20983,13 @@ type TvSeasonWatchProvidersResponse struct {
 			AT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20955,13 +20998,13 @@ type TvSeasonWatchProvidersResponse struct {
 			AU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20970,7 +21013,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20979,7 +21022,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BB *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20988,7 +21031,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -20997,7 +21040,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21006,7 +21049,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21015,7 +21058,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21024,7 +21067,7 @@ type TvSeasonWatchProvidersResponse struct {
 			BS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21033,13 +21076,13 @@ type TvSeasonWatchProvidersResponse struct {
 			CA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21048,13 +21091,13 @@ type TvSeasonWatchProvidersResponse struct {
 			CH *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21063,7 +21106,7 @@ type TvSeasonWatchProvidersResponse struct {
 			CI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21072,7 +21115,7 @@ type TvSeasonWatchProvidersResponse struct {
 			CL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21081,7 +21124,7 @@ type TvSeasonWatchProvidersResponse struct {
 			CO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21090,7 +21133,7 @@ type TvSeasonWatchProvidersResponse struct {
 			CR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21099,7 +21142,7 @@ type TvSeasonWatchProvidersResponse struct {
 			CZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21108,13 +21151,13 @@ type TvSeasonWatchProvidersResponse struct {
 			DE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21123,7 +21166,7 @@ type TvSeasonWatchProvidersResponse struct {
 			DK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21132,7 +21175,7 @@ type TvSeasonWatchProvidersResponse struct {
 			DO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21141,7 +21184,7 @@ type TvSeasonWatchProvidersResponse struct {
 			DZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21150,7 +21193,7 @@ type TvSeasonWatchProvidersResponse struct {
 			EC *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21159,7 +21202,7 @@ type TvSeasonWatchProvidersResponse struct {
 			EG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21168,7 +21211,7 @@ type TvSeasonWatchProvidersResponse struct {
 			ES *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21177,13 +21220,13 @@ type TvSeasonWatchProvidersResponse struct {
 			FI *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21192,13 +21235,13 @@ type TvSeasonWatchProvidersResponse struct {
 			FR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21207,13 +21250,13 @@ type TvSeasonWatchProvidersResponse struct {
 			GB *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21222,7 +21265,7 @@ type TvSeasonWatchProvidersResponse struct {
 			GF *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21231,7 +21274,7 @@ type TvSeasonWatchProvidersResponse struct {
 			GH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21240,7 +21283,7 @@ type TvSeasonWatchProvidersResponse struct {
 			GQ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21249,7 +21292,7 @@ type TvSeasonWatchProvidersResponse struct {
 			GT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21258,7 +21301,7 @@ type TvSeasonWatchProvidersResponse struct {
 			HK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21267,7 +21310,7 @@ type TvSeasonWatchProvidersResponse struct {
 			HN *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21276,7 +21319,7 @@ type TvSeasonWatchProvidersResponse struct {
 			HR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21285,7 +21328,7 @@ type TvSeasonWatchProvidersResponse struct {
 			HU *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21294,7 +21337,7 @@ type TvSeasonWatchProvidersResponse struct {
 			ID *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21303,13 +21346,13 @@ type TvSeasonWatchProvidersResponse struct {
 			IE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21318,7 +21361,7 @@ type TvSeasonWatchProvidersResponse struct {
 			IL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21327,7 +21370,7 @@ type TvSeasonWatchProvidersResponse struct {
 			IQ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21336,13 +21379,13 @@ type TvSeasonWatchProvidersResponse struct {
 			IT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21351,7 +21394,7 @@ type TvSeasonWatchProvidersResponse struct {
 			JM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21360,20 +21403,20 @@ type TvSeasonWatchProvidersResponse struct {
 			JP *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -21381,7 +21424,7 @@ type TvSeasonWatchProvidersResponse struct {
 			KE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21390,7 +21433,7 @@ type TvSeasonWatchProvidersResponse struct {
 			KR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21399,7 +21442,7 @@ type TvSeasonWatchProvidersResponse struct {
 			LB *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21408,7 +21451,7 @@ type TvSeasonWatchProvidersResponse struct {
 			LY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21417,7 +21460,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MD *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21426,7 +21469,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21435,7 +21478,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MU *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21444,7 +21487,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MX *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21453,7 +21496,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21462,7 +21505,7 @@ type TvSeasonWatchProvidersResponse struct {
 			MZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21471,7 +21514,7 @@ type TvSeasonWatchProvidersResponse struct {
 			NE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21480,7 +21523,7 @@ type TvSeasonWatchProvidersResponse struct {
 			NG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21489,13 +21532,13 @@ type TvSeasonWatchProvidersResponse struct {
 			NL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21504,13 +21547,13 @@ type TvSeasonWatchProvidersResponse struct {
 			NO *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21519,7 +21562,7 @@ type TvSeasonWatchProvidersResponse struct {
 			NZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21528,7 +21571,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21537,7 +21580,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21546,7 +21589,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21555,14 +21598,14 @@ type TvSeasonWatchProvidersResponse struct {
 			PL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -21570,7 +21613,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21579,7 +21622,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21588,7 +21631,7 @@ type TvSeasonWatchProvidersResponse struct {
 			PY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21597,7 +21640,7 @@ type TvSeasonWatchProvidersResponse struct {
 			RO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21606,7 +21649,7 @@ type TvSeasonWatchProvidersResponse struct {
 			RS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21615,7 +21658,7 @@ type TvSeasonWatchProvidersResponse struct {
 			RU *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21624,7 +21667,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21633,7 +21676,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SC *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21642,13 +21685,13 @@ type TvSeasonWatchProvidersResponse struct {
 			SE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21657,7 +21700,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21666,7 +21709,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21675,7 +21718,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21684,7 +21727,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SN *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21693,7 +21736,7 @@ type TvSeasonWatchProvidersResponse struct {
 			SV *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21702,7 +21745,7 @@ type TvSeasonWatchProvidersResponse struct {
 			TH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21711,7 +21754,7 @@ type TvSeasonWatchProvidersResponse struct {
 			TR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21720,7 +21763,7 @@ type TvSeasonWatchProvidersResponse struct {
 			TT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21729,7 +21772,7 @@ type TvSeasonWatchProvidersResponse struct {
 			TW *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21738,7 +21781,7 @@ type TvSeasonWatchProvidersResponse struct {
 			TZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21747,7 +21790,7 @@ type TvSeasonWatchProvidersResponse struct {
 			UG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21756,19 +21799,19 @@ type TvSeasonWatchProvidersResponse struct {
 			US *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Free *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"free,omitempty"`
@@ -21777,7 +21820,7 @@ type TvSeasonWatchProvidersResponse struct {
 			UY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21786,7 +21829,7 @@ type TvSeasonWatchProvidersResponse struct {
 			VE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21795,7 +21838,7 @@ type TvSeasonWatchProvidersResponse struct {
 			ZA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21804,7 +21847,7 @@ type TvSeasonWatchProvidersResponse struct {
 			ZM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21836,7 +21879,7 @@ type TvSeriesSimilarResponse struct {
 	JSON200      *struct {
 		Page    *int `json:"page,omitempty"`
 		Results *[]struct {
-			Adult            *bool     `json:"adult"`
+			Adult            *bool     `json:"adult,omitempty"`
 			BackdropPath     *string   `json:"backdrop_path"`
 			FirstAirDate     *string   `json:"first_air_date,omitempty"`
 			GenreIds         *[]int    `json:"genre_ids,omitempty"`
@@ -21848,7 +21891,7 @@ type TvSeriesSimilarResponse struct {
 			Overview         *string   `json:"overview,omitempty"`
 			Popularity       *float32  `json:"popularity,omitempty"`
 			PosterPath       *string   `json:"poster_path"`
-			VoteAverage      *float32  `json:"vote_average"`
+			VoteAverage      *float32  `json:"vote_average,omitempty"`
 			VoteCount        *int      `json:"vote_count,omitempty"`
 		} `json:"results,omitempty"`
 		TotalPages   *int `json:"total_pages,omitempty"`
@@ -21886,7 +21929,7 @@ type TvSeriesTranslationsResponse struct {
 			} `json:"data,omitempty"`
 			EnglishName *string `json:"english_name,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		} `json:"translations,omitempty"`
 	}
@@ -21916,7 +21959,7 @@ type TvSeriesVideosResponse struct {
 		Results *[]struct {
 			Id          *string `json:"id,omitempty"`
 			Iso31661    *string `json:"iso_3166_1,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Key         *string `json:"key,omitempty"`
 			Name        *string `json:"name,omitempty"`
 			Official    *bool   `json:"official,omitempty"`
@@ -21953,7 +21996,7 @@ type TvSeriesWatchProvidersResponse struct {
 			AE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21962,7 +22005,7 @@ type TvSeriesWatchProvidersResponse struct {
 			AR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21971,13 +22014,13 @@ type TvSeriesWatchProvidersResponse struct {
 			AT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -21986,13 +22029,13 @@ type TvSeriesWatchProvidersResponse struct {
 			AU *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22001,7 +22044,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22010,7 +22053,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BB *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22019,7 +22062,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22028,7 +22071,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22037,7 +22080,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22046,7 +22089,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22055,7 +22098,7 @@ type TvSeriesWatchProvidersResponse struct {
 			BS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22064,13 +22107,13 @@ type TvSeriesWatchProvidersResponse struct {
 			CA *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22079,13 +22122,13 @@ type TvSeriesWatchProvidersResponse struct {
 			CH *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22094,7 +22137,7 @@ type TvSeriesWatchProvidersResponse struct {
 			CI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22103,7 +22146,7 @@ type TvSeriesWatchProvidersResponse struct {
 			CL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22112,7 +22155,7 @@ type TvSeriesWatchProvidersResponse struct {
 			CO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22121,7 +22164,7 @@ type TvSeriesWatchProvidersResponse struct {
 			CR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22130,7 +22173,7 @@ type TvSeriesWatchProvidersResponse struct {
 			CZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22139,13 +22182,13 @@ type TvSeriesWatchProvidersResponse struct {
 			DE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22154,7 +22197,7 @@ type TvSeriesWatchProvidersResponse struct {
 			DK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22163,7 +22206,7 @@ type TvSeriesWatchProvidersResponse struct {
 			DO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22172,7 +22215,7 @@ type TvSeriesWatchProvidersResponse struct {
 			DZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22181,7 +22224,7 @@ type TvSeriesWatchProvidersResponse struct {
 			EC *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22190,7 +22233,7 @@ type TvSeriesWatchProvidersResponse struct {
 			EG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22199,7 +22242,7 @@ type TvSeriesWatchProvidersResponse struct {
 			ES *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22208,13 +22251,13 @@ type TvSeriesWatchProvidersResponse struct {
 			FI *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22223,13 +22266,13 @@ type TvSeriesWatchProvidersResponse struct {
 			FR *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22238,13 +22281,13 @@ type TvSeriesWatchProvidersResponse struct {
 			GB *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22253,7 +22296,7 @@ type TvSeriesWatchProvidersResponse struct {
 			GF *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22262,7 +22305,7 @@ type TvSeriesWatchProvidersResponse struct {
 			GH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22271,7 +22314,7 @@ type TvSeriesWatchProvidersResponse struct {
 			GQ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22280,7 +22323,7 @@ type TvSeriesWatchProvidersResponse struct {
 			GT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22289,7 +22332,7 @@ type TvSeriesWatchProvidersResponse struct {
 			HK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22298,7 +22341,7 @@ type TvSeriesWatchProvidersResponse struct {
 			HN *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22307,7 +22350,7 @@ type TvSeriesWatchProvidersResponse struct {
 			HR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22316,7 +22359,7 @@ type TvSeriesWatchProvidersResponse struct {
 			HU *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22325,7 +22368,7 @@ type TvSeriesWatchProvidersResponse struct {
 			ID *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22334,13 +22377,13 @@ type TvSeriesWatchProvidersResponse struct {
 			IE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22349,7 +22392,7 @@ type TvSeriesWatchProvidersResponse struct {
 			IL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22358,7 +22401,7 @@ type TvSeriesWatchProvidersResponse struct {
 			IQ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22367,13 +22410,13 @@ type TvSeriesWatchProvidersResponse struct {
 			IT *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22382,7 +22425,7 @@ type TvSeriesWatchProvidersResponse struct {
 			JM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22391,20 +22434,20 @@ type TvSeriesWatchProvidersResponse struct {
 			JP *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -22412,7 +22455,7 @@ type TvSeriesWatchProvidersResponse struct {
 			KE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22421,7 +22464,7 @@ type TvSeriesWatchProvidersResponse struct {
 			KR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22430,7 +22473,7 @@ type TvSeriesWatchProvidersResponse struct {
 			LB *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22439,7 +22482,7 @@ type TvSeriesWatchProvidersResponse struct {
 			LT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22448,7 +22491,7 @@ type TvSeriesWatchProvidersResponse struct {
 			LY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22457,7 +22500,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MD *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22466,7 +22509,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22475,7 +22518,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MU *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22484,7 +22527,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MX *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22493,7 +22536,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22502,7 +22545,7 @@ type TvSeriesWatchProvidersResponse struct {
 			MZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22511,7 +22554,7 @@ type TvSeriesWatchProvidersResponse struct {
 			NE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22520,7 +22563,7 @@ type TvSeriesWatchProvidersResponse struct {
 			NG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22529,13 +22572,13 @@ type TvSeriesWatchProvidersResponse struct {
 			NL *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22544,13 +22587,13 @@ type TvSeriesWatchProvidersResponse struct {
 			NO *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22559,7 +22602,7 @@ type TvSeriesWatchProvidersResponse struct {
 			NZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22568,7 +22611,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22577,7 +22620,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22586,7 +22629,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22595,14 +22638,14 @@ type TvSeriesWatchProvidersResponse struct {
 			PL *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Link *string `json:"link,omitempty"`
 				Rent *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"rent,omitempty"`
@@ -22610,7 +22653,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22619,7 +22662,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22628,7 +22671,7 @@ type TvSeriesWatchProvidersResponse struct {
 			PY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22637,7 +22680,7 @@ type TvSeriesWatchProvidersResponse struct {
 			RO *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22646,7 +22689,7 @@ type TvSeriesWatchProvidersResponse struct {
 			RS *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22655,13 +22698,13 @@ type TvSeriesWatchProvidersResponse struct {
 			RU *struct {
 				Ads *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"ads,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22670,7 +22713,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22679,7 +22722,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SC *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22688,13 +22731,13 @@ type TvSeriesWatchProvidersResponse struct {
 			SE *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22703,7 +22746,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22712,7 +22755,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SI *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22721,7 +22764,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SK *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22730,7 +22773,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SN *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22739,7 +22782,7 @@ type TvSeriesWatchProvidersResponse struct {
 			SV *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22748,7 +22791,7 @@ type TvSeriesWatchProvidersResponse struct {
 			TH *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22757,7 +22800,7 @@ type TvSeriesWatchProvidersResponse struct {
 			TR *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22766,7 +22809,7 @@ type TvSeriesWatchProvidersResponse struct {
 			TT *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22775,7 +22818,7 @@ type TvSeriesWatchProvidersResponse struct {
 			TW *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22784,7 +22827,7 @@ type TvSeriesWatchProvidersResponse struct {
 			TZ *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22793,7 +22836,7 @@ type TvSeriesWatchProvidersResponse struct {
 			UG *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22802,19 +22845,19 @@ type TvSeriesWatchProvidersResponse struct {
 			US *struct {
 				Buy *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"buy,omitempty"`
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
 				Free *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"free,omitempty"`
@@ -22823,7 +22866,7 @@ type TvSeriesWatchProvidersResponse struct {
 			UY *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22832,7 +22875,7 @@ type TvSeriesWatchProvidersResponse struct {
 			VE *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22841,7 +22884,7 @@ type TvSeriesWatchProvidersResponse struct {
 			ZA *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22850,7 +22893,7 @@ type TvSeriesWatchProvidersResponse struct {
 			ZM *struct {
 				Flatrate *[]struct {
 					DisplayPriority *int    `json:"display_priority,omitempty"`
-					LogoPath        *string `json:"logo_path"`
+					LogoPath        *string `json:"logo_path,omitempty"`
 					ProviderId      *int    `json:"provider_id,omitempty"`
 					ProviderName    *string `json:"provider_name,omitempty"`
 				} `json:"flatrate,omitempty"`
@@ -22882,72 +22925,129 @@ type WatchProvidersMovieListResponse struct {
 	JSON200      *struct {
 		Results *[]struct {
 			DisplayPriorities *struct {
+				AD *int `json:"AD,omitempty"`
 				AE *int `json:"AE,omitempty"`
+				AG *int `json:"AG,omitempty"`
+				AL *int `json:"AL,omitempty"`
 				AR *int `json:"AR,omitempty"`
 				AT *int `json:"AT,omitempty"`
 				AU *int `json:"AU,omitempty"`
+				BA *int `json:"BA,omitempty"`
+				BB *int `json:"BB,omitempty"`
 				BE *int `json:"BE,omitempty"`
 				BG *int `json:"BG,omitempty"`
+				BH *int `json:"BH,omitempty"`
+				BM *int `json:"BM,omitempty"`
 				BO *int `json:"BO,omitempty"`
 				BR *int `json:"BR,omitempty"`
+				BS *int `json:"BS,omitempty"`
 				CA *int `json:"CA,omitempty"`
 				CH *int `json:"CH,omitempty"`
+				CI *int `json:"CI,omitempty"`
 				CL *int `json:"CL,omitempty"`
 				CO *int `json:"CO,omitempty"`
 				CR *int `json:"CR,omitempty"`
+				CU *int `json:"CU,omitempty"`
 				CV *int `json:"CV,omitempty"`
 				CZ *int `json:"CZ,omitempty"`
 				DE *int `json:"DE,omitempty"`
 				DK *int `json:"DK,omitempty"`
+				DO *int `json:"DO,omitempty"`
+				DZ *int `json:"DZ,omitempty"`
 				EC *int `json:"EC,omitempty"`
 				EE *int `json:"EE,omitempty"`
 				EG *int `json:"EG,omitempty"`
 				ES *int `json:"ES,omitempty"`
 				FI *int `json:"FI,omitempty"`
+				FJ *int `json:"FJ,omitempty"`
 				FR *int `json:"FR,omitempty"`
 				GB *int `json:"GB,omitempty"`
+				GF *int `json:"GF,omitempty"`
+				GG *int `json:"GG,omitempty"`
 				GH *int `json:"GH,omitempty"`
+				GI *int `json:"GI,omitempty"`
+				GQ *int `json:"GQ,omitempty"`
 				GR *int `json:"GR,omitempty"`
 				GT *int `json:"GT,omitempty"`
 				HK *int `json:"HK,omitempty"`
 				HN *int `json:"HN,omitempty"`
+				HR *int `json:"HR,omitempty"`
 				HU *int `json:"HU,omitempty"`
 				ID *int `json:"ID,omitempty"`
 				IE *int `json:"IE,omitempty"`
 				IL *int `json:"IL,omitempty"`
 				IN *int `json:"IN,omitempty"`
+				IQ *int `json:"IQ,omitempty"`
+				IS *int `json:"IS,omitempty"`
 				IT *int `json:"IT,omitempty"`
+				JM *int `json:"JM,omitempty"`
+				JO *int `json:"JO,omitempty"`
 				JP *int `json:"JP,omitempty"`
+				KE *int `json:"KE,omitempty"`
+				KR *int `json:"KR,omitempty"`
+				KW *int `json:"KW,omitempty"`
+				LB *int `json:"LB,omitempty"`
+				LC *int `json:"LC,omitempty"`
+				LI *int `json:"LI,omitempty"`
 				LT *int `json:"LT,omitempty"`
 				LV *int `json:"LV,omitempty"`
+				LY *int `json:"LY,omitempty"`
+				MA *int `json:"MA,omitempty"`
+				MC *int `json:"MC,omitempty"`
+				MD *int `json:"MD,omitempty"`
+				MK *int `json:"MK,omitempty"`
+				MT *int `json:"MT,omitempty"`
 				MU *int `json:"MU,omitempty"`
 				MX *int `json:"MX,omitempty"`
 				MY *int `json:"MY,omitempty"`
 				MZ *int `json:"MZ,omitempty"`
+				NE *int `json:"NE,omitempty"`
+				NG *int `json:"NG,omitempty"`
 				NL *int `json:"NL,omitempty"`
 				NO *int `json:"NO,omitempty"`
 				NZ *int `json:"NZ,omitempty"`
+				OM *int `json:"OM,omitempty"`
+				PA *int `json:"PA,omitempty"`
 				PE *int `json:"PE,omitempty"`
+				PF *int `json:"PF,omitempty"`
 				PH *int `json:"PH,omitempty"`
+				PK *int `json:"PK,omitempty"`
 				PL *int `json:"PL,omitempty"`
+				PS *int `json:"PS,omitempty"`
 				PT *int `json:"PT,omitempty"`
 				PY *int `json:"PY,omitempty"`
+				QA *int `json:"QA,omitempty"`
+				RO *int `json:"RO,omitempty"`
+				RS *int `json:"RS,omitempty"`
 				RU *int `json:"RU,omitempty"`
 				SA *int `json:"SA,omitempty"`
+				SC *int `json:"SC,omitempty"`
 				SE *int `json:"SE,omitempty"`
 				SG *int `json:"SG,omitempty"`
 				SI *int `json:"SI,omitempty"`
 				SK *int `json:"SK,omitempty"`
+				SM *int `json:"SM,omitempty"`
+				SN *int `json:"SN,omitempty"`
+				SV *int `json:"SV,omitempty"`
+				TC *int `json:"TC,omitempty"`
 				TH *int `json:"TH,omitempty"`
+				TN *int `json:"TN,omitempty"`
 				TR *int `json:"TR,omitempty"`
+				TT *int `json:"TT,omitempty"`
 				TW *int `json:"TW,omitempty"`
+				TZ *int `json:"TZ,omitempty"`
 				UG *int `json:"UG,omitempty"`
 				US *int `json:"US,omitempty"`
+				UY *int `json:"UY,omitempty"`
+				VA *int `json:"VA,omitempty"`
 				VE *int `json:"VE,omitempty"`
+				XK *int `json:"XK,omitempty"`
+				YE *int `json:"YE,omitempty"`
 				ZA *int `json:"ZA,omitempty"`
+				ZM *int `json:"ZM,omitempty"`
 			} `json:"display_priorities,omitempty"`
 			DisplayPriority *int    `json:"display_priority,omitempty"`
-			LogoPath        *string `json:"logo_path"`
+			LogoPath        *string `json:"logo_path,omitempty"`
 			ProviderId      *int    `json:"provider_id,omitempty"`
 			ProviderName    *string `json:"provider_name,omitempty"`
 		} `json:"results,omitempty"`
@@ -23004,72 +23104,129 @@ type WatchProviderTvListResponse struct {
 	JSON200      *struct {
 		Results *[]struct {
 			DisplayPriorities *struct {
+				AD *int `json:"AD,omitempty"`
 				AE *int `json:"AE,omitempty"`
+				AG *int `json:"AG,omitempty"`
+				AL *int `json:"AL,omitempty"`
 				AR *int `json:"AR,omitempty"`
 				AT *int `json:"AT,omitempty"`
 				AU *int `json:"AU,omitempty"`
+				BA *int `json:"BA,omitempty"`
+				BB *int `json:"BB,omitempty"`
 				BE *int `json:"BE,omitempty"`
 				BG *int `json:"BG,omitempty"`
+				BH *int `json:"BH,omitempty"`
+				BM *int `json:"BM,omitempty"`
 				BO *int `json:"BO,omitempty"`
 				BR *int `json:"BR,omitempty"`
+				BS *int `json:"BS,omitempty"`
 				CA *int `json:"CA,omitempty"`
 				CH *int `json:"CH,omitempty"`
+				CI *int `json:"CI,omitempty"`
 				CL *int `json:"CL,omitempty"`
 				CO *int `json:"CO,omitempty"`
 				CR *int `json:"CR,omitempty"`
+				CU *int `json:"CU,omitempty"`
 				CV *int `json:"CV,omitempty"`
 				CZ *int `json:"CZ,omitempty"`
 				DE *int `json:"DE,omitempty"`
 				DK *int `json:"DK,omitempty"`
+				DO *int `json:"DO,omitempty"`
+				DZ *int `json:"DZ,omitempty"`
 				EC *int `json:"EC,omitempty"`
 				EE *int `json:"EE,omitempty"`
 				EG *int `json:"EG,omitempty"`
 				ES *int `json:"ES,omitempty"`
 				FI *int `json:"FI,omitempty"`
+				FJ *int `json:"FJ,omitempty"`
 				FR *int `json:"FR,omitempty"`
 				GB *int `json:"GB,omitempty"`
+				GF *int `json:"GF,omitempty"`
+				GG *int `json:"GG,omitempty"`
 				GH *int `json:"GH,omitempty"`
+				GI *int `json:"GI,omitempty"`
+				GQ *int `json:"GQ,omitempty"`
 				GR *int `json:"GR,omitempty"`
 				GT *int `json:"GT,omitempty"`
 				HK *int `json:"HK,omitempty"`
 				HN *int `json:"HN,omitempty"`
+				HR *int `json:"HR,omitempty"`
 				HU *int `json:"HU,omitempty"`
 				ID *int `json:"ID,omitempty"`
 				IE *int `json:"IE,omitempty"`
 				IL *int `json:"IL,omitempty"`
 				IN *int `json:"IN,omitempty"`
+				IQ *int `json:"IQ,omitempty"`
+				IS *int `json:"IS,omitempty"`
 				IT *int `json:"IT,omitempty"`
+				JM *int `json:"JM,omitempty"`
+				JO *int `json:"JO,omitempty"`
 				JP *int `json:"JP,omitempty"`
+				KE *int `json:"KE,omitempty"`
+				KR *int `json:"KR,omitempty"`
+				KW *int `json:"KW,omitempty"`
+				LB *int `json:"LB,omitempty"`
+				LC *int `json:"LC,omitempty"`
+				LI *int `json:"LI,omitempty"`
 				LT *int `json:"LT,omitempty"`
 				LV *int `json:"LV,omitempty"`
+				LY *int `json:"LY,omitempty"`
+				MA *int `json:"MA,omitempty"`
+				MC *int `json:"MC,omitempty"`
+				MD *int `json:"MD,omitempty"`
+				MK *int `json:"MK,omitempty"`
+				MT *int `json:"MT,omitempty"`
 				MU *int `json:"MU,omitempty"`
 				MX *int `json:"MX,omitempty"`
 				MY *int `json:"MY,omitempty"`
 				MZ *int `json:"MZ,omitempty"`
+				NE *int `json:"NE,omitempty"`
+				NG *int `json:"NG,omitempty"`
 				NL *int `json:"NL,omitempty"`
 				NO *int `json:"NO,omitempty"`
 				NZ *int `json:"NZ,omitempty"`
+				OM *int `json:"OM,omitempty"`
+				PA *int `json:"PA,omitempty"`
 				PE *int `json:"PE,omitempty"`
+				PF *int `json:"PF,omitempty"`
 				PH *int `json:"PH,omitempty"`
+				PK *int `json:"PK,omitempty"`
 				PL *int `json:"PL,omitempty"`
+				PS *int `json:"PS,omitempty"`
 				PT *int `json:"PT,omitempty"`
 				PY *int `json:"PY,omitempty"`
+				QA *int `json:"QA,omitempty"`
+				RO *int `json:"RO,omitempty"`
+				RS *int `json:"RS,omitempty"`
 				RU *int `json:"RU,omitempty"`
 				SA *int `json:"SA,omitempty"`
+				SC *int `json:"SC,omitempty"`
 				SE *int `json:"SE,omitempty"`
 				SG *int `json:"SG,omitempty"`
 				SI *int `json:"SI,omitempty"`
 				SK *int `json:"SK,omitempty"`
+				SM *int `json:"SM,omitempty"`
+				SN *int `json:"SN,omitempty"`
+				SV *int `json:"SV,omitempty"`
+				TC *int `json:"TC,omitempty"`
 				TH *int `json:"TH,omitempty"`
+				TN *int `json:"TN,omitempty"`
 				TR *int `json:"TR,omitempty"`
+				TT *int `json:"TT,omitempty"`
 				TW *int `json:"TW,omitempty"`
+				TZ *int `json:"TZ,omitempty"`
 				UG *int `json:"UG,omitempty"`
 				US *int `json:"US,omitempty"`
+				UY *int `json:"UY,omitempty"`
+				VA *int `json:"VA,omitempty"`
 				VE *int `json:"VE,omitempty"`
+				XK *int `json:"XK,omitempty"`
+				YE *int `json:"YE,omitempty"`
 				ZA *int `json:"ZA,omitempty"`
+				ZM *int `json:"ZM,omitempty"`
 			} `json:"display_priorities,omitempty"`
 			DisplayPriority *int    `json:"display_priority,omitempty"`
-			LogoPath        *string `json:"logo_path"`
+			LogoPath        *string `json:"logo_path,omitempty"`
 			ProviderId      *int    `json:"provider_id,omitempty"`
 			ProviderName    *string `json:"provider_name,omitempty"`
 		} `json:"results,omitempty"`
@@ -24577,13 +24734,13 @@ func ParseAccountDetailsResponse(rsp *http.Response) (*AccountDetailsResponse, e
 					Hash *string `json:"hash,omitempty"`
 				} `json:"gravatar,omitempty"`
 				Tmdb *struct {
-					AvatarPath *string `json:"avatar_path"`
+					AvatarPath *string `json:"avatar_path,omitempty"`
 				} `json:"tmdb,omitempty"`
 			} `json:"avatar,omitempty"`
 			Id           *int    `json:"id,omitempty"`
 			IncludeAdult *bool   `json:"include_adult,omitempty"`
 			Iso31661     *string `json:"iso_3166_1,omitempty"`
-			Iso6391      *string `json:"iso_639_1"`
+			Iso6391      *string `json:"iso_639_1,omitempty"`
 			Name         *string `json:"name,omitempty"`
 			Username     *string `json:"username,omitempty"`
 		}
@@ -24644,15 +24801,15 @@ func ParseAccountGetFavoritesResponse(rsp *http.Response) (*AccountGetFavoritesR
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -24690,8 +24847,8 @@ func ParseAccountFavoriteTvResponse(rsp *http.Response) (*AccountFavoriteTvRespo
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -24701,7 +24858,7 @@ func ParseAccountFavoriteTvResponse(rsp *http.Response) (*AccountFavoriteTvRespo
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -24739,7 +24896,7 @@ func ParseAccountListsResponse(rsp *http.Response) (*AccountListsResponse, error
 				Description   *string `json:"description,omitempty"`
 				FavoriteCount *int    `json:"favorite_count,omitempty"`
 				Id            *int    `json:"id,omitempty"`
-				Iso6391       *string `json:"iso_639_1"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
 				ItemCount     *int    `json:"item_count,omitempty"`
 				ListType      *string `json:"list_type,omitempty"`
 				Name          *string `json:"name,omitempty"`
@@ -24776,16 +24933,16 @@ func ParseAccountRatedMoviesResponse(rsp *http.Response) (*AccountRatedMoviesRes
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				Rating           *float32 `json:"rating"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
+				Rating           *float32 `json:"rating,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -24823,8 +24980,8 @@ func ParseAccountRatedTvResponse(rsp *http.Response) (*AccountRatedTvResponse, e
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -24834,8 +24991,8 @@ func ParseAccountRatedTvResponse(rsp *http.Response) (*AccountRatedTvResponse, e
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
-				Rating           *float32  `json:"rating"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				Rating           *float32  `json:"rating,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -24876,11 +25033,11 @@ func ParseAccountRatedTvEpisodesResponse(rsp *http.Response) (*AccountRatedTvEpi
 				Name           *string  `json:"name,omitempty"`
 				Overview       *string  `json:"overview,omitempty"`
 				ProductionCode *string  `json:"production_code,omitempty"`
-				Rating         *float32 `json:"rating"`
+				Rating         *float32 `json:"rating,omitempty"`
 				Runtime        *int     `json:"runtime,omitempty"`
 				SeasonNumber   *int     `json:"season_number,omitempty"`
 				ShowId         *int     `json:"show_id,omitempty"`
-				StillPath      *string  `json:"still_path"`
+				StillPath      *string  `json:"still_path,omitempty"`
 				VoteAverage    *float32 `json:"vote_average,omitempty"`
 				VoteCount      *int     `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -24944,15 +25101,15 @@ func ParseAccountWatchlistMoviesResponse(rsp *http.Response) (*AccountWatchlistM
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -24990,7 +25147,7 @@ func ParseAccountWatchlistTvResponse(rsp *http.Response) (*AccountWatchlistTvRes
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
+				Adult            *bool     `json:"adult,omitempty"`
 				BackdropPath     *string   `json:"backdrop_path"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
@@ -25001,7 +25158,7 @@ func ParseAccountWatchlistTvResponse(rsp *http.Response) (*AccountWatchlistTvRes
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -25734,13 +25891,13 @@ func ParseCollectionDetailsResponse(rsp *http.Response) (*CollectionDetailsRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			BackdropPath *string `json:"backdrop_path"`
+			BackdropPath *string `json:"backdrop_path,omitempty"`
 			Id           *int    `json:"id,omitempty"`
 			Name         *string `json:"name,omitempty"`
 			Overview     *string `json:"overview,omitempty"`
 			Parts        *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
@@ -25748,14 +25905,14 @@ func ParseCollectionDetailsResponse(rsp *http.Response) (*CollectionDetailsRespo
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
 				VoteAverage      *float32 `json:"vote_average,omitempty"`
 				VoteCount        *int     `json:"vote_count,omitempty"`
 			} `json:"parts,omitempty"`
-			PosterPath *string `json:"poster_path"`
+			PosterPath *string `json:"poster_path,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -25785,7 +25942,7 @@ func ParseCollectionImagesResponse(rsp *http.Response) (*CollectionImagesRespons
 		var dest struct {
 			Backdrops *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -25795,7 +25952,7 @@ func ParseCollectionImagesResponse(rsp *http.Response) (*CollectionImagesRespons
 			Id      *int `json:"id,omitempty"`
 			Posters *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -25838,7 +25995,7 @@ func ParseCollectionTranslationsResponse(rsp *http.Response) (*CollectionTransla
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -25872,10 +26029,10 @@ func ParseCompanyDetailsResponse(rsp *http.Response) (*CompanyDetailsResponse, e
 			Headquarters  *string      `json:"headquarters,omitempty"`
 			Homepage      *string      `json:"homepage,omitempty"`
 			Id            *int         `json:"id,omitempty"`
-			LogoPath      *string      `json:"logo_path"`
+			LogoPath      *string      `json:"logo_path,omitempty"`
 			Name          *string      `json:"name,omitempty"`
 			OriginCountry *string      `json:"origin_country,omitempty"`
-			ParentCompany *interface{} `json:"parent_company,omitempty"`
+			ParentCompany *interface{} `json:"parent_company"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -25938,7 +26095,7 @@ func ParseCompanyImagesResponse(rsp *http.Response) (*CompanyImagesResponse, err
 			Id    *int `json:"id,omitempty"`
 			Logos *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				FileType    *string  `json:"file_type,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Id          *string  `json:"id,omitempty"`
@@ -26070,7 +26227,7 @@ func ParseConfigurationLanguagesResponse(rsp *http.Response) (*ConfigurationLang
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest []struct {
 			EnglishName *string `json:"english_name,omitempty"`
-			Iso6391     *string `json:"iso_639_1"`
+			Iso6391     *string `json:"iso_639_1,omitempty"`
 			Name        *string `json:"name,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -26159,8 +26316,8 @@ func ParseCreditDetailsResponse(rsp *http.Response) (*CreditDetailsResponse, err
 			Id         *string `json:"id,omitempty"`
 			Job        *string `json:"job,omitempty"`
 			Media      *struct {
-				Adult            *bool          `json:"adult"`
-				BackdropPath     *string        `json:"backdrop_path"`
+				Adult            *bool          `json:"adult,omitempty"`
+				BackdropPath     *string        `json:"backdrop_path,omitempty"`
 				Character        *string        `json:"character,omitempty"`
 				Episodes         *[]interface{} `json:"episodes,omitempty"`
 				FirstAirDate     *string        `json:"first_air_date,omitempty"`
@@ -26173,14 +26330,14 @@ func ParseCreditDetailsResponse(rsp *http.Response) (*CreditDetailsResponse, err
 				OriginalName     *string        `json:"original_name,omitempty"`
 				Overview         *string        `json:"overview,omitempty"`
 				Popularity       *float32       `json:"popularity,omitempty"`
-				PosterPath       *string        `json:"poster_path"`
+				PosterPath       *string        `json:"poster_path,omitempty"`
 				Seasons          *[]struct {
 					AirDate      *string `json:"air_date,omitempty"`
 					EpisodeCount *int    `json:"episode_count,omitempty"`
 					Id           *int    `json:"id,omitempty"`
 					Name         *string `json:"name,omitempty"`
 					Overview     *string `json:"overview,omitempty"`
-					PosterPath   *string `json:"poster_path"`
+					PosterPath   *string `json:"poster_path,omitempty"`
 					SeasonNumber *int    `json:"season_number,omitempty"`
 					ShowId       *int    `json:"show_id,omitempty"`
 				} `json:"seasons,omitempty"`
@@ -26189,7 +26346,7 @@ func ParseCreditDetailsResponse(rsp *http.Response) (*CreditDetailsResponse, err
 			} `json:"media,omitempty"`
 			MediaType *string `json:"media_type,omitempty"`
 			Person    *struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
 				Id                 *int     `json:"id,omitempty"`
 				KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -26197,7 +26354,7 @@ func ParseCreditDetailsResponse(rsp *http.Response) (*CreditDetailsResponse, err
 				Name               *string  `json:"name,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"person,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -26228,15 +26385,15 @@ func ParseDiscoverMovieResponse(rsp *http.Response) (*DiscoverMovieResponse, err
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -26284,8 +26441,8 @@ func ParseDiscoverTvResponse(rsp *http.Response) (*DiscoverTvResponse, error) {
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
-				VoteAverage      *float32  `json:"vote_average"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -26318,8 +26475,8 @@ func ParseFindByIdResponse(rsp *http.Response) (*FindByIdResponse, error) {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			MovieResults *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
@@ -26327,7 +26484,7 @@ func ParseFindByIdResponse(rsp *http.Response) (*FindByIdResponse, error) {
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -26429,15 +26586,15 @@ func ParseGuestSessionRatedMoviesResponse(rsp *http.Response) (*GuestSessionRate
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				Rating           *float32 `json:"rating,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
@@ -26476,8 +26633,8 @@ func ParseGuestSessionRatedTvResponse(rsp *http.Response) (*GuestSessionRatedTvR
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -26487,7 +26644,7 @@ func ParseGuestSessionRatedTvResponse(rsp *http.Response) (*GuestSessionRatedTvR
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				Rating           *float32  `json:"rating,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
@@ -26533,7 +26690,7 @@ func ParseGuestSessionRatedTvEpisodesResponse(rsp *http.Response) (*GuestSession
 				Runtime        *int     `json:"runtime,omitempty"`
 				SeasonNumber   *int     `json:"season_number,omitempty"`
 				ShowId         *int     `json:"show_id,omitempty"`
-				StillPath      *string  `json:"still_path"`
+				StillPath      *string  `json:"still_path,omitempty"`
 				VoteAverage    *float32 `json:"vote_average,omitempty"`
 				VoteCount      *int     `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -26598,15 +26755,15 @@ func ParseKeywordMoviesResponse(rsp *http.Response) (*KeywordMoviesResponse, err
 			Id      *int `json:"id,omitempty"`
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -26706,11 +26863,11 @@ func ParseListDetailsResponse(rsp *http.Response) (*ListDetailsResponse, error) 
 			Description   *string `json:"description,omitempty"`
 			FavoriteCount *int    `json:"favorite_count,omitempty"`
 			Id            *string `json:"id,omitempty"`
-			Iso6391       *string `json:"iso_639_1"`
+			Iso6391       *string `json:"iso_639_1,omitempty"`
 			ItemCount     *int    `json:"item_count,omitempty"`
 			Items         *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
@@ -26718,15 +26875,15 @@ func ParseListDetailsResponse(rsp *http.Response) (*ListDetailsResponse, error) 
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average"`
+				VoteAverage      *float32 `json:"vote_average,omitempty"`
 				VoteCount        *int     `json:"vote_count,omitempty"`
 			} `json:"items,omitempty"`
 			Name       *string `json:"name,omitempty"`
-			PosterPath *string `json:"poster_path"`
+			PosterPath *string `json:"poster_path,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -26904,18 +27061,18 @@ func ParseMovieLatestIdResponse(rsp *http.Response) (*MovieLatestIdResponse, err
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult               *bool          `json:"adult"`
+			Adult               *bool          `json:"adult,omitempty"`
 			BackdropPath        *string        `json:"backdrop_path"`
-			BelongsToCollection *interface{}   `json:"belongs_to_collection,omitempty"`
+			BelongsToCollection *interface{}   `json:"belongs_to_collection"`
 			Budget              *int           `json:"budget,omitempty"`
 			Genres              *[]interface{} `json:"genres,omitempty"`
 			Homepage            *string        `json:"homepage,omitempty"`
 			Id                  *int           `json:"id,omitempty"`
-			ImdbId              *interface{}   `json:"imdb_id,omitempty"`
+			ImdbId              *interface{}   `json:"imdb_id"`
 			OriginalLanguage    *string        `json:"original_language,omitempty"`
 			OriginalTitle       *string        `json:"original_title,omitempty"`
 			Overview            *string        `json:"overview,omitempty"`
-			Popularity          *int           `json:"popularity,omitempty"`
+			Popularity          *float32       `json:"popularity,omitempty"`
 			PosterPath          *string        `json:"poster_path"`
 			ProductionCompanies *[]interface{} `json:"production_companies,omitempty"`
 			ProductionCountries *[]interface{} `json:"production_countries,omitempty"`
@@ -26927,7 +27084,7 @@ func ParseMovieLatestIdResponse(rsp *http.Response) (*MovieLatestIdResponse, err
 			Tagline             *string        `json:"tagline,omitempty"`
 			Title               *string        `json:"title,omitempty"`
 			Video               *bool          `json:"video,omitempty"`
-			VoteAverage         *float32       `json:"vote_average"`
+			VoteAverage         *float32       `json:"vote_average,omitempty"`
 			VoteCount           *int           `json:"vote_count,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -26962,15 +27119,15 @@ func ParseMovieNowPlayingListResponse(rsp *http.Response) (*MovieNowPlayingListR
 			} `json:"dates,omitempty"`
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -27008,15 +27165,15 @@ func ParseMoviePopularListResponse(rsp *http.Response) (*MoviePopularListRespons
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -27054,15 +27211,15 @@ func ParseMovieTopRatedListResponse(rsp *http.Response) (*MovieTopRatedListRespo
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -27104,19 +27261,19 @@ func ParseMovieUpcomingListResponse(rsp *http.Response) (*MovieUpcomingListRespo
 			} `json:"dates,omitempty"`
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				OriginalLanguage *string  `json:"original_language,omitempty"`
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average"`
+				VoteAverage      *float32 `json:"vote_average,omitempty"`
 				VoteCount        *int     `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -27148,9 +27305,9 @@ func ParseMovieDetailsResponse(rsp *http.Response) (*MovieDetailsResponse, error
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult               *bool        `json:"adult"`
-			BackdropPath        *string      `json:"backdrop_path"`
-			BelongsToCollection *interface{} `json:"belongs_to_collection,omitempty"`
+			Adult               *bool        `json:"adult,omitempty"`
+			BackdropPath        *string      `json:"backdrop_path,omitempty"`
+			BelongsToCollection *interface{} `json:"belongs_to_collection"`
 			Budget              *int         `json:"budget,omitempty"`
 			Genres              *[]struct {
 				Id   *int    `json:"id,omitempty"`
@@ -27163,7 +27320,7 @@ func ParseMovieDetailsResponse(rsp *http.Response) (*MovieDetailsResponse, error
 			OriginalTitle       *string  `json:"original_title,omitempty"`
 			Overview            *string  `json:"overview,omitempty"`
 			Popularity          *float32 `json:"popularity,omitempty"`
-			PosterPath          *string  `json:"poster_path"`
+			PosterPath          *string  `json:"poster_path,omitempty"`
 			ProductionCompanies *[]struct {
 				Id            *int    `json:"id,omitempty"`
 				LogoPath      *string `json:"logo_path"`
@@ -27179,7 +27336,7 @@ func ParseMovieDetailsResponse(rsp *http.Response) (*MovieDetailsResponse, error
 			Runtime         *int    `json:"runtime,omitempty"`
 			SpokenLanguages *[]struct {
 				EnglishName *string `json:"english_name,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"spoken_languages,omitempty"`
 			Status      *string  `json:"status,omitempty"`
@@ -27218,7 +27375,7 @@ func ParseMovieAccountStatesResponse(rsp *http.Response) (*MovieAccountStatesRes
 			Favorite *bool `json:"favorite,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			Rated    *struct {
-				Value *int `json:"value,omitempty"`
+				Value *float32 `json:"value,omitempty"`
 			} `json:"rated,omitempty"`
 			Watchlist *bool `json:"watchlist,omitempty"`
 		}
@@ -27286,11 +27443,13 @@ func ParseMovieChangesResponse(rsp *http.Response) (*MovieChangesResponse, error
 					Action   *string `json:"action,omitempty"`
 					Id       *string `json:"id,omitempty"`
 					Iso31661 *string `json:"iso_3166_1,omitempty"`
-					Iso6391  *string `json:"iso_639_1"`
+					Iso6391  *string `json:"iso_639_1,omitempty"`
 					Time     *string `json:"time,omitempty"`
 					Value    *struct {
+						Id     *int    `json:"id,omitempty"`
+						Name   *string `json:"name,omitempty"`
 						Poster *struct {
-							FilePath *string `json:"file_path"`
+							FilePath *string `json:"file_path,omitempty"`
 						} `json:"poster,omitempty"`
 					} `json:"value,omitempty"`
 				} `json:"items,omitempty"`
@@ -27324,7 +27483,7 @@ func ParseMovieCreditsResponse(rsp *http.Response) (*MovieCreditsResponse, error
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CastId             *int     `json:"cast_id,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
@@ -27338,7 +27497,7 @@ func ParseMovieCreditsResponse(rsp *http.Response) (*MovieCreditsResponse, error
 				ProfilePath        *string  `json:"profile_path"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -27381,9 +27540,9 @@ func ParseMovieExternalIdsResponse(rsp *http.Response) (*MovieExternalIdsRespons
 			FacebookId  *string      `json:"facebook_id,omitempty"`
 			Id          *int         `json:"id,omitempty"`
 			ImdbId      *string      `json:"imdb_id,omitempty"`
-			InstagramId *interface{} `json:"instagram_id,omitempty"`
-			TwitterId   *interface{} `json:"twitter_id,omitempty"`
-			WikidataId  *interface{} `json:"wikidata_id,omitempty"`
+			InstagramId *interface{} `json:"instagram_id"`
+			TwitterId   *interface{} `json:"twitter_id"`
+			WikidataId  *interface{} `json:"wikidata_id"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -27413,7 +27572,7 @@ func ParseMovieImagesResponse(rsp *http.Response) (*MovieImagesResponse, error) 
 		var dest struct {
 			Backdrops *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -27423,16 +27582,16 @@ func ParseMovieImagesResponse(rsp *http.Response) (*MovieImagesResponse, error) 
 			Id    *int `json:"id,omitempty"`
 			Logos *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
-				Iso6391     *string  `json:"iso_639_1"`
+				Iso6391     *string  `json:"iso_639_1,omitempty"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
 				VoteCount   *int     `json:"vote_count,omitempty"`
 				Width       *int     `json:"width,omitempty"`
 			} `json:"logos,omitempty"`
 			Posters *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -27504,7 +27663,7 @@ func ParseMovieListsResponse(rsp *http.Response) (*MovieListsResponse, error) {
 				Description   *string `json:"description,omitempty"`
 				FavoriteCount *int    `json:"favorite_count,omitempty"`
 				Id            *int    `json:"id,omitempty"`
-				Iso6391       *string `json:"iso_639_1"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
 				ItemCount     *int    `json:"item_count,omitempty"`
 				ListType      *string `json:"list_type,omitempty"`
 				Name          *string `json:"name,omitempty"`
@@ -27629,7 +27788,7 @@ func ParseMovieReleaseDatesResponse(rsp *http.Response) (*MovieReleaseDatesRespo
 				ReleaseDates *[]struct {
 					Certification *string        `json:"certification,omitempty"`
 					Descriptors   *[]interface{} `json:"descriptors,omitempty"`
-					Iso6391       *string        `json:"iso_639_1"`
+					Iso6391       *string        `json:"iso_639_1,omitempty"`
 					Note          *string        `json:"note,omitempty"`
 					ReleaseDate   *string        `json:"release_date,omitempty"`
 					Type          *int           `json:"type,omitempty"`
@@ -27709,7 +27868,7 @@ func ParseMovieSimilarResponse(rsp *http.Response) (*MovieSimilarResponse, error
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
+				Adult            *bool    `json:"adult,omitempty"`
 				BackdropPath     *string  `json:"backdrop_path"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
@@ -27764,7 +27923,7 @@ func ParseMovieTranslationsResponse(rsp *http.Response) (*MovieTranslationsRespo
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -27798,7 +27957,7 @@ func ParseMovieVideosResponse(rsp *http.Response) (*MovieVideosResponse, error) 
 			Results *[]struct {
 				Id          *string `json:"id,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Key         *string `json:"key,omitempty"`
 				Name        *string `json:"name,omitempty"`
 				Official    *bool   `json:"official,omitempty"`
@@ -27839,20 +27998,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				AE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -27860,7 +28019,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				AL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
@@ -27869,20 +28028,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				AR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -27890,20 +28049,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				AT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -27911,13 +28070,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				AU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -27926,13 +28085,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -27941,7 +28100,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BB *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -27950,20 +28109,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -27971,20 +28130,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BG *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -27992,7 +28151,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BH *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
@@ -28001,7 +28160,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28010,7 +28169,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28019,7 +28178,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				BS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28028,20 +28187,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28049,20 +28208,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CH *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28070,20 +28229,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28091,20 +28250,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CO *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28112,7 +28271,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28121,14 +28280,14 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CV *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28136,20 +28295,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				CZ *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28157,20 +28316,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				DE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28178,20 +28337,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				DK *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28199,7 +28358,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				DO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28208,20 +28367,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				EC *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28229,20 +28388,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				EE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28250,14 +28409,14 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				EG *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28265,26 +28424,26 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				ES *struct {
 					Ads *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"ads,omitempty"`
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28292,20 +28451,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				FI *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28313,7 +28472,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				FJ *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
@@ -28322,20 +28481,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				FR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28343,20 +28502,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				GB *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28364,7 +28523,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				GF *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28373,7 +28532,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				GI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28382,20 +28541,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				GR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28403,7 +28562,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				GT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28412,7 +28571,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				HK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28421,7 +28580,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				HN *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28430,19 +28589,19 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				HR *struct {
 					Ads *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"ads,omitempty"`
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28451,20 +28610,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				HU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28472,7 +28631,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				ID *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28481,20 +28640,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28502,13 +28661,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28517,20 +28676,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IN *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28538,7 +28697,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IQ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28547,13 +28706,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IS *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28562,20 +28721,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				IT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28583,7 +28742,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				JM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28592,13 +28751,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				JO *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28607,20 +28766,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				JP *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28628,13 +28787,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				KR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28643,13 +28802,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				KW *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28658,13 +28817,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				LB *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28673,7 +28832,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				LI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28682,20 +28841,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				LT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28703,13 +28862,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				LV *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28718,13 +28877,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MD *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28733,13 +28892,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MK *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28748,20 +28907,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28769,14 +28928,14 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28784,7 +28943,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MX *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28793,7 +28952,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28802,14 +28961,14 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				MZ *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28817,20 +28976,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				NL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28838,20 +28997,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				NO *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28859,13 +29018,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				NZ *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28874,20 +29033,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				OM *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28895,7 +29054,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28904,20 +29063,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28925,7 +29084,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28934,7 +29093,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28943,20 +29102,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28964,7 +29123,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -28973,20 +29132,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -28994,7 +29153,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				PY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29003,13 +29162,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				QA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29018,7 +29177,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				RO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29027,13 +29186,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				RS *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29042,20 +29201,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				RU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29063,20 +29222,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29084,20 +29243,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29105,7 +29264,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29114,13 +29273,13 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SI *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29129,20 +29288,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SK *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29150,7 +29309,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29159,7 +29318,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				SV *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29168,7 +29327,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				TH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29177,20 +29336,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				TR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29198,7 +29357,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				TT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29207,7 +29366,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				TW *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29216,14 +29375,14 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				UG *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29231,20 +29390,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				US *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29252,7 +29411,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				UY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29261,20 +29420,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				VE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29282,7 +29441,7 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				YE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -29291,20 +29450,20 @@ func ParseMovieWatchProvidersResponse(rsp *http.Response) (*MovieWatchProvidersR
 				ZA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -29340,7 +29499,7 @@ func ParseNetworkDetailsResponse(rsp *http.Response) (*NetworkDetailsResponse, e
 			Headquarters  *string `json:"headquarters,omitempty"`
 			Homepage      *string `json:"homepage,omitempty"`
 			Id            *int    `json:"id,omitempty"`
-			LogoPath      *string `json:"logo_path"`
+			LogoPath      *string `json:"logo_path,omitempty"`
 			Name          *string `json:"name,omitempty"`
 			OriginCountry *string `json:"origin_country,omitempty"`
 		}
@@ -29405,7 +29564,7 @@ func ParseAlternativeNamesCopyResponse(rsp *http.Response) (*AlternativeNamesCop
 			Id    *int `json:"id,omitempty"`
 			Logos *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				FileType    *string  `json:"file_type,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Id          *string  `json:"id,omitempty"`
@@ -29474,19 +29633,19 @@ func ParsePersonLatestIdResponse(rsp *http.Response) (*PersonLatestIdResponse, e
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult              *bool          `json:"adult"`
+			Adult              *bool          `json:"adult,omitempty"`
 			AlsoKnownAs        *[]interface{} `json:"also_known_as,omitempty"`
 			Biography          *string        `json:"biography,omitempty"`
-			Birthday           *interface{}   `json:"birthday,omitempty"`
-			Deathday           *interface{}   `json:"deathday,omitempty"`
+			Birthday           *interface{}   `json:"birthday"`
+			Deathday           *interface{}   `json:"deathday"`
 			Gender             *int           `json:"gender,omitempty"`
-			Homepage           *interface{}   `json:"homepage,omitempty"`
+			Homepage           *interface{}   `json:"homepage"`
 			Id                 *int           `json:"id,omitempty"`
-			ImdbId             *interface{}   `json:"imdb_id,omitempty"`
-			KnownForDepartment *interface{}   `json:"known_for_department,omitempty"`
+			ImdbId             *interface{}   `json:"imdb_id"`
+			KnownForDepartment *interface{}   `json:"known_for_department"`
 			Name               *string        `json:"name,omitempty"`
-			PlaceOfBirth       *interface{}   `json:"place_of_birth,omitempty"`
-			Popularity         *int           `json:"popularity,omitempty"`
+			PlaceOfBirth       *interface{}   `json:"place_of_birth"`
+			Popularity         *float32       `json:"popularity,omitempty"`
 			ProfilePath        *string        `json:"profile_path"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -29517,29 +29676,33 @@ func ParsePersonPopularListResponse(rsp *http.Response) (*PersonPopularListRespo
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult    *bool `json:"adult"`
+				Adult    *bool `json:"adult,omitempty"`
 				Gender   *int  `json:"gender,omitempty"`
 				Id       *int  `json:"id,omitempty"`
 				KnownFor *[]struct {
-					Adult            *bool    `json:"adult"`
-					BackdropPath     *string  `json:"backdrop_path"`
-					GenreIds         *[]int   `json:"genre_ids,omitempty"`
-					Id               *int     `json:"id,omitempty"`
-					MediaType        *string  `json:"media_type,omitempty"`
-					OriginalLanguage *string  `json:"original_language,omitempty"`
-					OriginalTitle    *string  `json:"original_title,omitempty"`
-					Overview         *string  `json:"overview,omitempty"`
-					PosterPath       *string  `json:"poster_path"`
-					ReleaseDate      *string  `json:"release_date,omitempty"`
-					Title            *string  `json:"title,omitempty"`
-					Video            *bool    `json:"video,omitempty"`
-					VoteAverage      *float32 `json:"vote_average,omitempty"`
-					VoteCount        *int     `json:"vote_count,omitempty"`
+					Adult            *bool     `json:"adult,omitempty"`
+					BackdropPath     *string   `json:"backdrop_path,omitempty"`
+					FirstAirDate     *string   `json:"first_air_date,omitempty"`
+					GenreIds         *[]int    `json:"genre_ids,omitempty"`
+					Id               *int      `json:"id,omitempty"`
+					MediaType        *string   `json:"media_type,omitempty"`
+					Name             *string   `json:"name,omitempty"`
+					OriginCountry    *[]string `json:"origin_country,omitempty"`
+					OriginalLanguage *string   `json:"original_language,omitempty"`
+					OriginalName     *string   `json:"original_name,omitempty"`
+					OriginalTitle    *string   `json:"original_title,omitempty"`
+					Overview         *string   `json:"overview,omitempty"`
+					PosterPath       *string   `json:"poster_path,omitempty"`
+					ReleaseDate      *string   `json:"release_date,omitempty"`
+					Title            *string   `json:"title,omitempty"`
+					Video            *bool     `json:"video,omitempty"`
+					VoteAverage      *float32  `json:"vote_average,omitempty"`
+					VoteCount        *int      `json:"vote_count,omitempty"`
 				} `json:"known_for,omitempty"`
 				KnownForDepartment *string  `json:"known_for_department,omitempty"`
 				Name               *string  `json:"name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -29570,20 +29733,20 @@ func ParsePersonDetailsResponse(rsp *http.Response) (*PersonDetailsResponse, err
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult              *bool        `json:"adult"`
+			Adult              *bool        `json:"adult,omitempty"`
 			AlsoKnownAs        *[]string    `json:"also_known_as,omitempty"`
 			Biography          *string      `json:"biography,omitempty"`
 			Birthday           *string      `json:"birthday,omitempty"`
-			Deathday           *interface{} `json:"deathday,omitempty"`
+			Deathday           *interface{} `json:"deathday"`
 			Gender             *int         `json:"gender,omitempty"`
-			Homepage           *interface{} `json:"homepage,omitempty"`
+			Homepage           *interface{} `json:"homepage"`
 			Id                 *int         `json:"id,omitempty"`
 			ImdbId             *string      `json:"imdb_id,omitempty"`
 			KnownForDepartment *string      `json:"known_for_department,omitempty"`
 			Name               *string      `json:"name,omitempty"`
 			PlaceOfBirth       *string      `json:"place_of_birth,omitempty"`
 			Popularity         *float32     `json:"popularity,omitempty"`
-			ProfilePath        *string      `json:"profile_path"`
+			ProfilePath        *string      `json:"profile_path,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -29616,7 +29779,7 @@ func ParsePersonChangesResponse(rsp *http.Response) (*PersonChangesResponse, err
 					Action   *string `json:"action,omitempty"`
 					Id       *string `json:"id,omitempty"`
 					Iso31661 *string `json:"iso_3166_1,omitempty"`
-					Iso6391  *string `json:"iso_639_1"`
+					Iso6391  *string `json:"iso_639_1,omitempty"`
 					Time     *string `json:"time,omitempty"`
 					Value    *string `json:"value,omitempty"`
 				} `json:"items,omitempty"`
@@ -29650,44 +29813,54 @@ func ParsePersonCombinedCreditsResponse(rsp *http.Response) (*PersonCombinedCred
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				Character        *string  `json:"character,omitempty"`
-				CreditId         *string  `json:"credit_id,omitempty"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				Order            *int     `json:"order,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path"`
+				Character        *string   `json:"character,omitempty"`
+				CreditId         *string   `json:"credit_id,omitempty"`
+				EpisodeCount     *int      `json:"episode_count,omitempty"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				Order            *int      `json:"order,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				Popularity       *float32  `json:"popularity,omitempty"`
+				PosterPath       *string   `json:"poster_path"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				CreditId         *string  `json:"credit_id,omitempty"`
-				Department       *string  `json:"department,omitempty"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				Job              *string  `json:"job,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path"`
+				CreditId         *string   `json:"credit_id,omitempty"`
+				Department       *string   `json:"department,omitempty"`
+				EpisodeCount     *int      `json:"episode_count,omitempty"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				Job              *string   `json:"job,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				Popularity       *float32  `json:"popularity,omitempty"`
+				PosterPath       *string   `json:"poster_path"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"crew,omitempty"`
 			Id *int `json:"id,omitempty"`
 		}
@@ -29727,7 +29900,7 @@ func ParsePersonExternalIdsResponse(rsp *http.Response) (*PersonExternalIdsRespo
 			TvrageId    *int         `json:"tvrage_id,omitempty"`
 			TwitterId   *string      `json:"twitter_id,omitempty"`
 			WikidataId  *string      `json:"wikidata_id,omitempty"`
-			YoutubeId   *interface{} `json:"youtube_id,omitempty"`
+			YoutubeId   *interface{} `json:"youtube_id"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
@@ -29757,13 +29930,13 @@ func ParsePersonImagesResponse(rsp *http.Response) (*PersonImagesResponse, error
 		var dest struct {
 			Id       *int `json:"id,omitempty"`
 			Profiles *[]struct {
-				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
-				Height      *int     `json:"height,omitempty"`
-				Iso6391     *string  `json:"iso_639_1"`
-				VoteAverage *float32 `json:"vote_average,omitempty"`
-				VoteCount   *int     `json:"vote_count,omitempty"`
-				Width       *int     `json:"width,omitempty"`
+				AspectRatio *float32     `json:"aspect_ratio,omitempty"`
+				FilePath    *string      `json:"file_path,omitempty"`
+				Height      *int         `json:"height,omitempty"`
+				Iso6391     *interface{} `json:"iso_639_1"`
+				VoteAverage *float32     `json:"vote_average,omitempty"`
+				VoteCount   *int         `json:"vote_count,omitempty"`
+				Width       *int         `json:"width,omitempty"`
 			} `json:"profiles,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -29793,7 +29966,7 @@ func ParsePersonMovieCreditsResponse(rsp *http.Response) (*PersonMovieCreditsRes
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult            *bool    `json:"adult"`
+				Adult            *bool    `json:"adult,omitempty"`
 				BackdropPath     *string  `json:"backdrop_path"`
 				Character        *string  `json:"character,omitempty"`
 				CreditId         *string  `json:"credit_id,omitempty"`
@@ -29812,7 +29985,7 @@ func ParsePersonMovieCreditsResponse(rsp *http.Response) (*PersonMovieCreditsRes
 				VoteCount        *int     `json:"vote_count,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult            *bool    `json:"adult"`
+				Adult            *bool    `json:"adult,omitempty"`
 				BackdropPath     *string  `json:"backdrop_path"`
 				CreditId         *string  `json:"credit_id,omitempty"`
 				Department       *string  `json:"department,omitempty"`
@@ -29862,23 +30035,31 @@ func ParsePersonTaggedImagesResponse(rsp *http.Response) (*PersonTaggedImagesRes
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Id          *string  `json:"id,omitempty"`
 				ImageType   *string  `json:"image_type,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				Media       *struct {
-					Adult            *bool    `json:"adult"`
-					BackdropPath     *string  `json:"backdrop_path"`
+					Adult            *bool    `json:"adult,omitempty"`
+					AirDate          *string  `json:"air_date,omitempty"`
+					BackdropPath     *string  `json:"backdrop_path,omitempty"`
+					EpisodeNumber    *int     `json:"episode_number,omitempty"`
 					GenreIds         *[]int   `json:"genre_ids,omitempty"`
 					Id               *int     `json:"id,omitempty"`
 					MediaType        *string  `json:"media_type,omitempty"`
+					Name             *string  `json:"name,omitempty"`
 					OriginalLanguage *string  `json:"original_language,omitempty"`
 					OriginalTitle    *string  `json:"original_title,omitempty"`
 					Overview         *string  `json:"overview,omitempty"`
 					Popularity       *float32 `json:"popularity,omitempty"`
-					PosterPath       *string  `json:"poster_path"`
+					PosterPath       *string  `json:"poster_path,omitempty"`
+					ProductionCode   *string  `json:"production_code,omitempty"`
 					ReleaseDate      *string  `json:"release_date,omitempty"`
+					Runtime          *int     `json:"runtime,omitempty"`
+					SeasonNumber     *int     `json:"season_number,omitempty"`
+					ShowId           *int     `json:"show_id,omitempty"`
+					StillPath        *string  `json:"still_path,omitempty"`
 					Title            *string  `json:"title,omitempty"`
 					Video            *bool    `json:"video,omitempty"`
 					VoteAverage      *float32 `json:"vote_average,omitempty"`
@@ -29925,7 +30106,7 @@ func ParseTranslationsResponse(rsp *http.Response) (*TranslationsResponse, error
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -29956,7 +30137,7 @@ func ParsePersonTvCreditsResponse(rsp *http.Response) (*PersonTvCreditsResponse,
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult            *bool     `json:"adult"`
+				Adult            *bool     `json:"adult,omitempty"`
 				BackdropPath     *string   `json:"backdrop_path"`
 				Character        *string   `json:"character,omitempty"`
 				CreditId         *string   `json:"credit_id,omitempty"`
@@ -29975,7 +30156,7 @@ func ParsePersonTvCreditsResponse(rsp *http.Response) (*PersonTvCreditsResponse,
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult            *bool     `json:"adult"`
+				Adult            *bool     `json:"adult,omitempty"`
 				BackdropPath     *string   `json:"backdrop_path"`
 				CreditId         *string   `json:"credit_id,omitempty"`
 				Department       *string   `json:"department,omitempty"`
@@ -30024,15 +30205,15 @@ func ParseReviewDetailsResponse(rsp *http.Response) (*ReviewDetailsResponse, err
 		var dest struct {
 			Author        *string `json:"author,omitempty"`
 			AuthorDetails *struct {
-				AvatarPath *string  `json:"avatar_path"`
+				AvatarPath *string  `json:"avatar_path,omitempty"`
 				Name       *string  `json:"name,omitempty"`
-				Rating     *float32 `json:"rating"`
+				Rating     *float32 `json:"rating,omitempty"`
 				Username   *string  `json:"username,omitempty"`
 			} `json:"author_details,omitempty"`
 			Content    *string `json:"content,omitempty"`
 			CreatedAt  *string `json:"created_at,omitempty"`
 			Id         *string `json:"id,omitempty"`
-			Iso6391    *string `json:"iso_639_1"`
+			Iso6391    *string `json:"iso_639_1,omitempty"`
 			MediaId    *int    `json:"media_id,omitempty"`
 			MediaTitle *string `json:"media_title,omitempty"`
 			MediaType  *string `json:"media_type,omitempty"`
@@ -30067,14 +30248,14 @@ func ParseSearchCollectionResponse(rsp *http.Response) (*SearchCollectionRespons
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool   `json:"adult"`
-				BackdropPath     *string `json:"backdrop_path"`
+				Adult            *bool   `json:"adult,omitempty"`
+				BackdropPath     *string `json:"backdrop_path,omitempty"`
 				Id               *int    `json:"id,omitempty"`
 				Name             *string `json:"name,omitempty"`
 				OriginalLanguage *string `json:"original_language,omitempty"`
 				OriginalName     *string `json:"original_name,omitempty"`
 				Overview         *string `json:"overview,omitempty"`
-				PosterPath       *string `json:"poster_path"`
+				PosterPath       *string `json:"poster_path,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -30177,7 +30358,7 @@ func ParseSearchMovieResponse(rsp *http.Response) (*SearchMovieResponse, error) 
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
+				Adult            *bool    `json:"adult,omitempty"`
 				BackdropPath     *string  `json:"backdrop_path"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
@@ -30223,21 +30404,25 @@ func ParseSearchMultiResponse(rsp *http.Response) (*SearchMultiResponse, error) 
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				Popularity       *float32  `json:"popularity,omitempty"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -30270,12 +30455,12 @@ func ParseSearchPersonResponse(rsp *http.Response) (*SearchPersonResponse, error
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult    *bool `json:"adult"`
+				Adult    *bool `json:"adult,omitempty"`
 				Gender   *int  `json:"gender,omitempty"`
 				Id       *int  `json:"id,omitempty"`
 				KnownFor *[]struct {
-					Adult            *bool    `json:"adult"`
-					BackdropPath     *string  `json:"backdrop_path"`
+					Adult            *bool    `json:"adult,omitempty"`
+					BackdropPath     *string  `json:"backdrop_path,omitempty"`
 					GenreIds         *[]int   `json:"genre_ids,omitempty"`
 					Id               *int     `json:"id,omitempty"`
 					MediaType        *string  `json:"media_type,omitempty"`
@@ -30283,7 +30468,7 @@ func ParseSearchPersonResponse(rsp *http.Response) (*SearchPersonResponse, error
 					OriginalTitle    *string  `json:"original_title,omitempty"`
 					Overview         *string  `json:"overview,omitempty"`
 					Popularity       *float32 `json:"popularity,omitempty"`
-					PosterPath       *string  `json:"poster_path"`
+					PosterPath       *string  `json:"poster_path,omitempty"`
 					ReleaseDate      *string  `json:"release_date,omitempty"`
 					Title            *string  `json:"title,omitempty"`
 					Video            *bool    `json:"video,omitempty"`
@@ -30294,7 +30479,7 @@ func ParseSearchPersonResponse(rsp *http.Response) (*SearchPersonResponse, error
 				Name               *string  `json:"name,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -30327,8 +30512,8 @@ func ParseSearchTvResponse(rsp *http.Response) (*SearchTvResponse, error) {
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -30338,7 +30523,7 @@ func ParseSearchTvResponse(rsp *http.Response) (*SearchTvResponse, error) {
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -30373,21 +30558,25 @@ func ParseTrendingAllResponse(rsp *http.Response) (*TrendingAllResponse, error) 
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
-				GenreIds         *[]int   `json:"genre_ids,omitempty"`
-				Id               *int     `json:"id,omitempty"`
-				MediaType        *string  `json:"media_type,omitempty"`
-				OriginalLanguage *string  `json:"original_language,omitempty"`
-				OriginalTitle    *string  `json:"original_title,omitempty"`
-				Overview         *string  `json:"overview,omitempty"`
-				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
-				ReleaseDate      *string  `json:"release_date,omitempty"`
-				Title            *string  `json:"title,omitempty"`
-				Video            *bool    `json:"video,omitempty"`
-				VoteAverage      *float32 `json:"vote_average,omitempty"`
-				VoteCount        *int     `json:"vote_count,omitempty"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
+				FirstAirDate     *string   `json:"first_air_date,omitempty"`
+				GenreIds         *[]int    `json:"genre_ids,omitempty"`
+				Id               *int      `json:"id,omitempty"`
+				MediaType        *string   `json:"media_type,omitempty"`
+				Name             *string   `json:"name,omitempty"`
+				OriginCountry    *[]string `json:"origin_country,omitempty"`
+				OriginalLanguage *string   `json:"original_language,omitempty"`
+				OriginalName     *string   `json:"original_name,omitempty"`
+				OriginalTitle    *string   `json:"original_title,omitempty"`
+				Overview         *string   `json:"overview,omitempty"`
+				Popularity       *float32  `json:"popularity,omitempty"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				ReleaseDate      *string   `json:"release_date,omitempty"`
+				Title            *string   `json:"title,omitempty"`
+				Video            *bool     `json:"video,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
+				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -30420,8 +30609,8 @@ func ParseTrendingMoviesResponse(rsp *http.Response) (*TrendingMoviesResponse, e
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool    `json:"adult"`
-				BackdropPath     *string  `json:"backdrop_path"`
+				Adult            *bool    `json:"adult,omitempty"`
+				BackdropPath     *string  `json:"backdrop_path,omitempty"`
 				GenreIds         *[]int   `json:"genre_ids,omitempty"`
 				Id               *int     `json:"id,omitempty"`
 				MediaType        *string  `json:"media_type,omitempty"`
@@ -30429,7 +30618,7 @@ func ParseTrendingMoviesResponse(rsp *http.Response) (*TrendingMoviesResponse, e
 				OriginalTitle    *string  `json:"original_title,omitempty"`
 				Overview         *string  `json:"overview,omitempty"`
 				Popularity       *float32 `json:"popularity,omitempty"`
-				PosterPath       *string  `json:"poster_path"`
+				PosterPath       *string  `json:"poster_path,omitempty"`
 				ReleaseDate      *string  `json:"release_date,omitempty"`
 				Title            *string  `json:"title,omitempty"`
 				Video            *bool    `json:"video,omitempty"`
@@ -30467,32 +30656,36 @@ func ParseTrendingPeopleResponse(rsp *http.Response) (*TrendingPeopleResponse, e
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult    *bool `json:"adult"`
+				Adult    *bool `json:"adult,omitempty"`
 				Gender   *int  `json:"gender,omitempty"`
 				Id       *int  `json:"id,omitempty"`
 				KnownFor *[]struct {
-					Adult            *bool    `json:"adult"`
-					BackdropPath     *string  `json:"backdrop_path"`
-					GenreIds         *[]int   `json:"genre_ids,omitempty"`
-					Id               *int     `json:"id,omitempty"`
-					MediaType        *string  `json:"media_type,omitempty"`
-					OriginalLanguage *string  `json:"original_language,omitempty"`
-					OriginalTitle    *string  `json:"original_title,omitempty"`
-					Overview         *string  `json:"overview,omitempty"`
-					Popularity       *float32 `json:"popularity,omitempty"`
-					PosterPath       *string  `json:"poster_path"`
-					ReleaseDate      *string  `json:"release_date,omitempty"`
-					Title            *string  `json:"title,omitempty"`
-					Video            *bool    `json:"video,omitempty"`
-					VoteAverage      *float32 `json:"vote_average,omitempty"`
-					VoteCount        *int     `json:"vote_count,omitempty"`
+					Adult            *bool     `json:"adult,omitempty"`
+					BackdropPath     *string   `json:"backdrop_path"`
+					FirstAirDate     *string   `json:"first_air_date,omitempty"`
+					GenreIds         *[]int    `json:"genre_ids,omitempty"`
+					Id               *int      `json:"id,omitempty"`
+					MediaType        *string   `json:"media_type,omitempty"`
+					Name             *string   `json:"name,omitempty"`
+					OriginCountry    *[]string `json:"origin_country,omitempty"`
+					OriginalLanguage *string   `json:"original_language,omitempty"`
+					OriginalName     *string   `json:"original_name,omitempty"`
+					OriginalTitle    *string   `json:"original_title,omitempty"`
+					Overview         *string   `json:"overview,omitempty"`
+					Popularity       *float32  `json:"popularity,omitempty"`
+					PosterPath       *string   `json:"poster_path,omitempty"`
+					ReleaseDate      *string   `json:"release_date,omitempty"`
+					Title            *string   `json:"title,omitempty"`
+					Video            *bool     `json:"video,omitempty"`
+					VoteAverage      *float32  `json:"vote_average,omitempty"`
+					VoteCount        *int      `json:"vote_count,omitempty"`
 				} `json:"known_for,omitempty"`
 				KnownForDepartment *string  `json:"known_for_department,omitempty"`
 				MediaType          *string  `json:"media_type,omitempty"`
 				Name               *string  `json:"name,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
 			TotalResults *int `json:"total_results,omitempty"`
@@ -30525,8 +30718,8 @@ func ParseTrendingTvResponse(rsp *http.Response) (*TrendingTvResponse, error) {
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -30537,7 +30730,7 @@ func ParseTrendingTvResponse(rsp *http.Response) (*TrendingTvResponse, error) {
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -30582,8 +30775,8 @@ func ParseTvSeriesAiringTodayListResponse(rsp *http.Response) (*TvSeriesAiringTo
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
-				VoteAverage      *float32  `json:"vote_average"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -30651,10 +30844,12 @@ func ParseTvEpisodeChangesByIdResponse(rsp *http.Response) (*TvEpisodeChangesByI
 		var dest struct {
 			Changes *[]struct {
 				Items *[]struct {
-					Action *string `json:"action,omitempty"`
-					Id     *string `json:"id,omitempty"`
-					Time   *string `json:"time,omitempty"`
-					Value  *string `json:"value,omitempty"`
+					Action        *string `json:"action,omitempty"`
+					Id            *string `json:"id,omitempty"`
+					Iso6391       *string `json:"iso_639_1,omitempty"`
+					OriginalValue *string `json:"original_value,omitempty"`
+					Time          *string `json:"time,omitempty"`
+					Value         *string `json:"value,omitempty"`
 				} `json:"items,omitempty"`
 				Key *string `json:"key,omitempty"`
 			} `json:"changes,omitempty"`
@@ -30697,10 +30892,10 @@ func ParseTvEpisodeGroupDetailsResponse(rsp *http.Response) (*TvEpisodeGroupDeta
 					Order          *int         `json:"order,omitempty"`
 					Overview       *string      `json:"overview,omitempty"`
 					ProductionCode *string      `json:"production_code,omitempty"`
-					Runtime        *interface{} `json:"runtime,omitempty"`
+					Runtime        *interface{} `json:"runtime"`
 					SeasonNumber   *int         `json:"season_number,omitempty"`
 					ShowId         *int         `json:"show_id,omitempty"`
-					StillPath      *string      `json:"still_path"`
+					StillPath      *string      `json:"still_path,omitempty"`
 					VoteAverage    *float32     `json:"vote_average,omitempty"`
 					VoteCount      *int         `json:"vote_count,omitempty"`
 				} `json:"episodes,omitempty"`
@@ -30713,7 +30908,7 @@ func ParseTvEpisodeGroupDetailsResponse(rsp *http.Response) (*TvEpisodeGroupDeta
 			Name    *string `json:"name,omitempty"`
 			Network *struct {
 				Id            *int    `json:"id,omitempty"`
-				LogoPath      *string `json:"logo_path"`
+				LogoPath      *string `json:"logo_path,omitempty"`
 				Name          *string `json:"name,omitempty"`
 				OriginCountry *string `json:"origin_country,omitempty"`
 			} `json:"network,omitempty"`
@@ -30745,7 +30940,7 @@ func ParseTvSeriesLatestIdResponse(rsp *http.Response) (*TvSeriesLatestIdRespons
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult            *bool          `json:"adult"`
+			Adult            *bool          `json:"adult,omitempty"`
 			BackdropPath     *string        `json:"backdrop_path"`
 			CreatedBy        *[]interface{} `json:"created_by,omitempty"`
 			EpisodeRunTime   *[]interface{} `json:"episode_run_time,omitempty"`
@@ -30763,28 +30958,28 @@ func ParseTvSeriesLatestIdResponse(rsp *http.Response) (*TvSeriesLatestIdRespons
 				Name           *string      `json:"name,omitempty"`
 				Overview       *string      `json:"overview,omitempty"`
 				ProductionCode *string      `json:"production_code,omitempty"`
-				Runtime        *interface{} `json:"runtime,omitempty"`
+				Runtime        *interface{} `json:"runtime"`
 				SeasonNumber   *int         `json:"season_number,omitempty"`
 				ShowId         *int         `json:"show_id,omitempty"`
 				StillPath      *string      `json:"still_path"`
-				VoteAverage    *float32     `json:"vote_average"`
+				VoteAverage    *float32     `json:"vote_average,omitempty"`
 				VoteCount      *int         `json:"vote_count,omitempty"`
 			} `json:"last_episode_to_air,omitempty"`
 			Name                *string        `json:"name,omitempty"`
 			Networks            *[]interface{} `json:"networks,omitempty"`
-			NextEpisodeToAir    *interface{}   `json:"next_episode_to_air,omitempty"`
+			NextEpisodeToAir    *interface{}   `json:"next_episode_to_air"`
 			NumberOfEpisodes    *int           `json:"number_of_episodes,omitempty"`
 			NumberOfSeasons     *int           `json:"number_of_seasons,omitempty"`
 			OriginCountry       *[]string      `json:"origin_country,omitempty"`
 			OriginalLanguage    *string        `json:"original_language,omitempty"`
 			OriginalName        *string        `json:"original_name,omitempty"`
 			Overview            *string        `json:"overview,omitempty"`
-			Popularity          *int           `json:"popularity,omitempty"`
+			Popularity          *float32       `json:"popularity,omitempty"`
 			PosterPath          *string        `json:"poster_path"`
 			ProductionCompanies *[]interface{} `json:"production_companies,omitempty"`
 			ProductionCountries *[]interface{} `json:"production_countries,omitempty"`
 			Seasons             *[]struct {
-				AirDate      *interface{} `json:"air_date,omitempty"`
+				AirDate      *interface{} `json:"air_date"`
 				EpisodeCount *int         `json:"episode_count,omitempty"`
 				Id           *int         `json:"id,omitempty"`
 				Name         *string      `json:"name,omitempty"`
@@ -30796,7 +30991,7 @@ func ParseTvSeriesLatestIdResponse(rsp *http.Response) (*TvSeriesLatestIdRespons
 			Status          *string        `json:"status,omitempty"`
 			Tagline         *string        `json:"tagline,omitempty"`
 			Type            *string        `json:"type,omitempty"`
-			VoteAverage     *float32       `json:"vote_average"`
+			VoteAverage     *float32       `json:"vote_average,omitempty"`
 			VoteCount       *int           `json:"vote_count,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -30837,8 +31032,8 @@ func ParseTvSeriesOnTheAirListResponse(rsp *http.Response) (*TvSeriesOnTheAirLis
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
-				VoteAverage      *float32  `json:"vote_average"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -30882,8 +31077,8 @@ func ParseTvSeriesPopularListResponse(rsp *http.Response) (*TvSeriesPopularListR
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
-				VoteAverage      *float32  `json:"vote_average"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -30917,13 +31112,12 @@ func ParseTvSeasonChangesByIdResponse(rsp *http.Response) (*TvSeasonChangesByIdR
 		var dest struct {
 			Changes *[]struct {
 				Items *[]struct {
-					Action *string `json:"action,omitempty"`
-					Id     *string `json:"id,omitempty"`
-					Time   *string `json:"time,omitempty"`
-					Value  *struct {
-						EpisodeId     *int `json:"episode_id,omitempty"`
-						EpisodeNumber *int `json:"episode_number,omitempty"`
-					} `json:"value,omitempty"`
+					Action        *string `json:"action,omitempty"`
+					Id            *string `json:"id,omitempty"`
+					Iso6391       *string `json:"iso_639_1,omitempty"`
+					OriginalValue *string `json:"original_value,omitempty"`
+					Time          *string `json:"time,omitempty"`
+					Value         *string `json:"value,omitempty"`
 				} `json:"items,omitempty"`
 				Key *string `json:"key,omitempty"`
 			} `json:"changes,omitempty"`
@@ -30956,7 +31150,7 @@ func ParseTvSeriesTopRatedListResponse(rsp *http.Response) (*TvSeriesTopRatedLis
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				BackdropPath     *string   `json:"backdrop_path"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -30966,7 +31160,7 @@ func ParseTvSeriesTopRatedListResponse(rsp *http.Response) (*TvSeriesTopRatedLis
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -30999,14 +31193,14 @@ func ParseTvSeriesDetailsResponse(rsp *http.Response) (*TvSeriesDetailsResponse,
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
-			Adult        *bool   `json:"adult"`
-			BackdropPath *string `json:"backdrop_path"`
+			Adult        *bool   `json:"adult,omitempty"`
+			BackdropPath *string `json:"backdrop_path,omitempty"`
 			CreatedBy    *[]struct {
 				CreditId    *string `json:"credit_id,omitempty"`
 				Gender      *int    `json:"gender,omitempty"`
 				Id          *int    `json:"id,omitempty"`
 				Name        *string `json:"name,omitempty"`
-				ProfilePath *string `json:"profile_path"`
+				ProfilePath *string `json:"profile_path,omitempty"`
 			} `json:"created_by,omitempty"`
 			EpisodeRunTime *[]int  `json:"episode_run_time,omitempty"`
 			FirstAirDate   *string `json:"first_air_date,omitempty"`
@@ -31029,18 +31223,18 @@ func ParseTvSeriesDetailsResponse(rsp *http.Response) (*TvSeriesDetailsResponse,
 				Runtime        *int     `json:"runtime,omitempty"`
 				SeasonNumber   *int     `json:"season_number,omitempty"`
 				ShowId         *int     `json:"show_id,omitempty"`
-				StillPath      *string  `json:"still_path"`
+				StillPath      *string  `json:"still_path,omitempty"`
 				VoteAverage    *float32 `json:"vote_average,omitempty"`
 				VoteCount      *int     `json:"vote_count,omitempty"`
 			} `json:"last_episode_to_air,omitempty"`
 			Name     *string `json:"name,omitempty"`
 			Networks *[]struct {
 				Id            *int    `json:"id,omitempty"`
-				LogoPath      *string `json:"logo_path"`
+				LogoPath      *string `json:"logo_path,omitempty"`
 				Name          *string `json:"name,omitempty"`
 				OriginCountry *string `json:"origin_country,omitempty"`
 			} `json:"networks,omitempty"`
-			NextEpisodeToAir    *interface{} `json:"next_episode_to_air,omitempty"`
+			NextEpisodeToAir    *interface{} `json:"next_episode_to_air"`
 			NumberOfEpisodes    *int         `json:"number_of_episodes,omitempty"`
 			NumberOfSeasons     *int         `json:"number_of_seasons,omitempty"`
 			OriginCountry       *[]string    `json:"origin_country,omitempty"`
@@ -31048,7 +31242,7 @@ func ParseTvSeriesDetailsResponse(rsp *http.Response) (*TvSeriesDetailsResponse,
 			OriginalName        *string      `json:"original_name,omitempty"`
 			Overview            *string      `json:"overview,omitempty"`
 			Popularity          *float32     `json:"popularity,omitempty"`
-			PosterPath          *string      `json:"poster_path"`
+			PosterPath          *string      `json:"poster_path,omitempty"`
 			ProductionCompanies *[]struct {
 				Id            *int    `json:"id,omitempty"`
 				LogoPath      *string `json:"logo_path"`
@@ -31065,13 +31259,13 @@ func ParseTvSeriesDetailsResponse(rsp *http.Response) (*TvSeriesDetailsResponse,
 				Id           *int     `json:"id,omitempty"`
 				Name         *string  `json:"name,omitempty"`
 				Overview     *string  `json:"overview,omitempty"`
-				PosterPath   *string  `json:"poster_path"`
+				PosterPath   *string  `json:"poster_path,omitempty"`
 				SeasonNumber *int     `json:"season_number,omitempty"`
-				VoteAverage  *float32 `json:"vote_average"`
+				VoteAverage  *float32 `json:"vote_average,omitempty"`
 			} `json:"seasons,omitempty"`
 			SpokenLanguages *[]struct {
 				EnglishName *string `json:"english_name,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"spoken_languages,omitempty"`
 			Status      *string  `json:"status,omitempty"`
@@ -31109,7 +31303,7 @@ func ParseTvSeriesAccountStatesResponse(rsp *http.Response) (*TvSeriesAccountSta
 			Favorite *bool `json:"favorite,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			Rated    *struct {
-				Value *int `json:"value,omitempty"`
+				Value *float32 `json:"value,omitempty"`
 			} `json:"rated,omitempty"`
 			Watchlist *bool `json:"watchlist,omitempty"`
 		}
@@ -31140,7 +31334,7 @@ func ParseTvSeriesAggregateCreditsResponse(rsp *http.Response) (*TvSeriesAggrega
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
 				Id                 *int     `json:"id,omitempty"`
 				KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -31157,7 +31351,7 @@ func ParseTvSeriesAggregateCreditsResponse(rsp *http.Response) (*TvSeriesAggrega
 				TotalEpisodeCount *int `json:"total_episode_count,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult      *bool   `json:"adult"`
+				Adult      *bool   `json:"adult,omitempty"`
 				Department *string `json:"department,omitempty"`
 				Gender     *int    `json:"gender,omitempty"`
 				Id         *int    `json:"id,omitempty"`
@@ -31239,18 +31433,26 @@ func ParseTvSeriesChangesResponse(rsp *http.Response) (*TvSeriesChangesResponse,
 					Action        *string `json:"action,omitempty"`
 					Id            *string `json:"id,omitempty"`
 					Iso31661      *string `json:"iso_3166_1,omitempty"`
-					Iso6391       *string `json:"iso_639_1"`
+					Iso6391       *string `json:"iso_639_1,omitempty"`
 					OriginalValue *struct {
+						Backdrop *struct {
+							FilePath *string `json:"file_path,omitempty"`
+							Iso6391  *string `json:"iso_639_1,omitempty"`
+						} `json:"backdrop,omitempty"`
 						Poster *struct {
-							FilePath *string `json:"file_path"`
+							FilePath *string `json:"file_path,omitempty"`
 							Iso6391  *string `json:"iso_639_1"`
 						} `json:"poster,omitempty"`
 					} `json:"original_value,omitempty"`
 					Time  *string `json:"time,omitempty"`
 					Value *struct {
+						Backdrop *struct {
+							FilePath *string `json:"file_path,omitempty"`
+							Iso6391  *string `json:"iso_639_1,omitempty"`
+						} `json:"backdrop,omitempty"`
 						Poster *struct {
-							FilePath *string `json:"file_path"`
-							Iso6391  *string `json:"iso_639_1"`
+							FilePath *string `json:"file_path,omitempty"`
+							Iso6391  *string `json:"iso_639_1,omitempty"`
 						} `json:"poster,omitempty"`
 					} `json:"value,omitempty"`
 				} `json:"items,omitempty"`
@@ -31317,7 +31519,7 @@ func ParseTvSeriesCreditsResponse(rsp *http.Response) (*TvSeriesCreditsResponse,
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -31327,10 +31529,10 @@ func ParseTvSeriesCreditsResponse(rsp *http.Response) (*TvSeriesCreditsResponse,
 				Order              *int     `json:"order,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -31379,7 +31581,7 @@ func ParseTvSeriesEpisodeGroupsResponse(rsp *http.Response) (*TvSeriesEpisodeGro
 				Name         *string `json:"name,omitempty"`
 				Network      *struct {
 					Id            *int    `json:"id,omitempty"`
-					LogoPath      *string `json:"logo_path"`
+					LogoPath      *string `json:"logo_path,omitempty"`
 					Name          *string `json:"name,omitempty"`
 					OriginCountry *string `json:"origin_country,omitempty"`
 				} `json:"network,omitempty"`
@@ -31451,7 +31653,7 @@ func ParseTvSeriesImagesResponse(rsp *http.Response) (*TvSeriesImagesResponse, e
 		var dest struct {
 			Backdrops *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -31461,16 +31663,16 @@ func ParseTvSeriesImagesResponse(rsp *http.Response) (*TvSeriesImagesResponse, e
 			Id    *int `json:"id,omitempty"`
 			Logos *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
-				Iso6391     *string  `json:"iso_639_1"`
+				Iso6391     *string  `json:"iso_639_1,omitempty"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
 				VoteCount   *int     `json:"vote_count,omitempty"`
 				Width       *int     `json:"width,omitempty"`
 			} `json:"logos,omitempty"`
 			Posters *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -31543,7 +31745,7 @@ func ParseListsCopyResponse(rsp *http.Response) (*ListsCopyResponse, error) {
 				FavoriteCount *int    `json:"favorite_count,omitempty"`
 				Id            *int    `json:"id,omitempty"`
 				Iso31661      *string `json:"iso_3166_1,omitempty"`
-				Iso6391       *string `json:"iso_639_1"`
+				Iso6391       *string `json:"iso_639_1,omitempty"`
 				ItemCount     *int    `json:"item_count,omitempty"`
 				Name          *string `json:"name,omitempty"`
 				PosterPath    *string `json:"poster_path"`
@@ -31637,8 +31839,8 @@ func ParseTvSeriesRecommendationsResponse(rsp *http.Response) (*TvSeriesRecommen
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
-				BackdropPath     *string   `json:"backdrop_path"`
+				Adult            *bool     `json:"adult,omitempty"`
+				BackdropPath     *string   `json:"backdrop_path,omitempty"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
 				Id               *int      `json:"id,omitempty"`
@@ -31649,7 +31851,7 @@ func ParseTvSeriesRecommendationsResponse(rsp *http.Response) (*TvSeriesRecommen
 				OriginalName     *string   `json:"original_name,omitempty"`
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
-				PosterPath       *string   `json:"poster_path"`
+				PosterPath       *string   `json:"poster_path,omitempty"`
 				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
@@ -31689,7 +31891,7 @@ func ParseTvSeriesReviewsResponse(rsp *http.Response) (*TvSeriesReviewsResponse,
 				AuthorDetails *struct {
 					AvatarPath *string  `json:"avatar_path"`
 					Name       *string  `json:"name,omitempty"`
-					Rating     *float32 `json:"rating"`
+					Rating     *float32 `json:"rating,omitempty"`
 					Username   *string  `json:"username,omitempty"`
 				} `json:"author_details,omitempty"`
 				Content   *string `json:"content,omitempty"`
@@ -31764,7 +31966,7 @@ func ParseTvSeasonDetailsResponse(rsp *http.Response) (*TvSeasonDetailsResponse,
 			Episodes *[]struct {
 				AirDate *string `json:"air_date,omitempty"`
 				Crew    *[]struct {
-					Adult              *bool    `json:"adult"`
+					Adult              *bool    `json:"adult,omitempty"`
 					CreditId           *string  `json:"credit_id,omitempty"`
 					Department         *string  `json:"department,omitempty"`
 					Gender             *int     `json:"gender,omitempty"`
@@ -31778,7 +31980,7 @@ func ParseTvSeasonDetailsResponse(rsp *http.Response) (*TvSeasonDetailsResponse,
 				} `json:"crew,omitempty"`
 				EpisodeNumber *int `json:"episode_number,omitempty"`
 				GuestStars    *[]struct {
-					Adult              *bool    `json:"adult"`
+					Adult              *bool    `json:"adult,omitempty"`
 					Character          *string  `json:"character,omitempty"`
 					CreditId           *string  `json:"credit_id,omitempty"`
 					Gender             *int     `json:"gender,omitempty"`
@@ -31797,14 +31999,14 @@ func ParseTvSeasonDetailsResponse(rsp *http.Response) (*TvSeasonDetailsResponse,
 				Runtime        *int     `json:"runtime,omitempty"`
 				SeasonNumber   *int     `json:"season_number,omitempty"`
 				ShowId         *int     `json:"show_id,omitempty"`
-				StillPath      *string  `json:"still_path"`
+				StillPath      *string  `json:"still_path,omitempty"`
 				VoteAverage    *float32 `json:"vote_average,omitempty"`
 				VoteCount      *int     `json:"vote_count,omitempty"`
 			} `json:"episodes,omitempty"`
 			Id                   *int                   `json:"id,omitempty"`
 			Name                 *string                `json:"name,omitempty"`
 			Overview             *string                `json:"overview,omitempty"`
-			PosterPath           *string                `json:"poster_path"`
+			PosterPath           *string                `json:"poster_path,omitempty"`
 			SeasonNumber         *int                   `json:"season_number,omitempty"`
 			VoteAverage          *float32               `json:"vote_average,omitempty"`
 			AdditionalProperties map[string]interface{} `json:"-"`
@@ -31837,11 +32039,9 @@ func ParseTvSeasonAccountStatesResponse(rsp *http.Response) (*TvSeasonAccountSta
 		var dest struct {
 			Id      *int `json:"id,omitempty"`
 			Results *[]struct {
-				EpisodeNumber *int `json:"episode_number,omitempty"`
-				Id            *int `json:"id,omitempty"`
-				Rated         *struct {
-					Value *int `json:"value,omitempty"`
-				} `json:"rated,omitempty"`
+				EpisodeNumber *int  `json:"episode_number,omitempty"`
+				Id            *int  `json:"id,omitempty"`
+				Rated         *bool `json:"rated,omitempty"`
 			} `json:"results,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -31871,7 +32071,7 @@ func ParseTvSeasonAggregateCreditsResponse(rsp *http.Response) (*TvSeasonAggrega
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
 				Id                 *int     `json:"id,omitempty"`
 				KnownForDepartment *string  `json:"known_for_department,omitempty"`
@@ -31888,7 +32088,7 @@ func ParseTvSeasonAggregateCreditsResponse(rsp *http.Response) (*TvSeasonAggrega
 				TotalEpisodeCount *int `json:"total_episode_count,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult      *bool   `json:"adult"`
+				Adult      *bool   `json:"adult,omitempty"`
 				Department *string `json:"department,omitempty"`
 				Gender     *int    `json:"gender,omitempty"`
 				Id         *int    `json:"id,omitempty"`
@@ -31933,7 +32133,7 @@ func ParseTvSeasonCreditsResponse(rsp *http.Response) (*TvSeasonCreditsResponse,
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -31943,10 +32143,10 @@ func ParseTvSeasonCreditsResponse(rsp *http.Response) (*TvSeasonCreditsResponse,
 				Order              *int     `json:"order,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -31988,7 +32188,7 @@ func ParseTvEpisodeDetailsResponse(rsp *http.Response) (*TvEpisodeDetailsRespons
 		var dest struct {
 			AirDate *string `json:"air_date,omitempty"`
 			Crew    *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -32002,7 +32202,7 @@ func ParseTvEpisodeDetailsResponse(rsp *http.Response) (*TvEpisodeDetailsRespons
 			} `json:"crew,omitempty"`
 			EpisodeNumber *int `json:"episode_number,omitempty"`
 			GuestStars    *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -32012,7 +32212,7 @@ func ParseTvEpisodeDetailsResponse(rsp *http.Response) (*TvEpisodeDetailsRespons
 				Order              *int     `json:"order,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"guest_stars,omitempty"`
 			Id             *int     `json:"id,omitempty"`
 			Name           *string  `json:"name,omitempty"`
@@ -32020,7 +32220,7 @@ func ParseTvEpisodeDetailsResponse(rsp *http.Response) (*TvEpisodeDetailsRespons
 			ProductionCode *string  `json:"production_code,omitempty"`
 			Runtime        *int     `json:"runtime,omitempty"`
 			SeasonNumber   *int     `json:"season_number,omitempty"`
-			StillPath      *string  `json:"still_path"`
+			StillPath      *string  `json:"still_path,omitempty"`
 			VoteAverage    *float32 `json:"vote_average,omitempty"`
 			VoteCount      *int     `json:"vote_count,omitempty"`
 		}
@@ -32053,7 +32253,7 @@ func ParseTvEpisodeAccountStatesResponse(rsp *http.Response) (*TvEpisodeAccountS
 			Favorite *bool `json:"favorite,omitempty"`
 			Id       *int  `json:"id,omitempty"`
 			Rated    *struct {
-				Value *int `json:"value,omitempty"`
+				Value *float32 `json:"value,omitempty"`
 			} `json:"rated,omitempty"`
 			Watchlist *bool `json:"watchlist,omitempty"`
 		}
@@ -32084,7 +32284,7 @@ func ParseTvEpisodeCreditsResponse(rsp *http.Response) (*TvEpisodeCreditsRespons
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest struct {
 			Cast *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -32094,10 +32294,10 @@ func ParseTvEpisodeCreditsResponse(rsp *http.Response) (*TvEpisodeCreditsRespons
 				Order              *int     `json:"order,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"cast,omitempty"`
 			Crew *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Department         *string  `json:"department,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -32110,7 +32310,7 @@ func ParseTvEpisodeCreditsResponse(rsp *http.Response) (*TvEpisodeCreditsRespons
 				ProfilePath        *string  `json:"profile_path"`
 			} `json:"crew,omitempty"`
 			GuestStars *[]struct {
-				Adult              *bool    `json:"adult"`
+				Adult              *bool    `json:"adult,omitempty"`
 				Character          *string  `json:"character,omitempty"`
 				CreditId           *string  `json:"credit_id,omitempty"`
 				Gender             *int     `json:"gender,omitempty"`
@@ -32120,7 +32320,7 @@ func ParseTvEpisodeCreditsResponse(rsp *http.Response) (*TvEpisodeCreditsRespons
 				Order              *int     `json:"order,omitempty"`
 				OriginalName       *string  `json:"original_name,omitempty"`
 				Popularity         *float32 `json:"popularity,omitempty"`
-				ProfilePath        *string  `json:"profile_path"`
+				ProfilePath        *string  `json:"profile_path,omitempty"`
 			} `json:"guest_stars,omitempty"`
 			Id *int `json:"id,omitempty"`
 		}
@@ -32186,13 +32386,13 @@ func ParseTvEpisodeImagesResponse(rsp *http.Response) (*TvEpisodeImagesResponse,
 		var dest struct {
 			Id     *int `json:"id,omitempty"`
 			Stills *[]struct {
-				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
-				Height      *int     `json:"height,omitempty"`
-				Iso6391     *string  `json:"iso_639_1"`
-				VoteAverage *float32 `json:"vote_average,omitempty"`
-				VoteCount   *int     `json:"vote_count,omitempty"`
-				Width       *int     `json:"width,omitempty"`
+				AspectRatio *float32     `json:"aspect_ratio,omitempty"`
+				FilePath    *string      `json:"file_path,omitempty"`
+				Height      *int         `json:"height,omitempty"`
+				Iso6391     *interface{} `json:"iso_639_1"`
+				VoteAverage *float32     `json:"vote_average,omitempty"`
+				VoteCount   *int         `json:"vote_count,omitempty"`
+				Width       *int         `json:"width,omitempty"`
 			} `json:"stills,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -32287,7 +32487,7 @@ func ParseTvEpisodeTranslationsResponse(rsp *http.Response) (*TvEpisodeTranslati
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -32321,7 +32521,7 @@ func ParseTvEpisodeVideosResponse(rsp *http.Response) (*TvEpisodeVideosResponse,
 			Results *[]struct {
 				Id          *string `json:"id,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Key         *string `json:"key,omitempty"`
 				Name        *string `json:"name,omitempty"`
 				Official    *bool   `json:"official,omitempty"`
@@ -32361,7 +32561,7 @@ func ParseTvSeasonExternalIdsResponse(rsp *http.Response) (*TvSeasonExternalIdsR
 			FreebaseMid *string      `json:"freebase_mid,omitempty"`
 			Id          *int         `json:"id,omitempty"`
 			TvdbId      *int         `json:"tvdb_id,omitempty"`
-			TvrageId    *interface{} `json:"tvrage_id,omitempty"`
+			TvrageId    *interface{} `json:"tvrage_id"`
 			WikidataId  *string      `json:"wikidata_id,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -32393,7 +32593,7 @@ func ParseTvSeasonImagesResponse(rsp *http.Response) (*TvSeasonImagesResponse, e
 			Id      *int `json:"id,omitempty"`
 			Posters *[]struct {
 				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
-				FilePath    *string  `json:"file_path"`
+				FilePath    *string  `json:"file_path,omitempty"`
 				Height      *int     `json:"height,omitempty"`
 				Iso6391     *string  `json:"iso_639_1"`
 				VoteAverage *float32 `json:"vote_average,omitempty"`
@@ -32435,7 +32635,7 @@ func ParseTvSeasonTranslationsResponse(rsp *http.Response) (*TvSeasonTranslation
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -32469,7 +32669,7 @@ func ParseTvSeasonVideosResponse(rsp *http.Response) (*TvSeasonVideosResponse, e
 			Results *[]struct {
 				Id          *string `json:"id,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Key         *string `json:"key,omitempty"`
 				Name        *string `json:"name,omitempty"`
 				Official    *bool   `json:"official,omitempty"`
@@ -32510,7 +32710,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				AE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32519,7 +32719,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				AR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32528,13 +32728,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				AT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32543,13 +32743,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				AU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32558,7 +32758,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32567,7 +32767,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BB *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32576,7 +32776,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32585,7 +32785,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32594,7 +32794,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32603,7 +32803,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32612,7 +32812,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				BS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32621,13 +32821,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32636,13 +32836,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CH *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32651,7 +32851,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32660,7 +32860,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32669,7 +32869,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32678,7 +32878,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32687,7 +32887,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				CZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32696,13 +32896,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				DE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32711,7 +32911,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				DK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32720,7 +32920,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				DO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32729,7 +32929,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				DZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32738,7 +32938,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				EC *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32747,7 +32947,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				EG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32756,7 +32956,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				ES *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32765,13 +32965,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				FI *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32780,13 +32980,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				FR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32795,13 +32995,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				GB *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32810,7 +33010,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				GF *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32819,7 +33019,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				GH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32828,7 +33028,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				GQ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32837,7 +33037,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				GT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32846,7 +33046,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				HK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32855,7 +33055,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				HN *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32864,7 +33064,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				HR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32873,7 +33073,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				HU *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32882,7 +33082,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				ID *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32891,13 +33091,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				IE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32906,7 +33106,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				IL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32915,7 +33115,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				IQ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32924,13 +33124,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				IT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32939,7 +33139,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				JM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32948,20 +33148,20 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				JP *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -32969,7 +33169,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				KE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32978,7 +33178,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				KR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32987,7 +33187,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				LB *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -32996,7 +33196,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				LY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33005,7 +33205,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MD *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33014,7 +33214,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33023,7 +33223,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MU *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33032,7 +33232,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MX *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33041,7 +33241,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33050,7 +33250,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				MZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33059,7 +33259,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				NE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33068,7 +33268,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				NG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33077,13 +33277,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				NL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33092,13 +33292,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				NO *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33107,7 +33307,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				NZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33116,7 +33316,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33125,7 +33325,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33134,7 +33334,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33143,14 +33343,14 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -33158,7 +33358,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33167,7 +33367,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33176,7 +33376,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				PY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33185,7 +33385,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				RO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33194,7 +33394,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				RS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33203,7 +33403,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				RU *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33212,7 +33412,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33221,7 +33421,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SC *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33230,13 +33430,13 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33245,7 +33445,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33254,7 +33454,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33263,7 +33463,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33272,7 +33472,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SN *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33281,7 +33481,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				SV *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33290,7 +33490,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				TH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33299,7 +33499,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				TR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33308,7 +33508,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				TT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33317,7 +33517,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				TW *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33326,7 +33526,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				TZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33335,7 +33535,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				UG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33344,19 +33544,19 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				US *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Free *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"free,omitempty"`
@@ -33365,7 +33565,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				UY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33374,7 +33574,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				VE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33383,7 +33583,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				ZA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33392,7 +33592,7 @@ func ParseTvSeasonWatchProvidersResponse(rsp *http.Response) (*TvSeasonWatchProv
 				ZM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33428,7 +33628,7 @@ func ParseTvSeriesSimilarResponse(rsp *http.Response) (*TvSeriesSimilarResponse,
 		var dest struct {
 			Page    *int `json:"page,omitempty"`
 			Results *[]struct {
-				Adult            *bool     `json:"adult"`
+				Adult            *bool     `json:"adult,omitempty"`
 				BackdropPath     *string   `json:"backdrop_path"`
 				FirstAirDate     *string   `json:"first_air_date,omitempty"`
 				GenreIds         *[]int    `json:"genre_ids,omitempty"`
@@ -33440,7 +33640,7 @@ func ParseTvSeriesSimilarResponse(rsp *http.Response) (*TvSeriesSimilarResponse,
 				Overview         *string   `json:"overview,omitempty"`
 				Popularity       *float32  `json:"popularity,omitempty"`
 				PosterPath       *string   `json:"poster_path"`
-				VoteAverage      *float32  `json:"vote_average"`
+				VoteAverage      *float32  `json:"vote_average,omitempty"`
 				VoteCount        *int      `json:"vote_count,omitempty"`
 			} `json:"results,omitempty"`
 			TotalPages   *int `json:"total_pages,omitempty"`
@@ -33482,7 +33682,7 @@ func ParseTvSeriesTranslationsResponse(rsp *http.Response) (*TvSeriesTranslation
 				} `json:"data,omitempty"`
 				EnglishName *string `json:"english_name,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Name        *string `json:"name,omitempty"`
 			} `json:"translations,omitempty"`
 		}
@@ -33516,7 +33716,7 @@ func ParseTvSeriesVideosResponse(rsp *http.Response) (*TvSeriesVideosResponse, e
 			Results *[]struct {
 				Id          *string `json:"id,omitempty"`
 				Iso31661    *string `json:"iso_3166_1,omitempty"`
-				Iso6391     *string `json:"iso_639_1"`
+				Iso6391     *string `json:"iso_639_1,omitempty"`
 				Key         *string `json:"key,omitempty"`
 				Name        *string `json:"name,omitempty"`
 				Official    *bool   `json:"official,omitempty"`
@@ -33557,7 +33757,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				AE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33566,7 +33766,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				AR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33575,13 +33775,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				AT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33590,13 +33790,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				AU *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33605,7 +33805,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33614,7 +33814,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BB *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33623,7 +33823,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33632,7 +33832,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33641,7 +33841,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33650,7 +33850,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33659,7 +33859,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				BS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33668,13 +33868,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CA *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33683,13 +33883,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CH *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33698,7 +33898,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33707,7 +33907,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33716,7 +33916,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33725,7 +33925,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33734,7 +33934,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				CZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33743,13 +33943,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				DE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33758,7 +33958,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				DK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33767,7 +33967,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				DO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33776,7 +33976,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				DZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33785,7 +33985,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				EC *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33794,7 +33994,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				EG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33803,7 +34003,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				ES *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33812,13 +34012,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				FI *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33827,13 +34027,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				FR *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33842,13 +34042,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				GB *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33857,7 +34057,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				GF *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33866,7 +34066,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				GH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33875,7 +34075,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				GQ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33884,7 +34084,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				GT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33893,7 +34093,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				HK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33902,7 +34102,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				HN *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33911,7 +34111,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				HR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33920,7 +34120,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				HU *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33929,7 +34129,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				ID *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33938,13 +34138,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				IE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33953,7 +34153,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				IL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33962,7 +34162,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				IQ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33971,13 +34171,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				IT *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33986,7 +34186,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				JM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -33995,20 +34195,20 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				JP *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -34016,7 +34216,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				KE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34025,7 +34225,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				KR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34034,7 +34234,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				LB *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34043,7 +34243,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				LT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34052,7 +34252,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				LY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34061,7 +34261,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MD *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34070,7 +34270,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34079,7 +34279,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MU *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34088,7 +34288,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MX *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34097,7 +34297,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34106,7 +34306,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				MZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34115,7 +34315,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				NE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34124,7 +34324,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				NG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34133,13 +34333,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				NL *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34148,13 +34348,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				NO *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34163,7 +34363,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				NZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34172,7 +34372,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34181,7 +34381,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34190,7 +34390,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34199,14 +34399,14 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PL *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Link *string `json:"link,omitempty"`
 					Rent *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"rent,omitempty"`
@@ -34214,7 +34414,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34223,7 +34423,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34232,7 +34432,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				PY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34241,7 +34441,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				RO *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34250,7 +34450,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				RS *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34259,13 +34459,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				RU *struct {
 					Ads *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"ads,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34274,7 +34474,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34283,7 +34483,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SC *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34292,13 +34492,13 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SE *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34307,7 +34507,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34316,7 +34516,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SI *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34325,7 +34525,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SK *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34334,7 +34534,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SN *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34343,7 +34543,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				SV *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34352,7 +34552,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				TH *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34361,7 +34561,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				TR *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34370,7 +34570,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				TT *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34379,7 +34579,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				TW *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34388,7 +34588,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				TZ *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34397,7 +34597,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				UG *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34406,19 +34606,19 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				US *struct {
 					Buy *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"buy,omitempty"`
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
 					Free *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"free,omitempty"`
@@ -34427,7 +34627,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				UY *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34436,7 +34636,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				VE *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34445,7 +34645,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				ZA *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34454,7 +34654,7 @@ func ParseTvSeriesWatchProvidersResponse(rsp *http.Response) (*TvSeriesWatchProv
 				ZM *struct {
 					Flatrate *[]struct {
 						DisplayPriority *int    `json:"display_priority,omitempty"`
-						LogoPath        *string `json:"logo_path"`
+						LogoPath        *string `json:"logo_path,omitempty"`
 						ProviderId      *int    `json:"provider_id,omitempty"`
 						ProviderName    *string `json:"provider_name,omitempty"`
 					} `json:"flatrate,omitempty"`
@@ -34490,72 +34690,129 @@ func ParseWatchProvidersMovieListResponse(rsp *http.Response) (*WatchProvidersMo
 		var dest struct {
 			Results *[]struct {
 				DisplayPriorities *struct {
+					AD *int `json:"AD,omitempty"`
 					AE *int `json:"AE,omitempty"`
+					AG *int `json:"AG,omitempty"`
+					AL *int `json:"AL,omitempty"`
 					AR *int `json:"AR,omitempty"`
 					AT *int `json:"AT,omitempty"`
 					AU *int `json:"AU,omitempty"`
+					BA *int `json:"BA,omitempty"`
+					BB *int `json:"BB,omitempty"`
 					BE *int `json:"BE,omitempty"`
 					BG *int `json:"BG,omitempty"`
+					BH *int `json:"BH,omitempty"`
+					BM *int `json:"BM,omitempty"`
 					BO *int `json:"BO,omitempty"`
 					BR *int `json:"BR,omitempty"`
+					BS *int `json:"BS,omitempty"`
 					CA *int `json:"CA,omitempty"`
 					CH *int `json:"CH,omitempty"`
+					CI *int `json:"CI,omitempty"`
 					CL *int `json:"CL,omitempty"`
 					CO *int `json:"CO,omitempty"`
 					CR *int `json:"CR,omitempty"`
+					CU *int `json:"CU,omitempty"`
 					CV *int `json:"CV,omitempty"`
 					CZ *int `json:"CZ,omitempty"`
 					DE *int `json:"DE,omitempty"`
 					DK *int `json:"DK,omitempty"`
+					DO *int `json:"DO,omitempty"`
+					DZ *int `json:"DZ,omitempty"`
 					EC *int `json:"EC,omitempty"`
 					EE *int `json:"EE,omitempty"`
 					EG *int `json:"EG,omitempty"`
 					ES *int `json:"ES,omitempty"`
 					FI *int `json:"FI,omitempty"`
+					FJ *int `json:"FJ,omitempty"`
 					FR *int `json:"FR,omitempty"`
 					GB *int `json:"GB,omitempty"`
+					GF *int `json:"GF,omitempty"`
+					GG *int `json:"GG,omitempty"`
 					GH *int `json:"GH,omitempty"`
+					GI *int `json:"GI,omitempty"`
+					GQ *int `json:"GQ,omitempty"`
 					GR *int `json:"GR,omitempty"`
 					GT *int `json:"GT,omitempty"`
 					HK *int `json:"HK,omitempty"`
 					HN *int `json:"HN,omitempty"`
+					HR *int `json:"HR,omitempty"`
 					HU *int `json:"HU,omitempty"`
 					ID *int `json:"ID,omitempty"`
 					IE *int `json:"IE,omitempty"`
 					IL *int `json:"IL,omitempty"`
 					IN *int `json:"IN,omitempty"`
+					IQ *int `json:"IQ,omitempty"`
+					IS *int `json:"IS,omitempty"`
 					IT *int `json:"IT,omitempty"`
+					JM *int `json:"JM,omitempty"`
+					JO *int `json:"JO,omitempty"`
 					JP *int `json:"JP,omitempty"`
+					KE *int `json:"KE,omitempty"`
+					KR *int `json:"KR,omitempty"`
+					KW *int `json:"KW,omitempty"`
+					LB *int `json:"LB,omitempty"`
+					LC *int `json:"LC,omitempty"`
+					LI *int `json:"LI,omitempty"`
 					LT *int `json:"LT,omitempty"`
 					LV *int `json:"LV,omitempty"`
+					LY *int `json:"LY,omitempty"`
+					MA *int `json:"MA,omitempty"`
+					MC *int `json:"MC,omitempty"`
+					MD *int `json:"MD,omitempty"`
+					MK *int `json:"MK,omitempty"`
+					MT *int `json:"MT,omitempty"`
 					MU *int `json:"MU,omitempty"`
 					MX *int `json:"MX,omitempty"`
 					MY *int `json:"MY,omitempty"`
 					MZ *int `json:"MZ,omitempty"`
+					NE *int `json:"NE,omitempty"`
+					NG *int `json:"NG,omitempty"`
 					NL *int `json:"NL,omitempty"`
 					NO *int `json:"NO,omitempty"`
 					NZ *int `json:"NZ,omitempty"`
+					OM *int `json:"OM,omitempty"`
+					PA *int `json:"PA,omitempty"`
 					PE *int `json:"PE,omitempty"`
+					PF *int `json:"PF,omitempty"`
 					PH *int `json:"PH,omitempty"`
+					PK *int `json:"PK,omitempty"`
 					PL *int `json:"PL,omitempty"`
+					PS *int `json:"PS,omitempty"`
 					PT *int `json:"PT,omitempty"`
 					PY *int `json:"PY,omitempty"`
+					QA *int `json:"QA,omitempty"`
+					RO *int `json:"RO,omitempty"`
+					RS *int `json:"RS,omitempty"`
 					RU *int `json:"RU,omitempty"`
 					SA *int `json:"SA,omitempty"`
+					SC *int `json:"SC,omitempty"`
 					SE *int `json:"SE,omitempty"`
 					SG *int `json:"SG,omitempty"`
 					SI *int `json:"SI,omitempty"`
 					SK *int `json:"SK,omitempty"`
+					SM *int `json:"SM,omitempty"`
+					SN *int `json:"SN,omitempty"`
+					SV *int `json:"SV,omitempty"`
+					TC *int `json:"TC,omitempty"`
 					TH *int `json:"TH,omitempty"`
+					TN *int `json:"TN,omitempty"`
 					TR *int `json:"TR,omitempty"`
+					TT *int `json:"TT,omitempty"`
 					TW *int `json:"TW,omitempty"`
+					TZ *int `json:"TZ,omitempty"`
 					UG *int `json:"UG,omitempty"`
 					US *int `json:"US,omitempty"`
+					UY *int `json:"UY,omitempty"`
+					VA *int `json:"VA,omitempty"`
 					VE *int `json:"VE,omitempty"`
+					XK *int `json:"XK,omitempty"`
+					YE *int `json:"YE,omitempty"`
 					ZA *int `json:"ZA,omitempty"`
+					ZM *int `json:"ZM,omitempty"`
 				} `json:"display_priorities,omitempty"`
 				DisplayPriority *int    `json:"display_priority,omitempty"`
-				LogoPath        *string `json:"logo_path"`
+				LogoPath        *string `json:"logo_path,omitempty"`
 				ProviderId      *int    `json:"provider_id,omitempty"`
 				ProviderName    *string `json:"provider_name,omitempty"`
 			} `json:"results,omitempty"`
@@ -34620,72 +34877,129 @@ func ParseWatchProviderTvListResponse(rsp *http.Response) (*WatchProviderTvListR
 		var dest struct {
 			Results *[]struct {
 				DisplayPriorities *struct {
+					AD *int `json:"AD,omitempty"`
 					AE *int `json:"AE,omitempty"`
+					AG *int `json:"AG,omitempty"`
+					AL *int `json:"AL,omitempty"`
 					AR *int `json:"AR,omitempty"`
 					AT *int `json:"AT,omitempty"`
 					AU *int `json:"AU,omitempty"`
+					BA *int `json:"BA,omitempty"`
+					BB *int `json:"BB,omitempty"`
 					BE *int `json:"BE,omitempty"`
 					BG *int `json:"BG,omitempty"`
+					BH *int `json:"BH,omitempty"`
+					BM *int `json:"BM,omitempty"`
 					BO *int `json:"BO,omitempty"`
 					BR *int `json:"BR,omitempty"`
+					BS *int `json:"BS,omitempty"`
 					CA *int `json:"CA,omitempty"`
 					CH *int `json:"CH,omitempty"`
+					CI *int `json:"CI,omitempty"`
 					CL *int `json:"CL,omitempty"`
 					CO *int `json:"CO,omitempty"`
 					CR *int `json:"CR,omitempty"`
+					CU *int `json:"CU,omitempty"`
 					CV *int `json:"CV,omitempty"`
 					CZ *int `json:"CZ,omitempty"`
 					DE *int `json:"DE,omitempty"`
 					DK *int `json:"DK,omitempty"`
+					DO *int `json:"DO,omitempty"`
+					DZ *int `json:"DZ,omitempty"`
 					EC *int `json:"EC,omitempty"`
 					EE *int `json:"EE,omitempty"`
 					EG *int `json:"EG,omitempty"`
 					ES *int `json:"ES,omitempty"`
 					FI *int `json:"FI,omitempty"`
+					FJ *int `json:"FJ,omitempty"`
 					FR *int `json:"FR,omitempty"`
 					GB *int `json:"GB,omitempty"`
+					GF *int `json:"GF,omitempty"`
+					GG *int `json:"GG,omitempty"`
 					GH *int `json:"GH,omitempty"`
+					GI *int `json:"GI,omitempty"`
+					GQ *int `json:"GQ,omitempty"`
 					GR *int `json:"GR,omitempty"`
 					GT *int `json:"GT,omitempty"`
 					HK *int `json:"HK,omitempty"`
 					HN *int `json:"HN,omitempty"`
+					HR *int `json:"HR,omitempty"`
 					HU *int `json:"HU,omitempty"`
 					ID *int `json:"ID,omitempty"`
 					IE *int `json:"IE,omitempty"`
 					IL *int `json:"IL,omitempty"`
 					IN *int `json:"IN,omitempty"`
+					IQ *int `json:"IQ,omitempty"`
+					IS *int `json:"IS,omitempty"`
 					IT *int `json:"IT,omitempty"`
+					JM *int `json:"JM,omitempty"`
+					JO *int `json:"JO,omitempty"`
 					JP *int `json:"JP,omitempty"`
+					KE *int `json:"KE,omitempty"`
+					KR *int `json:"KR,omitempty"`
+					KW *int `json:"KW,omitempty"`
+					LB *int `json:"LB,omitempty"`
+					LC *int `json:"LC,omitempty"`
+					LI *int `json:"LI,omitempty"`
 					LT *int `json:"LT,omitempty"`
 					LV *int `json:"LV,omitempty"`
+					LY *int `json:"LY,omitempty"`
+					MA *int `json:"MA,omitempty"`
+					MC *int `json:"MC,omitempty"`
+					MD *int `json:"MD,omitempty"`
+					MK *int `json:"MK,omitempty"`
+					MT *int `json:"MT,omitempty"`
 					MU *int `json:"MU,omitempty"`
 					MX *int `json:"MX,omitempty"`
 					MY *int `json:"MY,omitempty"`
 					MZ *int `json:"MZ,omitempty"`
+					NE *int `json:"NE,omitempty"`
+					NG *int `json:"NG,omitempty"`
 					NL *int `json:"NL,omitempty"`
 					NO *int `json:"NO,omitempty"`
 					NZ *int `json:"NZ,omitempty"`
+					OM *int `json:"OM,omitempty"`
+					PA *int `json:"PA,omitempty"`
 					PE *int `json:"PE,omitempty"`
+					PF *int `json:"PF,omitempty"`
 					PH *int `json:"PH,omitempty"`
+					PK *int `json:"PK,omitempty"`
 					PL *int `json:"PL,omitempty"`
+					PS *int `json:"PS,omitempty"`
 					PT *int `json:"PT,omitempty"`
 					PY *int `json:"PY,omitempty"`
+					QA *int `json:"QA,omitempty"`
+					RO *int `json:"RO,omitempty"`
+					RS *int `json:"RS,omitempty"`
 					RU *int `json:"RU,omitempty"`
 					SA *int `json:"SA,omitempty"`
+					SC *int `json:"SC,omitempty"`
 					SE *int `json:"SE,omitempty"`
 					SG *int `json:"SG,omitempty"`
 					SI *int `json:"SI,omitempty"`
 					SK *int `json:"SK,omitempty"`
+					SM *int `json:"SM,omitempty"`
+					SN *int `json:"SN,omitempty"`
+					SV *int `json:"SV,omitempty"`
+					TC *int `json:"TC,omitempty"`
 					TH *int `json:"TH,omitempty"`
+					TN *int `json:"TN,omitempty"`
 					TR *int `json:"TR,omitempty"`
+					TT *int `json:"TT,omitempty"`
 					TW *int `json:"TW,omitempty"`
+					TZ *int `json:"TZ,omitempty"`
 					UG *int `json:"UG,omitempty"`
 					US *int `json:"US,omitempty"`
+					UY *int `json:"UY,omitempty"`
+					VA *int `json:"VA,omitempty"`
 					VE *int `json:"VE,omitempty"`
+					XK *int `json:"XK,omitempty"`
+					YE *int `json:"YE,omitempty"`
 					ZA *int `json:"ZA,omitempty"`
+					ZM *int `json:"ZM,omitempty"`
 				} `json:"display_priorities,omitempty"`
 				DisplayPriority *int    `json:"display_priority,omitempty"`
-				LogoPath        *string `json:"logo_path"`
+				LogoPath        *string `json:"logo_path,omitempty"`
 				ProviderId      *int    `json:"provider_id,omitempty"`
 				ProviderName    *string `json:"provider_name,omitempty"`
 			} `json:"results,omitempty"`

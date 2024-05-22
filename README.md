@@ -10,11 +10,9 @@ The OpenAPI specification is retrieved and corrected with the [_tools/schema_gen
 
 These corrections include:
  - unescaping JSON strings in examples
- - inferring missing schemas from examples
+ - correcting/inferring schemas from examples
  - adding `nullable: true` where appropriate
  - removing technically duplicate properties (`_id` and `id`) and adding `additionalProperties: true` instead
- - changing `integer` types to `number` where appropriate (when examples contain a float)
- - removing additional characters in examples, which break the JSON syntax
  - replacing the security scheme for a `Bearer` token one
 
 Some of these corrections come at the expense of decreasing the API ergonomics by loosening the schema constraints,

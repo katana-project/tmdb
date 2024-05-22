@@ -4,8 +4,6 @@
 package tmdb
 
 import (
-	"encoding/json"
-
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
@@ -151,7 +149,9 @@ type AccountDetailsParams struct {
 
 // AccountAddFavoriteJSONBody defines parameters for AccountAddFavorite.
 type AccountAddFavoriteJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Favorite  *bool   `json:"favorite,omitempty"`
+	MediaId   *int    `json:"media_id,omitempty"`
+	MediaType *string `json:"media_type,omitempty"`
 }
 
 // AccountAddFavoriteParams defines parameters for AccountAddFavorite.
@@ -222,7 +222,9 @@ type AccountRatedTvEpisodesParamsSortBy string
 
 // AccountAddToWatchlistJSONBody defines parameters for AccountAddToWatchlist.
 type AccountAddToWatchlistJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	MediaId   *int    `json:"media_id,omitempty"`
+	MediaType *string `json:"media_type,omitempty"`
+	Watchlist *bool   `json:"watchlist,omitempty"`
 }
 
 // AccountAddToWatchlistParams defines parameters for AccountAddToWatchlist.
@@ -254,22 +256,24 @@ type AccountWatchlistTvParamsSortBy string
 
 // AuthenticationDeleteSessionJSONBody defines parameters for AuthenticationDeleteSession.
 type AuthenticationDeleteSessionJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	SessionId *string `json:"session_id,omitempty"`
 }
 
 // AuthenticationCreateSessionFromV4TokenJSONBody defines parameters for AuthenticationCreateSessionFromV4Token.
 type AuthenticationCreateSessionFromV4TokenJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	AccessToken *string `json:"access_token,omitempty"`
 }
 
 // AuthenticationCreateSessionJSONBody defines parameters for AuthenticationCreateSession.
 type AuthenticationCreateSessionJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	RequestToken *string `json:"request_token,omitempty"`
 }
 
 // AuthenticationCreateSessionFromLoginJSONBody defines parameters for AuthenticationCreateSessionFromLogin.
 type AuthenticationCreateSessionFromLoginJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Password     *string `json:"password,omitempty"`
+	RequestToken *string `json:"request_token,omitempty"`
+	Username     *string `json:"username,omitempty"`
 }
 
 // CollectionDetailsParams defines parameters for CollectionDetails.
@@ -475,7 +479,9 @@ type KeywordMoviesParams struct {
 
 // ListCreateJSONBody defines parameters for ListCreate.
 type ListCreateJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Description *string `json:"description,omitempty"`
+	Language    *string `json:"language,omitempty"`
+	Name        *string `json:"name,omitempty"`
 }
 
 // ListCreateParams defines parameters for ListCreate.
@@ -496,7 +502,7 @@ type ListDetailsParams struct {
 
 // ListAddMovieJSONBody defines parameters for ListAddMovie.
 type ListAddMovieJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY,omitempty"`
+	MediaId *int `json:"media_id,omitempty"`
 }
 
 // ListAddMovieParams defines parameters for ListAddMovie.
@@ -518,7 +524,7 @@ type ListCheckItemStatusParams struct {
 
 // ListRemoveMovieJSONBody defines parameters for ListRemoveMovie.
 type ListRemoveMovieJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	MediaId *int `json:"media_id,omitempty"`
 }
 
 // ListRemoveMovieParams defines parameters for ListRemoveMovie.
@@ -622,7 +628,7 @@ type MovieDeleteRatingParams struct {
 
 // MovieAddRatingJSONBody defines parameters for MovieAddRating.
 type MovieAddRatingJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Value *float32 `json:"value,omitempty"`
 }
 
 // MovieAddRatingParams defines parameters for MovieAddRating.
@@ -892,7 +898,7 @@ type TvSeriesDeleteRatingParams struct {
 
 // TvSeriesAddRatingJSONBody defines parameters for TvSeriesAddRating.
 type TvSeriesAddRatingJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Value *float32 `json:"value,omitempty"`
 }
 
 // TvSeriesAddRatingParams defines parameters for TvSeriesAddRating.
@@ -971,7 +977,7 @@ type TvEpisodeDeleteRatingParams struct {
 
 // TvEpisodeAddRatingJSONBody defines parameters for TvEpisodeAddRating.
 type TvEpisodeAddRatingJSONBody struct {
-	RAWBODY json.RawMessage `json:"RAW_BODY"`
+	Value *float32 `json:"value,omitempty"`
 }
 
 // TvEpisodeAddRatingParams defines parameters for TvEpisodeAddRating.

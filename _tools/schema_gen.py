@@ -8,32 +8,42 @@ HEADERS = {"User-Agent": "Mozilla/5.0"}
 LINK_PATTERN = compile(r'<a href="([a-z0-9/]+)">TMDB API - v3</a>')
 
 
+def merge_schema(a: dict[str, any], b: dict[str, any]):
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge_schema(a[key], b[key])
+            else:
+                if key == "type":  # perform type checks
+                    if a[key] == "number" and b[key] == "integer":
+                        continue  # don't downcast fp numbers to integers
+
+                a[key] = b[key]  # key exists, replace value
+        else:  # key missing entirely, add value
+            a[key] = b[key]
+
+
 def infer_schema_type(node: any) -> dict[str, any]:
-    if isinstance(node, int):
+    if isinstance(node, bool):
+        return {"type": "boolean", "example": node}
+    elif isinstance(node, int):
         return {"type": "integer", "example": node}
     elif isinstance(node, str):
         return {"type": "string", "example": node}
     elif isinstance(node, float):
         return {"type": "number", "example": node}
     elif isinstance(node, list):
-        return {"type": "array", "items": infer_schema_type(node[0])}
+        schem = {"type": "array", "items": {}}
+        for item in node:  # infer schema from all items
+            merge_schema(schem["items"], infer_schema_type(item))
+
+        return schem
     elif isinstance(node, dict):
         return {"type": "object", "properties": {k: infer_schema_type(v) for k, v in node.items()}}
+    elif node is None:  # for inferring nullability when merging schemas
+        return {"nullable": True}
 
     raise Exception(f"Could not infer schema type of {node}")
-
-
-def unescape_json(v: str, item_path: list[str] = None) -> dict[str, any]:
-    if item_path is None:
-        item_path = []
-
-    if len(v) > 2 and (v.startswith("{}") or v.startswith("[]")):  # check malformed JSON example value
-        if item_path:
-            print(f"fixed malformed escaped JSON, path: {'.'.join(item_path)}")
-
-        v = v[2:]
-
-    return loads(v)
 
 
 def clean_schema_tree(node: list | dict[str, any], path: list[str] = None):
@@ -55,30 +65,28 @@ def clean_schema_tree(node: list | dict[str, any], path: list[str] = None):
                             del v[k1]
                             node["additionalProperties"] = True
 
-                            print(f"fixed duplicate property {k1} -> {clean_key}, path: {'.'.join([*item_path, k1])}")
+                            print(f"removed duplicate property {k1} -> {clean_key}, path: {'.'.join([*item_path, k1])}")
 
                         keys.add(clean_key)
-                elif (k == "vote_average" or k == "rating") and ("type" not in v or v["type"] == "integer"):
-                    # check vote type mismatch
-                    v["type"] = "number"
-                    v["nullable"] = True
+                elif k == "application/json" and "examples" in v:
+                    (example_obj_key, example_obj) = next(iter(v["examples"].items()))
 
-                    print(f"fixed vote-related property type integer -> number, nullable, path: {'.'.join(item_path)}")
-                elif k.endswith("_path") or k == "iso_639_1" or k == "adult":
-                    # check non-null type
-                    if "type" not in v:
-                        v["type"] = "string"
-                    v["nullable"] = True
+                    example_value = example_obj["value"]
+                    if isinstance(example_value, str) and \
+                            ((example_value.startswith("{") and example_value.endswith("}"))
+                             or (example_value.startswith("[") and example_value.endswith("]"))):
+                        example_value = loads(example_value)
+                        example_obj["value"] = example_value
 
-                    print(f"fixed non-null property type, path: {'.'.join(item_path)}")
-                elif k == "application/json" and "examples" in v and "schema" not in v:  # check missing schema
-                    example_value = v["examples"]["Result"]["value"]
-                    is_escaped_json = (isinstance(example_value, str) and
-                                       ((example_value.startswith("{") and example_value.endswith("}"))
-                                        or (example_value.startswith("[") and example_value.endswith("]"))))
+                        print(f"fixed escaped example, path: {'.'.join([*item_path, 'examples', example_obj_key])}")
 
-                    v["schema"] = infer_schema_type(unescape_json(example_value) if is_escaped_json else example_value)
-                    print(f"fixed missing schema, path: {'.'.join(item_path)}")
+                    inferred_schema = infer_schema_type(example_value)
+                    if "schema" not in v:  # check missing schema
+                        v["schema"] = inferred_schema
+
+                        print(f"fixed missing schema, path: {'.'.join(item_path)}")
+                    else:  # enrich existing schema
+                        merge_schema(v["schema"], inferred_schema)
                 elif k == "sec0" and item_path[-2] == "securitySchemes":  # check wrong security scheme
                     # it is just an Authorization header scheme by default, we want it to be a Bearer token
                     node[k] = {
@@ -86,20 +94,27 @@ def clean_schema_tree(node: list | dict[str, any], path: list[str] = None):
                         "scheme": "bearer"
                     }
                     print(f"fixed wrong security scheme, path: {'.'.join(item_path)}")
+                elif k == "RAW_BODY":  # check raw body properties
+                    del node[k]
+
+                    print(f"removed raw body property, path: {'.'.join(item_path)}")
+                elif k.endswith("_path") and "type" not in v:  # MANUAL FIX: paths are always strings
+                    v["type"] = "string"
+
+                    print(f"fixed missing path type, path: {'.'.join(item_path)}")
 
                 clean_schema_tree(v, path=item_path)
             elif isinstance(v, list):
+                if k == "required" and "RAW_BODY" in v:  # check raw body property requirement
+                    v.remove("RAW_BODY")
+
+                    print(f"removed raw body property requirement, path: {'.'.join(item_path)}")
+
                 clean_schema_tree(v, path=item_path)
             elif k == "default" and v is None:  # check null default
                 node["nullable"] = True
 
                 print(f"fixed null default, path: {'.'.join(item_path)}")
-            elif k == "value" and item_path[-3] == "examples" and isinstance(v, str):
-                # check escaped JSON example value in path .examples.{anything}.value
-                if (v.startswith("{") and v.endswith("}")) or (v.startswith("[") and v.endswith("]")):
-                    node[k] = unescape_json(v, item_path=item_path)
-
-                    print(f"fixed escaped example, path: {'.'.join(item_path)}")
     else:
         for i, v in enumerate(node):
             if isinstance(v, dict) or isinstance(v, list):
