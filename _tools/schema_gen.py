@@ -98,10 +98,11 @@ def clean_schema_tree(node: list | dict[str, any], path: list[str] = None):
                     del node[k]
 
                     print(f"removed raw body property, path: {'.'.join(item_path)}")
-                elif k.endswith("_path") and "type" not in v:  # MANUAL FIX: paths are always strings
+                elif (k.endswith("_path") or k.startswith("iso_")) and "type" not in v:
+                    # MANUAL FIX: paths and ISO codes are always strings
                     v["type"] = "string"
 
-                    print(f"fixed missing path type, path: {'.'.join(item_path)}")
+                    print(f"fixed missing type, path: {'.'.join(item_path)}")
 
                 clean_schema_tree(v, path=item_path)
             elif isinstance(v, list):

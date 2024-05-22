@@ -18425,13 +18425,13 @@ type PersonImagesResponse struct {
 	JSON200      *struct {
 		Id       *int `json:"id,omitempty"`
 		Profiles *[]struct {
-			AspectRatio *float32     `json:"aspect_ratio,omitempty"`
-			FilePath    *string      `json:"file_path,omitempty"`
-			Height      *int         `json:"height,omitempty"`
-			Iso6391     *interface{} `json:"iso_639_1"`
-			VoteAverage *float32     `json:"vote_average,omitempty"`
-			VoteCount   *int         `json:"vote_count,omitempty"`
-			Width       *int         `json:"width,omitempty"`
+			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
+			FilePath    *string  `json:"file_path,omitempty"`
+			Height      *int     `json:"height,omitempty"`
+			Iso6391     *string  `json:"iso_639_1"`
+			VoteAverage *float32 `json:"vote_average,omitempty"`
+			VoteCount   *int     `json:"vote_count,omitempty"`
+			Width       *int     `json:"width,omitempty"`
 		} `json:"profiles,omitempty"`
 	}
 }
@@ -20677,13 +20677,13 @@ type TvEpisodeImagesResponse struct {
 	JSON200      *struct {
 		Id     *int `json:"id,omitempty"`
 		Stills *[]struct {
-			AspectRatio *float32     `json:"aspect_ratio,omitempty"`
-			FilePath    *string      `json:"file_path,omitempty"`
-			Height      *int         `json:"height,omitempty"`
-			Iso6391     *interface{} `json:"iso_639_1"`
-			VoteAverage *float32     `json:"vote_average,omitempty"`
-			VoteCount   *int         `json:"vote_count,omitempty"`
-			Width       *int         `json:"width,omitempty"`
+			AspectRatio *float32 `json:"aspect_ratio,omitempty"`
+			FilePath    *string  `json:"file_path,omitempty"`
+			Height      *int     `json:"height,omitempty"`
+			Iso6391     *string  `json:"iso_639_1"`
+			VoteAverage *float32 `json:"vote_average,omitempty"`
+			VoteCount   *int     `json:"vote_count,omitempty"`
+			Width       *int     `json:"width,omitempty"`
 		} `json:"stills,omitempty"`
 	}
 }
@@ -29930,13 +29930,13 @@ func ParsePersonImagesResponse(rsp *http.Response) (*PersonImagesResponse, error
 		var dest struct {
 			Id       *int `json:"id,omitempty"`
 			Profiles *[]struct {
-				AspectRatio *float32     `json:"aspect_ratio,omitempty"`
-				FilePath    *string      `json:"file_path,omitempty"`
-				Height      *int         `json:"height,omitempty"`
-				Iso6391     *interface{} `json:"iso_639_1"`
-				VoteAverage *float32     `json:"vote_average,omitempty"`
-				VoteCount   *int         `json:"vote_count,omitempty"`
-				Width       *int         `json:"width,omitempty"`
+				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
+				FilePath    *string  `json:"file_path,omitempty"`
+				Height      *int     `json:"height,omitempty"`
+				Iso6391     *string  `json:"iso_639_1"`
+				VoteAverage *float32 `json:"vote_average,omitempty"`
+				VoteCount   *int     `json:"vote_count,omitempty"`
+				Width       *int     `json:"width,omitempty"`
 			} `json:"profiles,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -32386,13 +32386,13 @@ func ParseTvEpisodeImagesResponse(rsp *http.Response) (*TvEpisodeImagesResponse,
 		var dest struct {
 			Id     *int `json:"id,omitempty"`
 			Stills *[]struct {
-				AspectRatio *float32     `json:"aspect_ratio,omitempty"`
-				FilePath    *string      `json:"file_path,omitempty"`
-				Height      *int         `json:"height,omitempty"`
-				Iso6391     *interface{} `json:"iso_639_1"`
-				VoteAverage *float32     `json:"vote_average,omitempty"`
-				VoteCount   *int         `json:"vote_count,omitempty"`
-				Width       *int         `json:"width,omitempty"`
+				AspectRatio *float32 `json:"aspect_ratio,omitempty"`
+				FilePath    *string  `json:"file_path,omitempty"`
+				Height      *int     `json:"height,omitempty"`
+				Iso6391     *string  `json:"iso_639_1"`
+				VoteAverage *float32 `json:"vote_average,omitempty"`
+				VoteCount   *int     `json:"vote_count,omitempty"`
+				Width       *int     `json:"width,omitempty"`
 			} `json:"stills,omitempty"`
 		}
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
